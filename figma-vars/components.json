@@ -1,0 +1,765 @@
+{
+  "id": "VariableCollectionId:156:19",
+  "name": "components",
+  "modes": { "156:0": "Mode 1" },
+  "variableIds": [
+    "VariableID:187:461",
+    "VariableID:187:462",
+    "VariableID:187:463",
+    "VariableID:187:464",
+    "VariableID:187:465",
+    "VariableID:156:20",
+    "VariableID:197:631",
+    "VariableID:197:632",
+    "VariableID:197:633",
+    "VariableID:197:634",
+    "VariableID:197:635",
+    "VariableID:185:742",
+    "VariableID:156:34",
+    "VariableID:156:45",
+    "VariableID:156:46",
+    "VariableID:157:36",
+    "VariableID:185:743",
+    "VariableID:157:41",
+    "VariableID:157:42",
+    "VariableID:157:43",
+    "VariableID:157:96",
+    "VariableID:185:744",
+    "VariableID:157:97",
+    "VariableID:157:98",
+    "VariableID:157:99",
+    "VariableID:186:439",
+    "VariableID:186:454",
+    "VariableID:187:455",
+    "VariableID:187:456",
+    "VariableID:187:457",
+    "VariableID:187:458",
+    "VariableID:187:459",
+    "VariableID:187:460"
+  ],
+  "variables": [
+    {
+      "id": "VariableID:156:20",
+      "name": "size/l/margin-x",
+      "description": "",
+      "type": "FLOAT",
+      "valuesByMode": {
+        "156:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:7806579c90ef0ede65d45190ecb29be256add3b2/416:987"
+        }
+      },
+      "resolvedValuesByMode": {
+        "156:0": {
+          "resolvedValue": 16,
+          "alias": "VariableID:7806579c90ef0ede65d45190ecb29be256add3b2/416:987",
+          "aliasName": "spacing/4"
+        }
+      },
+      "scopes": ["GAP"],
+      "hiddenFromPublishing": false,
+      "codeSyntax": {}
+    },
+    {
+      "id": "VariableID:156:34",
+      "name": "size/l/gap",
+      "description": "",
+      "type": "FLOAT",
+      "valuesByMode": {
+        "156:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:a09923c11f321c5ffd0c6dd7e1256fc4a896f214/416:981"
+        }
+      },
+      "resolvedValuesByMode": {
+        "156:0": {
+          "resolvedValue": 8,
+          "alias": "VariableID:a09923c11f321c5ffd0c6dd7e1256fc4a896f214/416:981",
+          "aliasName": "spacing/2"
+        }
+      },
+      "scopes": ["GAP"],
+      "hiddenFromPublishing": false,
+      "codeSyntax": {}
+    },
+    {
+      "id": "VariableID:156:45",
+      "name": "size/l/round",
+      "description": "",
+      "type": "FLOAT",
+      "valuesByMode": {
+        "156:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:b47f4f1cc18f2eead4ec9644006a9e93cd465c41/416:1059"
+        }
+      },
+      "resolvedValuesByMode": {
+        "156:0": {
+          "resolvedValue": 6,
+          "alias": "VariableID:b47f4f1cc18f2eead4ec9644006a9e93cd465c41/416:1059",
+          "aliasName": "border-radius/md"
+        }
+      },
+      "scopes": ["CORNER_RADIUS"],
+      "hiddenFromPublishing": false,
+      "codeSyntax": {}
+    },
+    {
+      "id": "VariableID:156:46",
+      "name": "size/l/height",
+      "description": "",
+      "type": "FLOAT",
+      "valuesByMode": {
+        "156:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:51128e3c701acd8d1031d47876f4f5b8dcc8aa46/416:972"
+        }
+      },
+      "resolvedValuesByMode": {
+        "156:0": {
+          "resolvedValue": 44,
+          "alias": "VariableID:51128e3c701acd8d1031d47876f4f5b8dcc8aa46/416:972",
+          "aliasName": "spacing/11"
+        }
+      },
+      "scopes": ["WIDTH_HEIGHT"],
+      "hiddenFromPublishing": false,
+      "codeSyntax": {}
+    },
+    {
+      "id": "VariableID:157:36",
+      "name": "size/s/margin-x",
+      "description": "",
+      "type": "FLOAT",
+      "valuesByMode": {
+        "156:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:294d8d7fd2ac1ffdc339c26469774a4f2f57a171/416:984"
+        }
+      },
+      "resolvedValuesByMode": {
+        "156:0": {
+          "resolvedValue": 12,
+          "alias": "VariableID:294d8d7fd2ac1ffdc339c26469774a4f2f57a171/416:984",
+          "aliasName": "spacing/3"
+        }
+      },
+      "scopes": ["GAP"],
+      "hiddenFromPublishing": false,
+      "codeSyntax": {}
+    },
+    {
+      "id": "VariableID:157:41",
+      "name": "size/s/gap",
+      "description": "",
+      "type": "FLOAT",
+      "valuesByMode": {
+        "156:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:a09923c11f321c5ffd0c6dd7e1256fc4a896f214/416:981"
+        }
+      },
+      "resolvedValuesByMode": {
+        "156:0": {
+          "resolvedValue": 8,
+          "alias": "VariableID:a09923c11f321c5ffd0c6dd7e1256fc4a896f214/416:981",
+          "aliasName": "spacing/2"
+        }
+      },
+      "scopes": ["GAP"],
+      "hiddenFromPublishing": false,
+      "codeSyntax": {}
+    },
+    {
+      "id": "VariableID:157:42",
+      "name": "size/s/round",
+      "description": "",
+      "type": "FLOAT",
+      "valuesByMode": {
+        "156:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:b47f4f1cc18f2eead4ec9644006a9e93cd465c41/416:1059"
+        }
+      },
+      "resolvedValuesByMode": {
+        "156:0": {
+          "resolvedValue": 6,
+          "alias": "VariableID:b47f4f1cc18f2eead4ec9644006a9e93cd465c41/416:1059",
+          "aliasName": "border-radius/md"
+        }
+      },
+      "scopes": ["CORNER_RADIUS"],
+      "hiddenFromPublishing": false,
+      "codeSyntax": {}
+    },
+    {
+      "id": "VariableID:157:43",
+      "name": "size/s/height",
+      "description": "",
+      "type": "FLOAT",
+      "valuesByMode": {
+        "156:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:cf106fdceb8436c9953a73c49db5cd8d8b45bebd/416:970"
+        }
+      },
+      "resolvedValuesByMode": {
+        "156:0": {
+          "resolvedValue": 36,
+          "alias": "VariableID:cf106fdceb8436c9953a73c49db5cd8d8b45bebd/416:970",
+          "aliasName": "spacing/9"
+        }
+      },
+      "scopes": ["WIDTH_HEIGHT"],
+      "hiddenFromPublishing": false,
+      "codeSyntax": {}
+    },
+    {
+      "id": "VariableID:157:96",
+      "name": "size/xs/margin-x",
+      "description": "",
+      "type": "FLOAT",
+      "valuesByMode": {
+        "156:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:294d8d7fd2ac1ffdc339c26469774a4f2f57a171/416:984"
+        }
+      },
+      "resolvedValuesByMode": {
+        "156:0": {
+          "resolvedValue": 12,
+          "alias": "VariableID:294d8d7fd2ac1ffdc339c26469774a4f2f57a171/416:984",
+          "aliasName": "spacing/3"
+        }
+      },
+      "scopes": ["GAP"],
+      "hiddenFromPublishing": false,
+      "codeSyntax": {}
+    },
+    {
+      "id": "VariableID:157:97",
+      "name": "size/xs/gap",
+      "description": "",
+      "type": "FLOAT",
+      "valuesByMode": {
+        "156:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:a09923c11f321c5ffd0c6dd7e1256fc4a896f214/416:981"
+        }
+      },
+      "resolvedValuesByMode": {
+        "156:0": {
+          "resolvedValue": 8,
+          "alias": "VariableID:a09923c11f321c5ffd0c6dd7e1256fc4a896f214/416:981",
+          "aliasName": "spacing/2"
+        }
+      },
+      "scopes": ["GAP"],
+      "hiddenFromPublishing": false,
+      "codeSyntax": {}
+    },
+    {
+      "id": "VariableID:157:98",
+      "name": "size/xs/round",
+      "description": "",
+      "type": "FLOAT",
+      "valuesByMode": {
+        "156:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:b47f4f1cc18f2eead4ec9644006a9e93cd465c41/416:1059"
+        }
+      },
+      "resolvedValuesByMode": {
+        "156:0": {
+          "resolvedValue": 6,
+          "alias": "VariableID:b47f4f1cc18f2eead4ec9644006a9e93cd465c41/416:1059",
+          "aliasName": "border-radius/md"
+        }
+      },
+      "scopes": ["CORNER_RADIUS"],
+      "hiddenFromPublishing": false,
+      "codeSyntax": {}
+    },
+    {
+      "id": "VariableID:157:99",
+      "name": "size/xs/height",
+      "description": "",
+      "type": "FLOAT",
+      "valuesByMode": {
+        "156:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:44b9530fea4834e8c300dfaa6615f54a72e440c0/416:993"
+        }
+      },
+      "resolvedValuesByMode": {
+        "156:0": {
+          "resolvedValue": 28,
+          "alias": "VariableID:44b9530fea4834e8c300dfaa6615f54a72e440c0/416:993",
+          "aliasName": "spacing/7"
+        }
+      },
+      "scopes": ["WIDTH_HEIGHT"],
+      "hiddenFromPublishing": false,
+      "codeSyntax": {}
+    },
+    {
+      "id": "VariableID:185:742",
+      "name": "size/l/margin-y",
+      "description": "",
+      "type": "FLOAT",
+      "valuesByMode": {
+        "156:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:a09923c11f321c5ffd0c6dd7e1256fc4a896f214/416:981"
+        }
+      },
+      "resolvedValuesByMode": {
+        "156:0": {
+          "resolvedValue": 8,
+          "alias": "VariableID:a09923c11f321c5ffd0c6dd7e1256fc4a896f214/416:981",
+          "aliasName": "spacing/2"
+        }
+      },
+      "scopes": ["GAP"],
+      "hiddenFromPublishing": false,
+      "codeSyntax": {}
+    },
+    {
+      "id": "VariableID:185:743",
+      "name": "size/s/margin-y",
+      "description": "",
+      "type": "FLOAT",
+      "valuesByMode": {
+        "156:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:a09923c11f321c5ffd0c6dd7e1256fc4a896f214/416:981"
+        }
+      },
+      "resolvedValuesByMode": {
+        "156:0": {
+          "resolvedValue": 8,
+          "alias": "VariableID:a09923c11f321c5ffd0c6dd7e1256fc4a896f214/416:981",
+          "aliasName": "spacing/2"
+        }
+      },
+      "scopes": ["GAP"],
+      "hiddenFromPublishing": false,
+      "codeSyntax": {}
+    },
+    {
+      "id": "VariableID:185:744",
+      "name": "size/xs/margin-y",
+      "description": "",
+      "type": "FLOAT",
+      "valuesByMode": {
+        "156:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:4a1b95a9d6a6de30623d096b0b68d69235c09572/416:978"
+        }
+      },
+      "resolvedValuesByMode": {
+        "156:0": {
+          "resolvedValue": 4,
+          "alias": "VariableID:4a1b95a9d6a6de30623d096b0b68d69235c09572/416:978",
+          "aliasName": "spacing/1"
+        }
+      },
+      "scopes": ["GAP"],
+      "hiddenFromPublishing": false,
+      "codeSyntax": {}
+    },
+    {
+      "id": "VariableID:186:439",
+      "name": "header/height",
+      "description": "",
+      "type": "FLOAT",
+      "valuesByMode": {
+        "156:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:c88786b0f7ddaf14bd3807494ecacf9318f4f141/416:982"
+        }
+      },
+      "resolvedValuesByMode": {
+        "156:0": {
+          "resolvedValue": 80,
+          "alias": "VariableID:c88786b0f7ddaf14bd3807494ecacf9318f4f141/416:982",
+          "aliasName": "spacing/20"
+        }
+      },
+      "scopes": ["WIDTH_HEIGHT"],
+      "hiddenFromPublishing": false,
+      "codeSyntax": {}
+    },
+    {
+      "id": "VariableID:186:454",
+      "name": "header/gap",
+      "description": "",
+      "type": "FLOAT",
+      "valuesByMode": {
+        "156:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:7806579c90ef0ede65d45190ecb29be256add3b2/416:987"
+        }
+      },
+      "resolvedValuesByMode": {
+        "156:0": {
+          "resolvedValue": 16,
+          "alias": "VariableID:7806579c90ef0ede65d45190ecb29be256add3b2/416:987",
+          "aliasName": "spacing/4"
+        }
+      },
+      "scopes": ["GAP"],
+      "hiddenFromPublishing": false,
+      "codeSyntax": {}
+    },
+    {
+      "id": "VariableID:187:455",
+      "name": "header/margin-x",
+      "description": "",
+      "type": "FLOAT",
+      "valuesByMode": {
+        "156:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:7806579c90ef0ede65d45190ecb29be256add3b2/416:987"
+        }
+      },
+      "resolvedValuesByMode": {
+        "156:0": {
+          "resolvedValue": 16,
+          "alias": "VariableID:7806579c90ef0ede65d45190ecb29be256add3b2/416:987",
+          "aliasName": "spacing/4"
+        }
+      },
+      "scopes": ["GAP"],
+      "hiddenFromPublishing": false,
+      "codeSyntax": {}
+    },
+    {
+      "id": "VariableID:187:456",
+      "name": "header/margin-y",
+      "description": "",
+      "type": "FLOAT",
+      "valuesByMode": {
+        "156:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:a09923c11f321c5ffd0c6dd7e1256fc4a896f214/416:981"
+        }
+      },
+      "resolvedValuesByMode": {
+        "156:0": {
+          "resolvedValue": 8,
+          "alias": "VariableID:a09923c11f321c5ffd0c6dd7e1256fc4a896f214/416:981",
+          "aliasName": "spacing/2"
+        }
+      },
+      "scopes": ["GAP"],
+      "hiddenFromPublishing": false,
+      "codeSyntax": {}
+    },
+    {
+      "id": "VariableID:187:457",
+      "name": "side-menu/height",
+      "description": "",
+      "type": "FLOAT",
+      "valuesByMode": {
+        "156:0": { "type": "VARIABLE_ALIAS", "id": "VariableID:156:46" }
+      },
+      "resolvedValuesByMode": {
+        "156:0": {
+          "resolvedValue": 44,
+          "alias": "VariableID:156:46",
+          "aliasName": "size/l/height"
+        }
+      },
+      "scopes": ["WIDTH_HEIGHT"],
+      "hiddenFromPublishing": false,
+      "codeSyntax": {}
+    },
+    {
+      "id": "VariableID:187:458",
+      "name": "side-menu/gap",
+      "description": "",
+      "type": "FLOAT",
+      "valuesByMode": {
+        "156:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:294d8d7fd2ac1ffdc339c26469774a4f2f57a171/416:984"
+        }
+      },
+      "resolvedValuesByMode": {
+        "156:0": {
+          "resolvedValue": 12,
+          "alias": "VariableID:294d8d7fd2ac1ffdc339c26469774a4f2f57a171/416:984",
+          "aliasName": "spacing/3"
+        }
+      },
+      "scopes": ["GAP"],
+      "hiddenFromPublishing": false,
+      "codeSyntax": {}
+    },
+    {
+      "id": "VariableID:187:459",
+      "name": "side-menu/margin-x",
+      "description": "",
+      "type": "FLOAT",
+      "valuesByMode": {
+        "156:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:294d8d7fd2ac1ffdc339c26469774a4f2f57a171/416:984"
+        }
+      },
+      "resolvedValuesByMode": {
+        "156:0": {
+          "resolvedValue": 12,
+          "alias": "VariableID:294d8d7fd2ac1ffdc339c26469774a4f2f57a171/416:984",
+          "aliasName": "spacing/3"
+        }
+      },
+      "scopes": ["GAP"],
+      "hiddenFromPublishing": false,
+      "codeSyntax": {}
+    },
+    {
+      "id": "VariableID:187:460",
+      "name": "side-menu/margin-y",
+      "description": "",
+      "type": "FLOAT",
+      "valuesByMode": {
+        "156:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:294d8d7fd2ac1ffdc339c26469774a4f2f57a171/416:984"
+        }
+      },
+      "resolvedValuesByMode": {
+        "156:0": {
+          "resolvedValue": 12,
+          "alias": "VariableID:294d8d7fd2ac1ffdc339c26469774a4f2f57a171/416:984",
+          "aliasName": "spacing/3"
+        }
+      },
+      "scopes": ["GAP"],
+      "hiddenFromPublishing": false,
+      "codeSyntax": {}
+    },
+    {
+      "id": "VariableID:187:461",
+      "name": "size/xl/margin-x",
+      "description": "",
+      "type": "FLOAT",
+      "valuesByMode": {
+        "156:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:7806579c90ef0ede65d45190ecb29be256add3b2/416:987"
+        }
+      },
+      "resolvedValuesByMode": {
+        "156:0": {
+          "resolvedValue": 16,
+          "alias": "VariableID:7806579c90ef0ede65d45190ecb29be256add3b2/416:987",
+          "aliasName": "spacing/4"
+        }
+      },
+      "scopes": ["GAP"],
+      "hiddenFromPublishing": false,
+      "codeSyntax": {}
+    },
+    {
+      "id": "VariableID:187:462",
+      "name": "size/xl/margin-y",
+      "description": "",
+      "type": "FLOAT",
+      "valuesByMode": {
+        "156:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:a09923c11f321c5ffd0c6dd7e1256fc4a896f214/416:981"
+        }
+      },
+      "resolvedValuesByMode": {
+        "156:0": {
+          "resolvedValue": 8,
+          "alias": "VariableID:a09923c11f321c5ffd0c6dd7e1256fc4a896f214/416:981",
+          "aliasName": "spacing/2"
+        }
+      },
+      "scopes": ["GAP"],
+      "hiddenFromPublishing": false,
+      "codeSyntax": {}
+    },
+    {
+      "id": "VariableID:187:463",
+      "name": "size/xl/gap",
+      "description": "",
+      "type": "FLOAT",
+      "valuesByMode": {
+        "156:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:a09923c11f321c5ffd0c6dd7e1256fc4a896f214/416:981"
+        }
+      },
+      "resolvedValuesByMode": {
+        "156:0": {
+          "resolvedValue": 8,
+          "alias": "VariableID:a09923c11f321c5ffd0c6dd7e1256fc4a896f214/416:981",
+          "aliasName": "spacing/2"
+        }
+      },
+      "scopes": ["GAP"],
+      "hiddenFromPublishing": false,
+      "codeSyntax": {}
+    },
+    {
+      "id": "VariableID:187:464",
+      "name": "size/xl/round",
+      "description": "",
+      "type": "FLOAT",
+      "valuesByMode": {
+        "156:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:b47f4f1cc18f2eead4ec9644006a9e93cd465c41/416:1059"
+        }
+      },
+      "resolvedValuesByMode": {
+        "156:0": {
+          "resolvedValue": 6,
+          "alias": "VariableID:b47f4f1cc18f2eead4ec9644006a9e93cd465c41/416:1059",
+          "aliasName": "border-radius/md"
+        }
+      },
+      "scopes": ["CORNER_RADIUS"],
+      "hiddenFromPublishing": false,
+      "codeSyntax": {}
+    },
+    {
+      "id": "VariableID:187:465",
+      "name": "size/xl/height",
+      "description": "",
+      "type": "FLOAT",
+      "valuesByMode": {
+        "156:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:6a7fe96690733258a3b64ae831c78abfa6cc3788/416:975"
+        }
+      },
+      "resolvedValuesByMode": {
+        "156:0": {
+          "resolvedValue": 56,
+          "alias": "VariableID:6a7fe96690733258a3b64ae831c78abfa6cc3788/416:975",
+          "aliasName": "spacing/14"
+        }
+      },
+      "scopes": ["WIDTH_HEIGHT"],
+      "hiddenFromPublishing": false,
+      "codeSyntax": {}
+    },
+    {
+      "id": "VariableID:197:631",
+      "name": "size/m/margin-x",
+      "description": "",
+      "type": "FLOAT",
+      "valuesByMode": {
+        "156:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:7806579c90ef0ede65d45190ecb29be256add3b2/416:987"
+        }
+      },
+      "resolvedValuesByMode": {
+        "156:0": {
+          "resolvedValue": 16,
+          "alias": "VariableID:7806579c90ef0ede65d45190ecb29be256add3b2/416:987",
+          "aliasName": "spacing/4"
+        }
+      },
+      "scopes": ["GAP"],
+      "hiddenFromPublishing": false,
+      "codeSyntax": {}
+    },
+    {
+      "id": "VariableID:197:632",
+      "name": "size/m/margin-y",
+      "description": "",
+      "type": "FLOAT",
+      "valuesByMode": {
+        "156:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:a09923c11f321c5ffd0c6dd7e1256fc4a896f214/416:981"
+        }
+      },
+      "resolvedValuesByMode": {
+        "156:0": {
+          "resolvedValue": 8,
+          "alias": "VariableID:a09923c11f321c5ffd0c6dd7e1256fc4a896f214/416:981",
+          "aliasName": "spacing/2"
+        }
+      },
+      "scopes": ["GAP"],
+      "hiddenFromPublishing": false,
+      "codeSyntax": {}
+    },
+    {
+      "id": "VariableID:197:633",
+      "name": "size/m/gap",
+      "description": "",
+      "type": "FLOAT",
+      "valuesByMode": {
+        "156:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:a09923c11f321c5ffd0c6dd7e1256fc4a896f214/416:981"
+        }
+      },
+      "resolvedValuesByMode": {
+        "156:0": {
+          "resolvedValue": 8,
+          "alias": "VariableID:a09923c11f321c5ffd0c6dd7e1256fc4a896f214/416:981",
+          "aliasName": "spacing/2"
+        }
+      },
+      "scopes": ["GAP"],
+      "hiddenFromPublishing": false,
+      "codeSyntax": {}
+    },
+    {
+      "id": "VariableID:197:634",
+      "name": "size/m/round",
+      "description": "",
+      "type": "FLOAT",
+      "valuesByMode": {
+        "156:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:b47f4f1cc18f2eead4ec9644006a9e93cd465c41/416:1059"
+        }
+      },
+      "resolvedValuesByMode": {
+        "156:0": {
+          "resolvedValue": 6,
+          "alias": "VariableID:b47f4f1cc18f2eead4ec9644006a9e93cd465c41/416:1059",
+          "aliasName": "border-radius/md"
+        }
+      },
+      "scopes": ["CORNER_RADIUS"],
+      "hiddenFromPublishing": false,
+      "codeSyntax": {}
+    },
+    {
+      "id": "VariableID:197:635",
+      "name": "size/m/height",
+      "description": "",
+      "type": "FLOAT",
+      "valuesByMode": {
+        "156:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:ab8d62d577d3ce21aa6eb250f2076deae5b52905/416:971"
+        }
+      },
+      "resolvedValuesByMode": {
+        "156:0": {
+          "resolvedValue": 40,
+          "alias": "VariableID:ab8d62d577d3ce21aa6eb250f2076deae5b52905/416:971",
+          "aliasName": "spacing/10"
+        }
+      },
+      "scopes": ["WIDTH_HEIGHT"],
+      "hiddenFromPublishing": false,
+      "codeSyntax": {}
+    }
+  ]
+}

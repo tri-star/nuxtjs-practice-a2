@@ -7,12 +7,29 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "format": "run-s format:*",
+    "format:eslint": "eslint --fix --ext .ts,.vue,.css",
+    "format:prettier": "prettier --write .",
+    "lint": "run-s lint:*",
+    "lint:tsc": "tsc --noEmit",
+    "lint:eslint": "eslint --ext .ts,.vue,.css",
+    "lint:prettier": "prettier --check ."
   },
   "dependencies": {
     "@nuxtjs/tailwindcss": "^6.12.0",
     "nuxt": "^3.11.2",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "eslint-config-love": "^47.0.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-n": "^16.6.2",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-vue": "^9.25.0",
+    "npm-run-all2": "^6.1.2",
+    "prettier": "^3.2.5"
   }
 }

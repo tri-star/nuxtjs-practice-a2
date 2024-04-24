@@ -1,11 +1,11 @@
-import fs from "fs";
+import fs from 'fs'
 
-let theme = {};
+let theme = {}
 
 // figma-vars/*.jsonをロードする
-fs.readdirSync("figma-vars").forEach((filePath) => {
-  theme = { theme, ...buildConfig(`figma-vars/${filePath}`) };
-});
+fs.readdirSync('figma-vars').forEach((filePath) => {
+  theme = { theme, ...buildConfig(`figma-vars/${filePath}`) }
+})
 
 // modesのキーからmodeのマップを作成する
 // デフォルトのmode名に対応するIDを取得
@@ -23,5 +23,5 @@ fs.readdirSync("figma-vars").forEach((filePath) => {
 // tailwind.config.jsを作成する
 
 function buildConfig(file: string): object {
-  return {};
+  return {}
 }

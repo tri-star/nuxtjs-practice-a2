@@ -4,7 +4,7 @@ import {
   parseFloatVariable,
   type ColorVariable,
   type FloatVariable,
-} from '~/scripts/build-tailwind-config'
+} from '../build-tailwind-config'
 import { type Config } from 'tailwindcss'
 
 // const figmaVar: FigmaVars = {

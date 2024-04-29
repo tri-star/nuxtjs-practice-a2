@@ -2,13 +2,17 @@ import fs from 'fs'
 import { type Config } from 'tailwindcss'
 
 const DEFAULT_COLOR_MODE_NAME = 'Mode 1'
+const DEFAULT_FLOAT_MODE_NAME = 'Mode 1'
 
 const COLOR_SCOPES = ['SHAPE_FILL', 'FRAME_FILL', 'STROKE_COLOR', 'TEXT_FILL'] as const
+const FLOAT_SCOPES = ['WIDTH_HEIGHT', 'GAP', 'CORNER_RADIUS'] as const
+
 type ColorScope = (typeof COLOR_SCOPES)[number]
 // const scopeMap = COLOR_SCOPES.reduce<{ [K in ColorScope]: K } | Record<string, unknown>>((acc, scope) => {
 //   acc[scope] = scope
 //   return acc
 // }, {}) as { [K in ColorScope]: K }
+type FloatScope = (typeof FLOAT_SCOPES)[number]
 
 type NestedObject = Record<string, string | Record<string, string>>
 
@@ -32,7 +36,7 @@ export type ColorVariable = {
 export type FloatVariable = {
   name: string
   type: 'FLOAT'
-  scopes: Array<'GAP' | 'WIDTH_HEIGHT'>
+  scopes: FloatScope[]
   resolvedValuesByMode: Record<
     string,
     {
@@ -99,22 +103,46 @@ export function parseColorVariable(modes: FigmaVars['modes'], variable: ColorVar
     a: Math.round(resolvedValue.a * 1000) / 1000,
   }
   const color = `rgba(${colorValues.r}, ${colorValues.g}, ${colorValues.b}, ${colorValues.a})`
-  if (hasScopes(variable.scopes, ['FRAME_FILL', 'SHAPE_FILL'])) {
+  if (hasColorScopes(variable.scopes, ['FRAME_FILL', 'SHAPE_FILL'])) {
     return {
-      backgroundColor: storeConfig(variable.name, color),
+      backgroundColor: makeColorConfigObject(variable.name, color),
     }
-  } else if (hasScopes(variable.scopes, ['STROKE_COLOR'])) {
+  } else if (hasColorScopes(variable.scopes, ['STROKE_COLOR'])) {
     return {
-      borderColor: storeConfig(variable.name, color),
+      borderColor: makeColorConfigObject(variable.name, color),
     }
-  } else if (hasScopes(variable.scopes, ['TEXT_FILL'])) {
+  } else if (hasColorScopes(variable.scopes, ['TEXT_FILL'])) {
     return {
-      textColor: storeConfig(variable.name, color),
+      textColor: makeColorConfigObject(variable.name, color),
     }
   }
 }
 
-function storeConfig(key: string, value: string) {
+export function parseFloatVariable(modes: FigmaVars['modes'], variable: FloatVariable): Config['theme'] {
+  const defaultModeId = Object.keys(modes).find((k) => modes[k] === DEFAULT_FLOAT_MODE_NAME)
+
+  if (defaultModeId === undefined) {
+    throw new Error('Default mode not found')
+  }
+
+  const resolvedValue = variable.resolvedValuesByMode[defaultModeId].resolvedValue
+  if (hasFloatScopes(variable.scopes, ['WIDTH_HEIGHT'])) {
+    return {
+      margin: makeFloatConfigObject(variable.name, resolvedValue.toString()),
+      padding: makeFloatConfigObject(variable.name, resolvedValue.toString()),
+    }
+  } else if (hasFloatScopes(variable.scopes, ['GAP'])) {
+    return {
+      gap: makeFloatConfigObject(variable.name, resolvedValue.toString()),
+    }
+  } else if (hasFloatScopes(variable.scopes, ['CORNER_RADIUS'])) {
+    return {
+      borderRadius: makeFloatConfigObject(variable.name, resolvedValue.toString()),
+    }
+  }
+}
+
+function makeColorConfigObject(key: string, value: string) {
   const keys = key.split('/')
   const config = {} as NestedObject
   let current = config
@@ -131,12 +159,27 @@ function storeConfig(key: string, value: string) {
   return config
 }
 
+function makeFloatConfigObject(key: string, value: string) {
+  const keyString = key.replaceAll('/', '-')
+  const config = {
+    [keyString]: value,
+  }
+
+  return config
+}
+
 function makeColorValue(value: number) {
   const intValue = Math.trunc(value * 255)
   return intValue.toString()
 }
 
-function hasScopes(scopes: ColorScope[], conditionScopes: ColorScope[]) {
+function hasColorScopes(scopes: ColorScope[], conditionScopes: ColorScope[]) {
+  return scopes.some((scope) => {
+    return conditionScopes.includes(scope)
+  })
+}
+
+function hasFloatScopes(scopes: FloatScope[], conditionScopes: FloatScope[]) {
   return scopes.some((scope) => {
     return conditionScopes.includes(scope)
   })

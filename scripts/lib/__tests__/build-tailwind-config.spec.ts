@@ -32,7 +32,7 @@ import { type Config } from 'tailwindcss'
 
 test('parseColorVariable', () => {
   const colorVariable: ColorVariable = {
-    name: 'accentPrimary/default',
+    name: 'color/accentPrimary/default',
     type: 'COLOR',
     scopes: ['FRAME_FILL'],
     resolvedValuesByMode: {

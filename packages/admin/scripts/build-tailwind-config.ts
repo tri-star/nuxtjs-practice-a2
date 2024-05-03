@@ -9,6 +9,10 @@ fs.readdirSync('figma-vars').forEach((filePath) => {
   theme = merge(theme, buildTailwindConfig(`figma-vars/${filePath}`))
 })
 
+theme['backgroundImage'] = {
+  'login-background': "url('/assets/login-background.jpg')",
+}
+
 const tailwindConfig = {
   content: ['./pages/index.vue'],
   theme,

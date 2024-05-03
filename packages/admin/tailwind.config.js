@@ -253,6 +253,9 @@ export default {
       'size-xl-height': '56',
       'size-m-height': '40',
     },
+    backgroundImage: {
+      'login-background': "url('~/assets/login-background.png')",
+    },
   },
   plugins: [],
 }

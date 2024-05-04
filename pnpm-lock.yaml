@@ -19,6 +19,8 @@ importers:
       npm-run-all2: ^6.1.2
       nuxt: ^3.11.2
       prettier: ^3.2.5
+      tailwind-merge: ^2.3.0
+      tailwind-variants: ^0.2.1
       vitest: ^1.5.2
       vue: ^3.4.21
       vue-router: ^4.3.0
@@ -26,6 +28,8 @@ importers:
       '@nuxtjs/tailwindcss': 6.12.0
       lodash: 4.17.21
       nuxt: 3.11.2_eslint@8.57.0
+      tailwind-merge: 2.3.0
+      tailwind-variants: 0.2.1
       vue: 3.4.26
       vue-router: 4.3.2_vue@3.4.26
     devDependencies:
@@ -341,6 +345,13 @@ packages:
       '@babel/helper-create-class-features-plugin': 7.24.5_@babel+core@7.24.5
       '@babel/helper-plugin-utils': 7.24.5
       '@babel/plugin-syntax-typescript': 7.24.1_@babel+core@7.24.5
+    dev: false
+
+  /@babel/runtime/7.24.5:
+    resolution: {integrity: sha512-Nms86NXrsaeU9vbBJKni6gXiEXZ4CVpYVzEjDH9Sb8vmZ3UljyA1GSOJl/6LGPO8EHLuSF9H+IxNXHPX8QHJ4g==}
+    engines: {node: '>=6.9.0'}
+    dependencies:
+      regenerator-runtime: 0.14.1
     dev: false
 
   /@babel/standalone/7.24.5:
@@ -1454,6 +1465,7 @@ packages:
     dependencies:
       is-glob: 4.0.3
       micromatch: 4.0.5
+      napi-wasm: 1.1.0
     dev: false
     bundledDependencies:
       - napi-wasm
@@ -5070,6 +5082,10 @@ packages:
     hasBin: true
     dev: false
 
+  /napi-wasm/1.1.0:
+    resolution: {integrity: sha512-lHwIAJbmLSjF9VDRm9GoVOy9AGp3aIvkjv+Kvz9h16QR3uSVYH78PNQUnT2U4X53mhlnV2M7wrhibQ3GHicDmg==}
+    dev: false
+
   /natural-compare/1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
 
@@ -6323,6 +6339,10 @@ packages:
       redis-errors: 1.2.0
     dev: false
 
+  /regenerator-runtime/0.14.1:
+    resolution: {integrity: sha512-dYnhHh0nJoMfnkZs6GmmhFknAGRrLznOu5nc9ML+EJxGvrx6H7teuevqVqCuPcPK//3eDrrjQhehXVx9cnkGdw==}
+    dev: false
+
   /replace-in-file/6.3.5:
     resolution: {integrity: sha512-arB9d3ENdKva2fxRnSjwBEXfK1npgyci7ZZuwysgAp7ORjHSyxz6oqIjTEv8R0Ydl4Ll7uOAZXL4vbkhGIizCg==}
     engines: {node: '>=10'}
@@ -6894,6 +6914,21 @@ packages:
       tailwindcss: 3.4.3
     transitivePeerDependencies:
       - supports-color
+    dev: false
+
+  /tailwind-merge/2.3.0:
+    resolution: {integrity: sha512-vkYrLpIP+lgR0tQCG6AP7zZXCTLc1Lnv/CCRT3BqJ9CZ3ui2++GPaGb1x/ILsINIMSYqqvrpqjUFsMNLlW99EA==}
+    dependencies:
+      '@babel/runtime': 7.24.5
+    dev: false
+
+  /tailwind-variants/0.2.1:
+    resolution: {integrity: sha512-2xmhAf4UIc3PijOUcJPA1LP4AbxhpcHuHM2C26xM0k81r0maAO6uoUSHl3APmvHZcY5cZCY/bYuJdfFa4eGoaw==}
+    engines: {node: '>=16.x', pnpm: '>=7.x'}
+    peerDependencies:
+      tailwindcss: '*'
+    dependencies:
+      tailwind-merge: 2.3.0
     dev: false
 
   /tailwindcss/3.4.3:

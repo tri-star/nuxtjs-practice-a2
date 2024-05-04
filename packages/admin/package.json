@@ -21,6 +21,8 @@
     "@nuxtjs/tailwindcss": "^6.12.0",
     "lodash": "^4.17.21",
     "nuxt": "^3.11.2",
+    "tailwind-merge": "^2.3.0",
+    "tailwind-variants": "^0.2.1",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"
   },

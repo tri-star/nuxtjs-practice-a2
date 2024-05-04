@@ -15,7 +15,7 @@ type ColorScope = (typeof COLOR_SCOPES)[number]
 // }, {}) as { [K in ColorScope]: K }
 type FloatScope = (typeof FLOAT_SCOPES)[number]
 
-const FIGMA_TOKEN_TYPES = ['height', 'gap', 'margin-x', 'margin-y', 'round'] as const
+const FIGMA_TOKEN_TYPES = ['height', 'gap', 'space-x', 'space-y', 'round'] as const
 type FigmaTokenType = (typeof FIGMA_TOKEN_TYPES)[number]
 const FIGMA_TOKEN_TYPE_MAP = FIGMA_TOKEN_TYPES.reduce<{ [K in FigmaTokenType]: K } | Record<string, unknown>>(
   (acc, type) => {
@@ -135,27 +135,45 @@ export function parseFloatVariable(modes: FigmaVars['modes'], variable: FloatVar
   }
 
   const resolvedValue = variable.resolvedValuesByMode[defaultModeId].resolvedValue
-  const tailwindTokenType = detectTailWindTokenType(variable.name)
-  if (tailwindTokenType === TAILWIND_TOKEN_TYPE_MAP.height) {
-    return {
-      height: makeFloatConfigObject(variable.name, resolvedValue.toString()),
-    }
+  const tailwindTokenTypes = detectTailWindTokenTypes(variable.name)
+
+  let theme: Config['theme'] = {}
+  if (tailwindTokenTypes.includes(TAILWIND_TOKEN_TYPE_MAP.height)) {
+    theme = merge(theme, {
+      extend: {
+        height: makeFloatConfigObject(variable.name, resolvedValue.toString()),
+      },
+    })
   }
-  if (tailwindTokenType === TAILWIND_TOKEN_TYPE_MAP.margin) {
-    return {
-      margin: makeFloatConfigObject(variable.name, resolvedValue.toString()),
-    }
+  if (tailwindTokenTypes.includes(TAILWIND_TOKEN_TYPE_MAP.margin)) {
+    theme = merge(theme, {
+      extend: {
+        margin: makeFloatConfigObject(variable.name, resolvedValue.toString()),
+      },
+    })
   }
-  if (tailwindTokenType === TAILWIND_TOKEN_TYPE_MAP.gap) {
-    return {
-      gap: makeFloatConfigObject(variable.name, resolvedValue.toString()),
-    }
+  if (tailwindTokenTypes.includes(TAILWIND_TOKEN_TYPE_MAP.padding)) {
+    theme = merge(theme, {
+      extend: {
+        padding: makeFloatConfigObject(variable.name, resolvedValue.toString()),
+      },
+    })
   }
-  if (tailwindTokenType === TAILWIND_TOKEN_TYPE_MAP.borderRadius) {
-    return {
-      borderRadius: makeFloatConfigObject(variable.name, resolvedValue.toString()),
-    }
+  if (tailwindTokenTypes.includes(TAILWIND_TOKEN_TYPE_MAP.gap)) {
+    theme = merge(theme, {
+      extend: {
+        gap: makeFloatConfigObject(variable.name, resolvedValue.toString()),
+      },
+    })
   }
+  if (tailwindTokenTypes.includes(TAILWIND_TOKEN_TYPE_MAP.borderRadius)) {
+    theme = merge(theme, {
+      extend: {
+        borderRadius: makeFloatConfigObject(variable.name, resolvedValue.toString()),
+      },
+    })
+  }
+  return theme
 }
 
 function makeColorConfigObject(key: string, value: string) {
@@ -202,20 +220,20 @@ function hasColorScopes(scopes: ColorScope[], conditionScopes: ColorScope[]) {
 //   })
 // }
 
-function detectTailWindTokenType(key: string) {
+function detectTailWindTokenTypes(key: string): TailwindTokenType[] {
   const lastPart = key.split('/').pop()
 
   const typeMap = {
-    [FIGMA_TOKEN_TYPE_MAP.height]: TAILWIND_TOKEN_TYPE_MAP.height,
-    [FIGMA_TOKEN_TYPE_MAP.gap]: TAILWIND_TOKEN_TYPE_MAP.gap,
-    [FIGMA_TOKEN_TYPE_MAP['margin-x']]: TAILWIND_TOKEN_TYPE_MAP.margin,
-    [FIGMA_TOKEN_TYPE_MAP['margin-y']]: TAILWIND_TOKEN_TYPE_MAP.margin,
-    [FIGMA_TOKEN_TYPE_MAP.round]: TAILWIND_TOKEN_TYPE_MAP.borderRadius,
+    [FIGMA_TOKEN_TYPE_MAP.height]: [TAILWIND_TOKEN_TYPE_MAP.height],
+    [FIGMA_TOKEN_TYPE_MAP.gap]: [TAILWIND_TOKEN_TYPE_MAP.gap],
+    [FIGMA_TOKEN_TYPE_MAP['space-x']]: [TAILWIND_TOKEN_TYPE_MAP.margin, TAILWIND_TOKEN_TYPE_MAP.padding],
+    [FIGMA_TOKEN_TYPE_MAP['space-y']]: [TAILWIND_TOKEN_TYPE_MAP.margin, TAILWIND_TOKEN_TYPE_MAP.padding],
+    [FIGMA_TOKEN_TYPE_MAP.round]: [TAILWIND_TOKEN_TYPE_MAP.borderRadius],
   }
 
-  const tailwindTokenType = typeMap[lastPart as FigmaTokenType]
-  if (tailwindTokenType === undefined) {
+  const tailwindTokenTypes = typeMap[lastPart as FigmaTokenType]
+  if (tailwindTokenTypes === undefined) {
     throw new Error(`Unknown figma token type: ${key}`)
   }
-  return tailwindTokenType
+  return tailwindTokenTypes
 }

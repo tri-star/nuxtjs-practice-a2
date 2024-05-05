@@ -197,7 +197,7 @@ function makeColorConfigObject(key: string, value: string) {
 function makeFloatConfigObject(key: string, value: string) {
   const keyString = key.replaceAll('/', '-')
   const config = {
-    [keyString]: value,
+    [keyString]: `${value}px`,
   }
 
   return config

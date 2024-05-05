@@ -8,6 +8,9 @@ export default defineNuxtConfig({
       include: ['../.eslintrc.cjs'],
     },
   },
+  components: {
+    dirs: [],
+  },
   test: true,
   runtimeConfig: {
     API_HOST: '',

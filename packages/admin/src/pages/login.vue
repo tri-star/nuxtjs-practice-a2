@@ -4,9 +4,22 @@ import A2TextField from '~/components/form/A2TextField.vue'
 import A2FormLabel from '~/components/form/A2FormLabel.vue'
 import A2FormField from '~/components/form/A2FormField.vue'
 import A2Button from '~/components/A2Button.vue'
+import { useAuthStore } from '~/features/auth/composables/use-auth'
+
+const authStore = useAuthStore()
 
 const loginId = ref('')
 const password = ref('')
+const pending = ref(false)
+
+async function handleLoginClick() {
+  try {
+    pending.value = true
+    await authStore.login(loginId.value, password.value)
+  } finally {
+    pending.value = false
+  }
+}
 </script>
 
 <template>
@@ -30,12 +43,18 @@ const password = ref('')
         </template>
         <template #field>
           <A2FormField class="col-span-6">
-            <A2TextField v-model="password" />
+            <A2TextField v-model="password" type="password" />
           </A2FormField>
         </template>
       </A2FormRow>
       <div class="grid col-span-12 grid-cols-subgrid my-4">
-        <A2Button title="LOGIN" class="col-start-5 col-span-4" />
+        <A2Button
+          title="LOGIN"
+          color="primary"
+          :is-loading="pending"
+          class="col-start-5 col-span-4"
+          @click="handleLoginClick"
+        />
       </div>
     </div>
   </div>

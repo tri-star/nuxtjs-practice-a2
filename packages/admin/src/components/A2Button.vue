@@ -1,11 +1,21 @@
 <script setup lang="ts">
 import { tv } from 'tailwind-variants'
 
-defineProps<{
-  title: string
-}>()
+type ColorVariant = 'primary' | 'primaryLoading' | 'button'
 
-defineEmits<{
+const props = withDefaults(
+  defineProps<{
+    title: string
+    color?: ColorVariant
+    isLoading?: boolean
+  }>(),
+  {
+    color: 'primary',
+    isLoading: false,
+  },
+)
+
+const emit = defineEmits<{
   click: []
 }>()
 
@@ -31,6 +41,14 @@ const variants = tv({
         'text-on-accent-primary-default',
         'hover:text-on-accent-primary-hover',
       ],
+      primaryLoading: [
+        'bg-accent-primary-active',
+        'border-button-active',
+        'text-on-accent-primary-hover',
+        'shadow-none',
+        'translate-y-0',
+        'cursor-progress',
+      ],
       button: [
         'bg-accent-button-default',
         'hover:bg-button-hover',
@@ -50,10 +68,24 @@ const variants = tv({
     size: 'l',
   },
 })
+
+const colorVarinat = computed(() => {
+  if (props.color === 'primary') {
+    return props.isLoading ? 'primaryLoading' : 'primary'
+  }
+  return props.color
+})
+
+function handleClick() {
+  if (props.isLoading) {
+    return
+  }
+  emit('click')
+}
 </script>
 
 <template>
-  <button :class="variants({ color: 'primary', size: 'l' })" @click="$emit('click')">
+  <button :class="variants({ color: colorVarinat, size: 'l' })" @click="handleClick">
     {{ title }}
   </button>
 </template>

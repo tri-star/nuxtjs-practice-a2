@@ -1,4 +1,13 @@
-import tseslint from 'typescript-eslint'
-import sharedConfig from 'a2-eslint/shared-eslint-config.js'
+import withNuxt from './.nuxt/eslint.config.mjs'
 
-export default tseslint.config(...sharedConfig)
+export default withNuxt()
+// your custom flat configs go here, for example:
+// {
+//   files: ['**/*.ts', '**/*.tsx'],
+//   rules: {
+//     'no-console': 'off' // allow console.log in TypeScript files
+//   }
+// },
+// {
+//   ...
+// }

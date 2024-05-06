@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
   srcDir: 'src',
   devtools: { enabled: true },
-  modules: ['@nuxtjs/tailwindcss', '@nuxt/test-utils/module', '@pinia/nuxt'],
+  modules: ['@nuxtjs/tailwindcss', '@nuxt/test-utils/module', '@pinia/nuxt', '@nuxt/eslint'],
   typescript: {
     tsConfig: {
       include: ['../.eslintrc.cjs'],

@@ -4,7 +4,6 @@
   "editor.formatOnSave": true,
   "eslint.format.enable": false,
   "eslint.experimental.useFlatConfig": true,
-  "eslint.workingDirectories": [{ "mode": "auto" }],
   "javascript.preferences.importModuleSpecifier": "non-relative",
   "javascript.updateImportsOnFileMove.enabled": "always",
   "typescript.preferences.importModuleSpecifier": "non-relative",

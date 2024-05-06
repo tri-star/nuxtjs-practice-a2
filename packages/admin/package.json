@@ -33,20 +33,15 @@
     "zod": "^3.23.6"
   },
   "devDependencies": {
+    "@nuxt/eslint": "^0.3.10",
     "@nuxt/test-utils": "^3.12.1",
     "@types/lodash": "^4.17.0",
     "@vue/test-utils": "^2.4.5",
-    "a2-eslint": "workspace:*",
     "eslint": "^8.57.0",
-    "eslint-config-love": "^47.0.0",
     "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-n": "^16.6.2",
-    "eslint-plugin-promise": "^6.1.1",
-    "eslint-plugin-vue": "^9.25.0",
     "happy-dom": "^14.7.1",
     "npm-run-all2": "^6.1.2",
     "prettier": "^3.2.5",
-    "typescript-eslint": "^7.8.0",
     "vitest": "^1.5.2"
   }
 }

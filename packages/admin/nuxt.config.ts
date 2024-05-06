@@ -16,3 +16,5 @@ export default defineNuxtConfig({
     API_HOST: '',
   },
 })
+
+var a = 1

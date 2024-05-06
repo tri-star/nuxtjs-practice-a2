@@ -3,6 +3,7 @@
   "prettier.enable": true,
   "editor.formatOnSave": true,
   "eslint.format.enable": false,
+  "eslint.experimental.useFlatConfig": true,
   "javascript.preferences.importModuleSpecifier": "non-relative",
   "javascript.updateImportsOnFileMove.enabled": "always",
   "typescript.preferences.importModuleSpecifier": "non-relative",

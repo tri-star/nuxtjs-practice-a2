@@ -14,7 +14,7 @@
     "format:prettier": "prettier --write .",
     "lint": "run-s lint:*",
     "lint:tsc": "tsc --noEmit",
-    "lint:eslint": "eslint --ext .ts,.vue,.css",
+    "lint:eslint": "eslint .",
     "lint:prettier": "prettier --check ."
   },
   "dependencies": {
@@ -36,6 +36,7 @@
     "@nuxt/test-utils": "^3.12.1",
     "@types/lodash": "^4.17.0",
     "@vue/test-utils": "^2.4.5",
+    "a2-eslint": "workspace:*",
     "eslint": "^8.57.0",
     "eslint-config-love": "^47.0.0",
     "eslint-config-prettier": "^9.1.0",
@@ -45,6 +46,7 @@
     "happy-dom": "^14.7.1",
     "npm-run-all2": "^6.1.2",
     "prettier": "^3.2.5",
+    "typescript-eslint": "^7.8.0",
     "vitest": "^1.5.2"
   }
 }

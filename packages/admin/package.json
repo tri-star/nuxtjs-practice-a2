@@ -33,6 +33,7 @@
     "zod": "^3.23.6"
   },
   "devDependencies": {
+    "@nuxt/devtools": "^1.2.0",
     "@nuxt/eslint": "^0.3.10",
     "@nuxt/test-utils": "^3.12.1",
     "@types/lodash": "^4.17.0",

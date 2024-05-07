@@ -1,4 +1,9 @@
 {
   // https://nuxt.com/docs/guide/concepts/typescript
-  "extends": "./.nuxt/tsconfig.json"
+  "extends": "./.nuxt/tsconfig.json",
+  "compilerOptions": {
+    // 以下のIssueに伴い追加。なぜか、extends元の定義が利用できない
+    // https://github.com/vuejs/pinia/issues/981
+    "strict": true
+  }
 }

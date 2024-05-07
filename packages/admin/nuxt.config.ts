@@ -1,8 +1,14 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   srcDir: 'src',
-  devtools: { enabled: true },
-  modules: ['@nuxtjs/tailwindcss', '@nuxt/test-utils/module', '@pinia/nuxt', '@nuxt/eslint'],
+  devtools: {
+    enabled: true,
+
+    timeline: {
+      enabled: true,
+    },
+  },
+  modules: ['@nuxtjs/tailwindcss', '@nuxt/test-utils/module', '@pinia/nuxt', '@nuxt/eslint', '@nuxt/devtools'],
   typescript: {
     tsConfig: {
       include: ['../.eslintrc.cjs'],
@@ -11,10 +17,7 @@ export default defineNuxtConfig({
   components: {
     dirs: [],
   },
-  test: true,
   runtimeConfig: {
     API_HOST: '',
   },
 })
-
-var a = 1

@@ -5,17 +5,33 @@ import A2FormLabel from '~/components/form/A2FormLabel.vue'
 import A2FormField from '~/components/form/A2FormField.vue'
 import A2Button from '~/components/A2Button.vue'
 import { useAuthStore } from '~/features/auth/composables/use-auth'
+import { isHttpError, ERROR_TYPE_MAP } from '~/lib/api/api-result'
+import A2TextMessage from '~/components/A2TextMessage.vue'
 
+const router = useRouter()
 const authStore = useAuthStore()
 
 const loginId = ref('')
 const password = ref('')
 const pending = ref(false)
+const error = ref('')
 
 async function handleLoginClick() {
   try {
     pending.value = true
+    error.value = ''
     await authStore.login(loginId.value, password.value)
+    if (authStore.isLoggedIn()) {
+      router.push({ name: 'index' })
+    }
+  } catch (e: unknown) {
+    console.log(e)
+    if (isHttpError(e) && e.type === ERROR_TYPE_MAP.UNAUTHORIZED) {
+      error.value = 'Login ID、またはパスワードが不正です。'
+    } else {
+      error.value =
+        'サーバーのエラーによりログインに失敗しました。お手数ですが、しばらく時間を空けて再度お試しください。'
+    }
   } finally {
     pending.value = false
   }
@@ -55,6 +71,9 @@ async function handleLoginClick() {
           class="col-start-5 col-span-4"
           @click="handleLoginClick"
         />
+      </div>
+      <div v-if="error !== ''" class="grid col-span-12 grid-cols-subgrid">
+        <A2TextMessage :type="'error'" :message="error" class="col-start-2 col-span-10" />
       </div>
     </div>
   </div>

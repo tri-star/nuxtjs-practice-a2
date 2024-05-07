@@ -20,11 +20,18 @@ export default defineEventHandler(async (event) => {
     return loginResponseSchema.parse(response.data)
   } catch (e) {
     if (axios.isAxiosError(e)) {
-      if (e.status) {
-        event.node.res.statusCode = e.status
+      if (e.response?.status) {
+        console.log(e.response)
+        event.node.res.statusCode = e.response.status
+        return {
+          message: e.message,
+        }
       }
     } else {
       event.node.res.statusCode = 500
+      return {
+        message: (e as Error)?.message ?? e,
+      }
     }
   }
 })

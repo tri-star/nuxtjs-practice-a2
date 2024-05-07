@@ -1,4 +1,5 @@
 import z from 'zod'
+import { createApiResult } from '~/lib/api/api-result'
 
 export const SERVER_API_ROUTES = {
   LOGIN: '/api/auth/login',
@@ -9,14 +10,15 @@ const loginResponseSchema = z.object({
 })
 
 export async function requestLogin(loginId: string, password: string) {
-  const resultJson = await $fetch(SERVER_API_ROUTES.LOGIN, {
+  const { data, error } = await useFetch(SERVER_API_ROUTES.LOGIN, {
     method: 'POST',
-    body: {
-      loginId,
-      password,
-    },
+    body: { loginId, password },
   })
 
-  const parsedJson = loginResponseSchema.parse(resultJson)
-  return parsedJson.token
+  if (error.value) {
+    return createApiResult<string>(null, error.value)
+  }
+
+  const parsedJson = loginResponseSchema.parse(data.value)
+  return createApiResult<string>(parsedJson.token, null)
 }

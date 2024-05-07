@@ -20,4 +20,5 @@ export default defineNuxtConfig({
   runtimeConfig: {
     API_HOST: '',
   },
+  // routeRules: {},
 })

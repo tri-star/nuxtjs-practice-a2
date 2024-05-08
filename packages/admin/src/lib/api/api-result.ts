@@ -13,39 +13,24 @@ export const ERROR_TYPE_MAP = errorTypes.reduce<{ [k in ErrorType]: k } | Record
   return acc
 }, {}) as { [k in ErrorType]: k }
 
-type ApiError<E = unknown> = {
-  success: false
-  type: ErrorType
-  isHttpError: boolean
-  error: E
-}
-
 export type ApiResult<T, E> =
   | {
       success: true
       data: T
     }
-  | ApiError<E>
+  | {
+      success: false
+      error: ApiError<E>
+    }
 
 export function createApiResult<T, E = unknown>(
   data: T | null | undefined,
   error: E | null | undefined,
 ): ApiResult<T, E> {
-  console.log('createApiResult', JSON.stringify(error))
-  if ((error as FetchError)?.statusCode) {
-    console.log('http error')
+  if (error) {
     return {
       success: false,
-      type: guessErrorTypeFromStatusCode((error as FetchError).statusCode ?? 0),
-      isHttpError: true,
-      error: error as E,
-    }
-  } else if (error) {
-    return {
-      success: false,
-      type: ERROR_TYPE_MAP.SYSTEM,
-      isHttpError: false,
-      error: error as E,
+      error: new ApiError(error),
     }
   }
   return {
@@ -54,22 +39,66 @@ export function createApiResult<T, E = unknown>(
   }
 }
 
-function guessErrorTypeFromStatusCode(statusCode: number) {
-  switch (statusCode) {
-    case 404:
-      return ERROR_TYPE_MAP.NOT_FOUND
-    case 401:
-      return ERROR_TYPE_MAP.UNAUTHORIZED
-    case 500:
-      return ERROR_TYPE_MAP.SERVER_ERROR
-  }
-  return ERROR_TYPE_MAP.OTHER_HTTP_ERROR
-}
+export class ApiError<E = unknown> extends Error {
+  public static NAME = 'A2_API_ERROR'
+  private error: E
 
-export function isHttpError<E = unknown>(e: unknown): e is ApiError<E> {
-  const maybeError = e as ApiResult<unknown, E>
-  if (maybeError?.success) {
-    return false
+  constructor(error: E) {
+    super()
+    this.error = error
   }
-  return maybeError.isHttpError
+
+  static isApiError<E>(e: unknown): e is ApiError<E> {
+    return e instanceof ApiError
+  }
+
+  getStatusCode() {
+    if (!this.isHttpErrorInner(this.error)) {
+      return null
+    }
+    return this.error.statusCode
+  }
+
+  isHttpError() {
+    return this.isHttpErrorInner(this.error)
+  }
+
+  isClientError() {
+    return [400, 401, 404, 429].includes(this.getStatusCode() ?? 0)
+  }
+
+  isServerError() {
+    const statusCodePrefix = Math.floor((this.getStatusCode() ?? 0) / 100)
+    return statusCodePrefix === 5
+  }
+
+  isSystemError() {
+    return !this.isHttpError()
+  }
+
+  isHttpUnAuthorized() {
+    return this.getStatusCode() === 401
+  }
+
+  isHttpNotFound() {
+    return this.getStatusCode() === 404
+  }
+  guessErrorTypeFromStatusCode() {
+    if (!this.isHttpError()) {
+      return ERROR_TYPE_MAP.SYSTEM
+    }
+    switch (this.getStatusCode()) {
+      case 404:
+        return ERROR_TYPE_MAP.NOT_FOUND
+      case 401:
+        return ERROR_TYPE_MAP.UNAUTHORIZED
+      case 500:
+        return ERROR_TYPE_MAP.SERVER_ERROR
+    }
+    return ERROR_TYPE_MAP.OTHER_HTTP_ERROR
+  }
+
+  private isHttpErrorInner(e: unknown): e is FetchError {
+    return (e as FetchError).statusCode !== undefined
+  }
 }

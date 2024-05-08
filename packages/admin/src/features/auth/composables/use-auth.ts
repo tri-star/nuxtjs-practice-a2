@@ -11,15 +11,16 @@ export const useAuthStore = defineStore('useAuthStore', () => {
     const result = await requestLogin(loginId, password)
 
     if (result.success === false) {
-      throw result
+      return result
     }
 
     if (result.data === '') {
-      throw createApiResult(null, 'トークンが空です。')
+      return createApiResult(null, 'トークンが空です。')
     }
     const newToken = result.data
     token.value = newToken
     window.localStorage.setItem(AUTH_TOKEN_KEY, newToken)
+    return createApiResult(newToken, null)
   }
 
   function isLoggedIn() {

@@ -21,7 +21,6 @@ export default defineEventHandler(async (event) => {
   } catch (e) {
     if (axios.isAxiosError(e)) {
       if (e.response?.status) {
-        console.log(e.response)
         event.node.res.statusCode = e.response.status
         return {
           message: e.message,

@@ -178,7 +178,10 @@ export function parseFloatVariable(modes: FigmaVars['modes'], variable: FloatVar
 
 function makeColorConfigObject(key: string, value: string) {
   // 先頭の"color/"を削除して"/"で分解
-  const keys = key.split('/').slice(1)
+  let keys = key.split('/')
+  if (keys[0] === 'color') {
+    keys = keys.slice(1)
+  }
   const config = {} as NestedObject
   let current = config
 

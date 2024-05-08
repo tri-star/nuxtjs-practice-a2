@@ -7,6 +7,7 @@ import A2Button from '~/components/A2Button.vue'
 import { useAuthStore } from '~/features/auth/composables/use-auth'
 import { isHttpError, ERROR_TYPE_MAP } from '~/lib/api/api-result'
 import A2TextMessage from '~/components/A2TextMessage.vue'
+import A2Link from '~/components/A2Link.vue'
 
 const router = useRouter()
 const authStore = useAuthStore()
@@ -49,7 +50,7 @@ async function handleLoginClick() {
         </template>
         <template #field>
           <A2FormField class="col-span-6">
-            <A2TextField v-model="loginId" />
+            <A2TextField v-model="loginId" @keydown.enter.prevent="handleLoginClick" />
           </A2FormField>
         </template>
       </A2FormRow>
@@ -59,22 +60,15 @@ async function handleLoginClick() {
         </template>
         <template #field>
           <A2FormField class="col-span-6">
-            <A2TextField v-model="password" type="password" />
+            <A2TextField v-model="password" type="password" @keydown.enter.prevent="handleLoginClick" />
           </A2FormField>
         </template>
       </A2FormRow>
-      <div class="grid col-span-12 grid-cols-subgrid my-4">
-        <A2Button
-          title="LOGIN"
-          color="primary"
-          :is-loading="pending"
-          class="col-start-5 col-span-4"
-          @click="handleLoginClick"
-        />
+      <div class="grid col-start-5 col-span-4 my-4">
+        <A2Button title="LOGIN" color="primary" :is-loading="pending" @click="handleLoginClick" />
       </div>
-      <div v-if="error !== ''" class="grid col-span-12 grid-cols-subgrid">
-        <A2TextMessage :type="'error'" :message="error" class="col-start-2 col-span-10" />
-      </div>
+      <A2TextMessage v-if="error !== ''" :type="'error'" :message="error" class="col-start-2 col-span-10" />
+      <div class="grid col-start-5 col-span-4 justify-center"><A2Link text="新規登録はこちら" /></div>
     </div>
   </div>
 </template>

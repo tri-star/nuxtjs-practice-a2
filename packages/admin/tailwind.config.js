@@ -122,6 +122,7 @@ export default {
         'on-hover': 'rgba(30, 41, 59, 1)',
         'on-disabled': 'rgba(30, 41, 59, 1)',
       },
+      link: 'rgba(14, 165, 233, 1)',
     },
     borderColor: {
       'accent-primary': {
@@ -154,6 +155,7 @@ export default {
       header: {
         border: 'rgba(186, 230, 253, 1)',
       },
+      link: 'rgba(14, 165, 233, 1)',
     },
     textColor: {
       'on-button': {
@@ -211,6 +213,7 @@ export default {
         'on-hover': 'rgba(30, 41, 59, 1)',
         'on-disabled': 'rgba(30, 41, 59, 1)',
       },
+      link: 'rgba(14, 165, 233, 1)',
     },
     extend: {
       margin: {
@@ -270,12 +273,9 @@ export default {
         'size-xl-height': '56px',
         'size-m-height': '40px',
       },
-      gridTemplateColumns: {
-        '2-col-form': 'min-content 1fr',
-      },
     },
     backgroundImage: {
-      'login-background': "url('/assets/login-background.png')",
+      'login-background': "url('@/assets/login-background.png')",
     },
   },
   plugins: [],

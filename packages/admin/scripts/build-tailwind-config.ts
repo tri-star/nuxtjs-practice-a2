@@ -10,7 +10,7 @@ fs.readdirSync('figma-vars').forEach((filePath) => {
 })
 
 theme['backgroundImage'] = {
-  'login-background': "url('/assets/login-background.png')",
+  'login-background': "url('@/assets/login-background.png')",
 }
 
 const tailwindConfig = {

@@ -8,7 +8,14 @@ export default defineNuxtConfig({
       enabled: true,
     },
   },
-  modules: ['@nuxtjs/tailwindcss', '@nuxt/test-utils/module', '@pinia/nuxt', '@nuxt/eslint', '@nuxt/devtools'],
+  modules: [
+    '@nuxtjs/tailwindcss',
+    '@nuxt/test-utils/module',
+    '@pinia/nuxt',
+    '@nuxt/eslint',
+    '@nuxt/devtools',
+    'nuxt-mdi',
+  ],
   typescript: {
     tsConfig: {
       include: ['../.eslintrc.cjs'],

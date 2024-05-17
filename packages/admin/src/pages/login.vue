@@ -33,7 +33,7 @@ async function handleLoginClick() {
       throw result.error
     }
     if (authStore.isLoggedIn()) {
-      router.push({ name: 'index' })
+      await router.push({ name: 'index' })
     }
   } catch (e: unknown) {
     error.value = 'サーバーのエラーによりログインに失敗しました。お手数ですが、しばらく時間を空けて再度お試しください。'

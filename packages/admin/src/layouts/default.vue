@@ -6,7 +6,7 @@ import A2TextField from '~/components/form/A2TextField.vue'
   <div class="flex flex-col w-full h-full items-start gap-2">
     <div class="flex px-header-space-x py-header-space-y gap-header-gap bg-header-background backdrop-blur-md">
       <MdiIcon icon="mdiMenu" style="width: 44px" />
-      <A2TextField size="l" />
+      <A2TextField size="l" :leading-icon="'mdiSearchWeb'" />
     </div>
 
     <slot />

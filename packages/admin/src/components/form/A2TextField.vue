@@ -6,10 +6,12 @@ const value = defineModel<string>()
 withDefaults(
   defineProps<{
     size: 'm' | 'l'
+    type?: string
     leadingIcon?: MdiIconString
   }>(),
   {
     size: 'm',
+    type: 'text',
     leadingIcon: undefined,
   },
 )
@@ -34,6 +36,6 @@ const variants = tv({
     <div class="flex items-center justify-center absolute inset-y-0 start-0 p-2">
       <MdiIcon v-if="leadingIcon" :icon="leadingIcon" class="block text-on-input-placeholder" style="width: 36px" />
     </div>
-    <input v-model="value" type="text" :class="variants({ size, withLeading: !!leadingIcon })" >
+    <input v-model="value" :type="type" :class="variants({ size, withLeading: !!leadingIcon })" />
   </div>
 </template>

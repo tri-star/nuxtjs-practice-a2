@@ -14,7 +14,7 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@nuxt/eslint',
     '@nuxt/devtools',
-    'nuxt-mdi',
+    'nuxt-icon',
   ],
   typescript: {
     tsConfig: {

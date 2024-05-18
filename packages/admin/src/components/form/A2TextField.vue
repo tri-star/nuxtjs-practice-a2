@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import { tv } from 'tailwind-variants'
-import type { MdiIconString } from '~/types/mdi-icons'
 
 const value = defineModel<string>()
 withDefaults(
   defineProps<{
     size: 'm' | 'l'
     type?: string
-    leadingIcon?: MdiIconString
+    leadingIcon?: string
   }>(),
   {
     size: 'm',
@@ -32,9 +31,9 @@ const variants = tv({
 </script>
 
 <template>
-  <div>
-    <div class="flex items-center justify-center absolute inset-y-0 start-0 p-2">
-      <MdiIcon v-if="leadingIcon" :icon="leadingIcon" class="block text-on-input-placeholder" style="width: 36px" />
+  <div class="relative">
+    <div v-if="leadingIcon" class="flex items-center justify-center absolute inset-y-0 start-0 p-2">
+      <Icon :name="leadingIcon" size="36px" class="text-on-input-placeholder" />
     </div>
     <input v-model="value" :type="type" :class="variants({ size, withLeading: !!leadingIcon })" />
   </div>

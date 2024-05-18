@@ -1,5 +1,8 @@
+import type { Result } from 'neverthrow'
+import { ok } from 'neverthrow'
 import z from 'zod'
-import { createApiResult } from '~/lib/api/api-result'
+import { requestJson } from '~/lib/api/ofetch'
+import type { ApplicationError } from '~/lib/error/app-error'
 
 export const SERVER_API_ROUTES = {
   LOGIN: '/api/auth/login',
@@ -9,16 +12,14 @@ const loginResponseSchema = z.object({
   token: z.string(),
 })
 
-export async function requestLogin(loginId: string, password: string) {
-  const { data, error } = await useFetch(SERVER_API_ROUTES.LOGIN, {
+export async function requestLogin(loginId: string, password: string): Promise<Result<string, ApplicationError>> {
+  const result = await requestJson(SERVER_API_ROUTES.LOGIN, {
     method: 'POST',
     body: { loginId, password },
   })
 
-  if (error.value) {
-    return createApiResult<string>(null, error.value)
-  }
-
-  const parsedJson = loginResponseSchema.parse(data.value)
-  return createApiResult<string>(parsedJson.token, null)
+  return result.andThen((data) => {
+    const parsedJson = loginResponseSchema.parse(data)
+    return ok(parsedJson.token)
+  })
 }

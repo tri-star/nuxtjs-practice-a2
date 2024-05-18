@@ -7,6 +7,8 @@ import A2Button from '~/components/A2Button.vue'
 import { useAuthStore } from '~/features/auth/composables/use-auth'
 import A2TextMessage from '~/components/A2TextMessage.vue'
 import A2Link from '~/components/A2Link.vue'
+import { UnexpectedError, toAppError, ERROR_TYPE_MAP } from '~/lib/error/app-error'
+import { isOneOf } from '~/lib/utils/array'
 
 const router = useRouter()
 const authStore = useAuthStore()
@@ -24,20 +26,21 @@ async function handleLoginClick() {
   try {
     pending.value = true
     error.value = ''
-    const result = await authStore.login(loginId.value, password.value)
-    if (!result.success) {
-      if (result.error.isClientError()) {
-        error.value = 'Login ID、またはパスワードが不正です。'
-        return
-      }
-      throw result.error
-    }
+
+    await authStore.login(loginId.value, password.value)
     if (authStore.isLoggedIn()) {
       await router.push({ name: 'index' })
     }
   } catch (e: unknown) {
+    const appError = toAppError(e)
+    if (appError instanceof UnexpectedError) {
+      if (isOneOf(appError.errorType, [ERROR_TYPE_MAP.UNAUTHORIZED, ERROR_TYPE_MAP.BAD_REQUEST])) {
+        error.value = 'Login ID、またはパスワードが不正です。'
+        return
+      }
+    }
     error.value = 'サーバーのエラーによりログインに失敗しました。お手数ですが、しばらく時間を空けて再度お試しください。'
-    // throw e
+    throw e
   } finally {
     pending.value = false
   }

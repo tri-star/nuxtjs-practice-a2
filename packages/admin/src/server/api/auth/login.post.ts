@@ -1,6 +1,7 @@
 import { defineEventHandler } from 'h3'
 import { z } from 'zod'
-import axios from 'axios'
+import { FetchError } from 'ofetch'
+import { createClientForServer } from '~/server/lib/server-ofetch'
 
 const loginRequestSchema = z.object({
   loginId: z.string(),
@@ -13,13 +14,20 @@ const loginResponseSchema = z.object({
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event)
-  const requestJson = loginRequestSchema.parse(body)
 
   try {
-    const response = await axios.post('/admin/auth/login', requestJson)
-    return loginResponseSchema.parse(response.data)
+    const requestBody = loginRequestSchema.parse(body)
+
+    const client = createClientForServer()
+    const responseData = await client('/admin/auth/login', {
+      method: 'POST',
+      body: JSON.stringify(requestBody),
+    })
+
+    event.node.res.statusCode = 200
+    return loginResponseSchema.parse(responseData)
   } catch (e) {
-    if (axios.isAxiosError(e)) {
+    if (e instanceof FetchError) {
       if (e.response?.status) {
         event.node.res.statusCode = e.response.status
         return {

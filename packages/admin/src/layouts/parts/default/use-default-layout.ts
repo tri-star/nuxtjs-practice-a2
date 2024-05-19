@@ -26,13 +26,13 @@ export const useDefaultLayoutStore = defineStore('defaultLayoutStore', () => {
       name: DEFAULT_LAYOUT_MENU_ID_MAP.dashboard,
       title: 'ダッシュボード',
       icon: 'mdi:view-dashboard',
-      to: '/',
+      to: { path: '/' },
     },
     {
       name: DEFAULT_LAYOUT_MENU_ID_MAP.users,
       title: 'ユーザー管理',
       icon: 'mdi:account',
-      to: '/',
+      to: { path: '/users' },
     },
   ])
 

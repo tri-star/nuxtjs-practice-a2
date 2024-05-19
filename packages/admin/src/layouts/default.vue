@@ -17,9 +17,9 @@ function handleToggleMenuClick() {
       <Icon name="mdi:menu" size="44px" class="cursor-pointer" @click="handleToggleMenuClick" />
       <A2TextField size="l" :leading-icon="'mdi:search-web'" />
     </div>
-    <div class="flex items-start flex-1">
+    <div class="flex items-start flex-1 w-full h-full">
       <SideMenu />
-      <main class="flex p-2 flex-col items-start gap-5 flex-1">
+      <main class="flex p-2 flex-col items-start gap-5 flex-1 w-full h-full">
         <h1 v-if="pageTitle" class="text-4xl font-bold">{{ pageTitle }}</h1>
         <slot />
       </main>

@@ -1,21 +1,9 @@
 <script setup lang="ts">
 import SideMenuItem from '~/layouts/parts/default/SideMenuItem.vue'
+import { useDefaultLayoutStore, type DefaultLayoutMenuId } from '~/layouts/parts/default/use-default-layout'
 
-const props = defineProps<{
-  expanded: boolean
-}>()
-
-const menues = [
-  {
-    title: 'ダッシュボード',
-    icon: 'mdi:view-dashboard',
-    to: '/',
-  },
-  {
-    title: 'ユーザー管理',
-    icon: 'mdi:account',
-  },
-]
+const defaultLayoutStore = useDefaultLayoutStore()
+const { expanded, menuItems, activeMenu } = storeToRefs(defaultLayoutStore)
 
 const menuListClass = computed(() => {
   return [
@@ -23,16 +11,23 @@ const menuListClass = computed(() => {
     'flex-col',
     'items-start',
     'gap-1',
-    props.expanded ? 'w-72' : 'w-16',
+    expanded.value ? 'w-72' : 'w-20',
     'bg-side-menu-background',
     'h-full',
     'p-2',
+    'transition-all',
+    'duration-300',
+    'ease-out',
   ]
 })
+
+function isActive(menuId: DefaultLayoutMenuId) {
+  return menuId === activeMenu.value
+}
 </script>
 
 <template>
-  <aside :class="menuListClass">
-    <SideMenuItem v-for="menu in menues" :key="menu.title" :item="menu" />
+  <aside :class="menuListClass" class="transition">
+    <SideMenuItem v-for="menu in menuItems" :key="menu.title" :item="menu" :active="isActive(menu.name)" />
   </aside>
 </template>

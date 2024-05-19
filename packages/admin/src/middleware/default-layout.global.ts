@@ -2,10 +2,8 @@ import { useDefaultLayoutStore } from '~/layouts/parts/default/use-default-layou
 
 export default defineNuxtRouteMiddleware((to) => {
   if (to.meta.defaultLayoutOption === undefined) {
-    console.log('skip')
     return
   }
-  console.log('pass')
 
   const pinia = usePinia()
 

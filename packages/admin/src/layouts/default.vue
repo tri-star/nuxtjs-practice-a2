@@ -3,7 +3,7 @@ import A2TextField from '~/components/form/A2TextField.vue'
 import SideMenu from '~/layouts/parts/default/SideMenu.vue'
 import { useDefaultLayoutStore } from '~/layouts/parts/default/use-default-layout'
 
-const { toggleMenu } = useDefaultLayoutStore()
+const { toggleMenu, pageTitle } = useDefaultLayoutStore()
 
 function handleToggleMenuClick() {
   toggleMenu()
@@ -19,9 +19,10 @@ function handleToggleMenuClick() {
     </div>
     <div class="flex items-start flex-1">
       <SideMenu />
-      <div class="flex p-2 flex-col items-start gap-5 flex-1">
+      <main class="flex p-2 flex-col items-start gap-5 flex-1">
+        <h1 v-if="pageTitle" class="text-4xl font-bold">{{ pageTitle }}</h1>
         <slot />
-      </div>
+      </main>
     </div>
   </div>
 </template>

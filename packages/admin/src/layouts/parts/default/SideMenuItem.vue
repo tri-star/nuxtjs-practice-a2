@@ -20,7 +20,7 @@ const variant = tv({
   base: [
     'flex',
     'w-full',
-    'h-14',
+    'h-13',
     'overflow-hidden',
     'px-side-menu-space-x',
     'py-side-menu-space-y',
@@ -49,7 +49,7 @@ const variant = tv({
 
 <template>
   <NuxtLink :class="variant({ active })" :to="item.to" class="">
-    <Icon :name="item.icon" size="40px" class="flex-shrink-0" />
-    <span class="block text-xl whitespace-nowrap overflow-x-hidden">{{ item.title }}</span>
+    <Icon :name="item.icon" size="36px" class="flex-shrink-0" />
+    <span class="block text-l whitespace-nowrap overflow-x-hidden">{{ item.title }}</span>
   </NuxtLink>
 </template>

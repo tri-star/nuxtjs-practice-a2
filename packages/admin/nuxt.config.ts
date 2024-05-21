@@ -26,6 +26,11 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     API_HOST: '',
+    public: {
+      API_HOST: '',
+    },
   },
-  // routeRules: {},
+  routeRules: {
+    '/admin-users': { ssr: false },
+  },
 })

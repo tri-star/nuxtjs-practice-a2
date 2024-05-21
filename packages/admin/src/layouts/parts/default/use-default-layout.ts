@@ -7,7 +7,7 @@ export type MenuItem = {
   to: RouteLocationRaw
 }
 
-const DEFAULT_LAYOUT_MENU_ID_LIST = ['dashboard', 'users'] as const
+const DEFAULT_LAYOUT_MENU_ID_LIST = ['dashboard', 'adminUsers'] as const
 export type DefaultLayoutMenuId = (typeof DEFAULT_LAYOUT_MENU_ID_LIST)[number]
 export const DEFAULT_LAYOUT_MENU_ID_MAP = DEFAULT_LAYOUT_MENU_ID_LIST.reduce<
   { [k in DefaultLayoutMenuId]: k } | Record<string, unknown>
@@ -29,10 +29,10 @@ export const useDefaultLayoutStore = defineStore('defaultLayoutStore', () => {
       to: { path: '/' },
     },
     {
-      name: DEFAULT_LAYOUT_MENU_ID_MAP.users,
-      title: 'ユーザー管理',
+      name: DEFAULT_LAYOUT_MENU_ID_MAP.adminUsers,
+      title: '管理者ユーザー管理',
       icon: 'mdi:account',
-      to: { path: '/users' },
+      to: { path: '/admin-users' },
     },
   ])
 

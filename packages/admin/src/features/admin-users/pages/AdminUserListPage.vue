@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import A2CheckBox from '~/components/form/A2CheckBox.vue'
 import { fetchAdminUserList } from '~/features/admin-users/api/fetch-admin-user-list'
 import {
   adminUserListResponseSchema,
@@ -7,6 +8,8 @@ import {
 import { toAppError } from '~/lib/error/app-error'
 
 const { rawAdminUserList, rawAdminUserListError, isAdminUserListPending } = fetchAdminUserList()
+
+const idList = ref<string[]>([])
 
 const adminUserList = computed(() => {
   if (rawAdminUserList.value == null) {
@@ -32,7 +35,7 @@ const adminUserListError = computed(() => {
   <div class="flex flex-col flex-1 items-start p-2 gap-2 w-full h-full bg-default">
     <table class="table-fixed w-full">
       <colgroup>
-        <col class="w-10 p-2" />
+        <col class="w-12 p-2" />
         <col class="w-80 p-2" />
         <col class="w-40" />
         <col class="" />
@@ -40,7 +43,7 @@ const adminUserListError = computed(() => {
       <thead>
         <!-- TODO: テーブルヘッダの色を変数化 -->
         <tr class="h-11" style="background-color: #e0f2fe">
-          <th class="font-bold">&nbsp;</th>
+          <th class="font-bold flex justify-center items-center h-11"><A2CheckBox value="1" /></th>
           <th class="font-bold text-left">ID</th>
           <th class="font-bold text-left">名前</th>
           <th class="font-bold text-left">ログインID</th>
@@ -71,7 +74,7 @@ const adminUserListError = computed(() => {
       <tbody v-else>
         <!-- TODO: テーブルのボーダーの色  -->
         <tr v-for="user in adminUserList" :key="user.id" class="h-11 border-b border-button-border">
-          <td class=""></td>
+          <td class="flex justify-center items-center h-11"><A2CheckBox v-model="idList" :value="user.id" /></td>
           <td class="text-left">{{ user.id }}</td>
           <td class="text-left">{{ user.name }}</td>
           <td class="text-left">{{ user.loginId }}</td>

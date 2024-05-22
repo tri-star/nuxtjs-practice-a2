@@ -8,6 +8,7 @@ const props = withDefaults(
     title: string
     color?: ColorVariant
     isLoading?: boolean
+    icon?: string
   }>(),
   {
     color: 'primary',
@@ -69,6 +70,23 @@ const variants = tv({
   },
 })
 
+const iconVariant = tv({
+  base: [],
+  variants: {
+    color: {
+      primary: [
+        'text-on-accent-primary-default', //
+        'hover:text-on-accent-primary-hover',
+      ],
+      primaryLoading: ['text-on-accent-primary-hover'],
+      button: [
+        'border-button-border',
+        'text-on-button-default', //
+      ],
+    },
+  },
+})
+
 const colorVarinat = computed(() => {
   if (props.color === 'primary') {
     return props.isLoading ? 'primaryLoading' : 'primary'
@@ -86,6 +104,7 @@ function handleClick() {
 
 <template>
   <button :class="variants({ color: colorVarinat, size: 'l' })" @click="handleClick">
+    <Icon v-if="icon" :name="icon" size="20px" :class="iconVariant({ color: colorVarinat })" />
     {{ title }}
   </button>
 </template>

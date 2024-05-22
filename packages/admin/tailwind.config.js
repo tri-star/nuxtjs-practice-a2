@@ -215,6 +215,9 @@ export default {
       },
       link: 'rgba(14, 165, 233, 1)',
     },
+    ringColor: {
+      focus: 'rgba(147, 197, 253, 1)',
+    },
     extend: {
       margin: {
         'size-l-space-x': '16px',

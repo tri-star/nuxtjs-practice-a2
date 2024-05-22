@@ -14,7 +14,7 @@ theme['backgroundImage'] = {
 }
 
 const tailwindConfig = {
-  content: ['./pages/index.vue'],
+  content: ['./src/pages/**/*.vue', './src/layouts/**/*.vue', './src/components/**/*.vue', './src/features/**/*.vue'],
   theme,
   plugins: [],
 }

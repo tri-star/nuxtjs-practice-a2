@@ -1,6 +1,7 @@
 import fs from 'fs'
 import { type Config } from 'tailwindcss'
 import { merge } from 'lodash'
+import type { ThemeConfig } from 'tailwindcss/types/config'
 
 const DEFAULT_COLOR_MODE_NAME = 'Mode 1'
 const DEFAULT_FLOAT_MODE_NAME = 'Mode 1'
@@ -124,6 +125,13 @@ export function parseColorVariable(modes: FigmaVars['modes'], variable: ColorVar
       textColor: makeColorConfigObject(variable.name, color),
     })
   }
+
+  if (variable.name === 'focus') {
+    theme = merge(theme, {
+      ringColor: makeColorConfigObject(variable.name, color),
+    } satisfies Partial<ThemeConfig>)
+  }
+
   return theme
 }
 

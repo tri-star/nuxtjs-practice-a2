@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import A2Button from '~/components/A2Button.vue'
 import A2CheckBox from '~/components/form/A2CheckBox.vue'
+import A2TextField from '~/components/form/A2TextField.vue'
 import { fetchAdminUserList } from '~/features/admin-users/api/fetch-admin-user-list'
 import {
   adminUserListResponseSchema,
@@ -34,8 +35,10 @@ const adminUserListError = computed(() => {
 
 <template>
   <div class="flex flex-col flex-1 items-start p-2 gap-2 w-full h-full bg-default">
-    <div>
+    <div class="flex items-start gap-2">
       <A2Button color="primary" title="新規登録" icon="mdi:pencil" />
+      <A2TextField leading-icon="mdi:magnify" />
+      <A2Button color="button" icon="mdi:filter" />
     </div>
 
     <table class="table-fixed w-full">

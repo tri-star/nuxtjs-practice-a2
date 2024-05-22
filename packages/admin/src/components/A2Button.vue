@@ -5,14 +5,16 @@ type ColorVariant = 'primary' | 'primaryLoading' | 'button'
 
 const props = withDefaults(
   defineProps<{
-    title: string
+    title?: string
     color?: ColorVariant
     isLoading?: boolean
     icon?: string
   }>(),
   {
+    title: undefined,
     color: 'primary',
     isLoading: false,
+    icon: undefined,
   },
 )
 
@@ -51,7 +53,7 @@ const variants = tv({
         'cursor-progress',
       ],
       button: [
-        'bg-accent-button-default',
+        'bg-button-default',
         'hover:bg-button-hover',
         'border-button-border',
         'text-on-button-default', //
@@ -105,6 +107,6 @@ function handleClick() {
 <template>
   <button :class="variants({ color: colorVarinat, size: 'l' })" @click="handleClick">
     <Icon v-if="icon" :name="icon" size="20px" :class="iconVariant({ color: colorVarinat })" />
-    {{ title }}
+    <span v-if="title">{{ title }}</span>
   </button>
 </template>

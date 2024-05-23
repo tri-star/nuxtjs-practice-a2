@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import A2Button from '~/components/A2Button.vue'
+import type { A2MenuItem } from '~/components/a2-menu-item'
 import A2CheckBox from '~/components/form/A2CheckBox.vue'
+import A2DropDownButton from '~/components/A2DropDownButton.vue'
 import A2TextField from '~/components/form/A2TextField.vue'
 import { fetchAdminUserList } from '~/features/admin-users/api/fetch-admin-user-list'
 import {
@@ -12,6 +14,12 @@ import { toAppError } from '~/lib/error/app-error'
 const { rawAdminUserList, rawAdminUserListError, isAdminUserListPending } = fetchAdminUserList()
 
 const idList = ref<string[]>([])
+
+const filterMenuItems: A2MenuItem[] = [
+  { id: 'id', label: 'ID' },
+  { id: 'name', label: '名前' },
+  { id: 'loginId', label: 'ログインID' },
+]
 
 const adminUserList = computed(() => {
   if (rawAdminUserList.value == null) {
@@ -38,7 +46,9 @@ const adminUserListError = computed(() => {
     <div class="flex items-start gap-2">
       <A2Button color="primary" title="新規登録" icon="mdi:pencil" />
       <A2TextField leading-icon="mdi:magnify" />
-      <A2Button color="button" icon="mdi:filter" />
+    </div>
+    <div>
+      <A2DropDownButton size="m" label="フィルターを追加する" :items="filterMenuItems" />
     </div>
 
     <table class="table-fixed w-full">

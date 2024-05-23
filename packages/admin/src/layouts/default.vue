@@ -3,7 +3,9 @@ import A2TextField from '~/components/form/A2TextField.vue'
 import SideMenu from '~/layouts/parts/default/SideMenu.vue'
 import { useDefaultLayoutStore } from '~/layouts/parts/default/use-default-layout'
 
-const { toggleMenu, pageTitle } = useDefaultLayoutStore()
+const defaultLayoutStore = useDefaultLayoutStore()
+const { toggleMenu } = defaultLayoutStore
+const { pageTitle } = storeToRefs(defaultLayoutStore)
 
 function handleToggleMenuClick() {
   toggleMenu()
@@ -13,9 +15,11 @@ function handleToggleMenuClick() {
 <template>
   <!-- TODO: 背景色の変数化 -->
   <div class="flex flex-col w-full h-full items-start bg-outlined-disabled">
-    <div class="flex w-full px-header-space-x py-header-space-y gap-header-gap bg-header-background backdrop-blur-md">
-      <Icon name="mdi:menu" size="44px" class="cursor-pointer" @click="handleToggleMenuClick" />
-      <A2TextField size="l" :leading-icon="'mdi:search-web'" />
+    <div
+      class="flex w-full px-header-space-x py-header-space-y gap-header-gap items-center bg-header-background backdrop-blur-md"
+    >
+      <Icon name="mdi:menu" size="40px" class="cursor-pointer" @click="handleToggleMenuClick" />
+      <A2TextField size="m" :leading-icon="'mdi:search-web'" />
     </div>
     <div class="flex items-start flex-1 w-full h-full">
       <SideMenu />

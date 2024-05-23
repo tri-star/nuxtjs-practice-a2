@@ -61,7 +61,7 @@ export default {
         disabled: 'rgba(51, 65, 85, 1)',
       },
       menu: {
-        default: 'rgba(255, 255, 255, 0.6)',
+        default: 'rgba(255, 255, 255, 0.4)',
         hover: 'rgba(224, 242, 254, 0.8)',
         active: 'rgba(224, 242, 254, 0.8)',
         disabled: 'rgba(229, 231, 235, 0.8)',

@@ -6,4 +6,4 @@ definePageMeta({
   },
 })
 </script>
-<template><div /></template>
+<template><div>ダッシュボード</div></template>

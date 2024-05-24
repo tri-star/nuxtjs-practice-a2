@@ -14,6 +14,8 @@ import { toAppError } from '~/lib/error/app-error'
 const { rawAdminUserList, rawAdminUserListError, isAdminUserListPending } = fetchAdminUserList()
 
 const idList = ref<string[]>([])
+// TODO: 一括チェックはTableコンポーネントに移動させる
+const isBulkChecked = ref<boolean>(false)
 
 const filterMenuItems: A2MenuItem[] = [
   { id: 'id', label: 'ID' },
@@ -39,15 +41,23 @@ const adminUserListError = computed(() => {
 
   return toAppError(rawAdminUserListError.value)
 })
+
+const isBulkActionMode = computed(() => idList.value.length > 0)
+
+function handleBulkCheckStateChanged() {
+  if (isBulkChecked.value) {
+    idList.value = adminUserList.value.map((adminUser) => adminUser.id)
+  } else {
+    idList.value = []
+  }
+}
 </script>
 
 <template>
   <div class="flex flex-col flex-1 items-start p-2 gap-2 w-full h-full bg-default">
-    <div class="flex items-start gap-2">
+    <div v-if="!isBulkActionMode" class="flex items-start gap-2">
       <A2Button color="primary" title="新規登録" icon="mdi:pencil" />
       <A2TextField leading-icon="mdi:magnify" />
-    </div>
-    <div>
       <A2DropDownButton size="m" label="フィルターを追加する" :items="filterMenuItems" />
     </div>
 
@@ -61,7 +71,9 @@ const adminUserListError = computed(() => {
       <thead>
         <!-- TODO: テーブルヘッダの色を変数化 -->
         <tr class="h-11" style="background-color: #e0f2fe">
-          <th class="font-bold flex justify-center items-center h-11"><A2CheckBox value="1" /></th>
+          <th class="font-bold flex justify-center items-center h-11">
+            <A2CheckBox v-model="isBulkChecked" value="1" @change="handleBulkCheckStateChanged" />
+          </th>
           <th class="font-bold text-left">ID</th>
           <th class="font-bold text-left">名前</th>
           <th class="font-bold text-left">ログインID</th>

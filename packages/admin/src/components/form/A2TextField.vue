@@ -16,7 +16,7 @@ withDefaults(
 )
 
 const variants = tv({
-  base: ['flex', 'items-center', 'border', 'border-input-border', 'bg-input-default'],
+  base: ['flex', 'items-center', 'border', 'border-input-border', 'bg-input-default', 'w-full'],
   variants: {
     size: {
       l: ['px-size-l-space-x', 'py-size-l-space-y', 'h-size-l-height', 'rounded-size-l-round rounded-size-l-round'],

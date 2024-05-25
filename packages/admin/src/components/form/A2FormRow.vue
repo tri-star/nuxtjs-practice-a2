@@ -13,7 +13,7 @@ defineSlots<{
 </script>
 
 <template>
-  <div class="gap-2 items-start">
+  <div class="flex gap-2 items-start">
     <slot name="label">
       <A2FormLabel>{{ props.labelText }}</A2FormLabel>
     </slot>

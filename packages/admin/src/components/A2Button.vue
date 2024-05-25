@@ -9,12 +9,14 @@ const props = withDefaults(
     color?: ColorVariant
     isLoading?: boolean
     icon?: string
+    size?: 'xs' | 's' | 'm' | 'l'
   }>(),
   {
     title: undefined,
     color: 'primary',
     isLoading: false,
     icon: undefined,
+    size: 'l',
   },
 )
 
@@ -105,7 +107,7 @@ function handleClick() {
 </script>
 
 <template>
-  <button :class="variants({ color: colorVarinat, size: 'l' })" @click="handleClick">
+  <button :class="variants({ color: colorVarinat, size: size })" @click="handleClick">
     <Icon v-if="icon" :name="icon" size="20px" :class="iconVariant({ color: colorVarinat })" />
     <span v-if="title">{{ title }}</span>
   </button>

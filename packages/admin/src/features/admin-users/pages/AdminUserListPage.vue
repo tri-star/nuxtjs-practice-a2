@@ -10,17 +10,25 @@ import {
   transformToAdminUserListEntry,
 } from '~/features/admin-users/domain/admin-user-list-entry'
 import { toAppError } from '~/lib/error/app-error'
+import A2DropDown from '~/components/A2DropDown.vue'
 
 const { rawAdminUserList, rawAdminUserListError, isAdminUserListPending } = fetchAdminUserList()
 
 const idList = ref<string[]>([])
 // TODO: 一括チェックはTableコンポーネントに移動させる
 const isBulkChecked = ref<boolean>(false)
+const selectedBulkActionId = ref<string | undefined>(undefined)
 
 const filterMenuItems: A2MenuItem[] = [
   { id: 'id', label: 'ID' },
   { id: 'name', label: '名前' },
   { id: 'loginId', label: 'ログインID' },
+]
+
+const bulkActionItems: A2MenuItem[] = [
+  { id: 'delete', label: '削除' },
+  { id: 'disable', label: '無効化' },
+  { id: 'enable', label: '有効化' },
 ]
 
 const adminUserList = computed(() => {
@@ -59,6 +67,11 @@ function handleBulkCheckStateChanged() {
       <A2Button color="primary" title="新規登録" icon="mdi:pencil" />
       <A2TextField leading-icon="mdi:magnify" />
       <A2DropDownButton size="m" label="フィルターを追加する" :items="filterMenuItems" />
+    </div>
+    <div v-else class="flex gap-2 h-11 items-center">
+      <p>選択した要素を</p>
+      <A2DropDown v-model="selectedBulkActionId" :items="bulkActionItems" placeholder="アクションを選択" />
+      <A2Button icon="mdi:play" size="m" :color="'button'" />
     </div>
 
     <table class="table-fixed w-full">

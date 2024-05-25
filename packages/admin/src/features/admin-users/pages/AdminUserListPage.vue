@@ -14,9 +14,6 @@ import A2DropDown from '~/components/A2DropDown.vue'
 
 const { rawAdminUserList, rawAdminUserListError, isAdminUserListPending } = fetchAdminUserList()
 
-const idList = ref<string[]>([])
-// TODO: 一括チェックはTableコンポーネントに移動させる
-const isBulkChecked = ref<boolean>(false)
 const selectedBulkActionId = ref<string | undefined>(undefined)
 
 const filterMenuItems: A2MenuItem[] = [
@@ -42,6 +39,10 @@ const adminUserList = computed(() => {
   })
 })
 
+const adminUserIdList = computed(() => {
+  return adminUserList.value.map((user) => user.id)
+})
+
 const adminUserListError = computed(() => {
   if (rawAdminUserListError.value == null) {
     return null
@@ -52,13 +53,7 @@ const adminUserListError = computed(() => {
 
 const isBulkActionMode = computed(() => idList.value.length > 0)
 
-function handleBulkCheckStateChanged() {
-  if (isBulkChecked.value) {
-    idList.value = adminUserList.value.map((adminUser) => adminUser.id)
-  } else {
-    idList.value = []
-  }
-}
+const { idList, isAllChecked, handleToggleCheckAll } = useBulkCheck(adminUserIdList)
 </script>
 
 <template>
@@ -85,7 +80,7 @@ function handleBulkCheckStateChanged() {
         <!-- TODO: テーブルヘッダの色を変数化 -->
         <tr class="h-11" style="background-color: #e0f2fe">
           <th class="font-bold flex justify-center items-center h-11">
-            <A2CheckBox v-model="isBulkChecked" value="1" @change="handleBulkCheckStateChanged" />
+            <A2CheckBox v-model="isAllChecked" value="1" @change="handleToggleCheckAll" />
           </th>
           <th class="font-bold text-left">ID</th>
           <th class="font-bold text-left">名前</th>

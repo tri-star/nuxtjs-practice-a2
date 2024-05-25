@@ -45,6 +45,10 @@ const variants = tv({
         'border-button-border',
         'text-on-accent-primary-default',
         'hover:text-on-accent-primary-hover',
+        'disabled:bg-accent-primary-disabled',
+        'disabled:text-accent-primary-disabled',
+        'disabled:translate-y-1',
+        'disabled:shadow-none',
       ],
       primaryLoading: [
         'bg-accent-primary-active',

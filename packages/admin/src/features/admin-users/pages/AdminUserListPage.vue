@@ -64,7 +64,7 @@ function handleBulkCheckStateChanged() {
 <template>
   <div class="flex flex-col flex-1 items-start p-2 gap-2 w-full h-full bg-default">
     <div v-if="!isBulkActionMode" class="flex items-start gap-2">
-      <A2Button color="primary" title="新規登録" icon="mdi:pencil" />
+      <A2Button color="primary" title="新規登録" icon="mdi:pencil" size="m" />
       <A2TextField leading-icon="mdi:magnify" />
       <A2DropDownButton size="m" label="フィルターを追加する" :items="filterMenuItems" />
     </div>

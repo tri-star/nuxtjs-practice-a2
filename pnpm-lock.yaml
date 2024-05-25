@@ -14,6 +14,12 @@ importers:
       '@pinia/nuxt':
         specifier: ^0.5.1
         version: 0.5.1(rollup@4.17.2)(typescript@5.4.5)(vue@3.4.26(typescript@5.4.5))
+      '@tanstack/vue-form':
+        specifier: ^0.20.0
+        version: 0.20.0(vue@3.4.26(typescript@5.4.5))
+      '@tanstack/zod-form-adapter':
+        specifier: ^0.20.0
+        version: 0.20.0(zod@3.23.6)
       axios:
         specifier: ^1.6.8
         version: 1.6.8
@@ -1141,6 +1147,31 @@ packages:
     engines: {node: ^16.0.0 || >=18.0.0}
     peerDependencies:
       eslint: '>=8.40.0'
+
+  '@tanstack/form-core@0.20.0':
+    resolution: {integrity: sha512-7iOFXTSTEkTKRk7pu1v7Xa+szGE/v10jExK+Cym3dAHkK6znRTYkDt8cNaEG8TgHgLi9TRhy0jJV3yjnkqa42A==}
+
+  '@tanstack/store@0.3.1':
+    resolution: {integrity: sha512-A49KN8SpLMWaNmZGPa9K982RQ81W+m7W6iStcQVeKeVS70JZRqkF0fDwKByREPq6qz9/kS0aQFOPQ0W6wIeU5g==}
+
+  '@tanstack/vue-form@0.20.0':
+    resolution: {integrity: sha512-aqq3F2hJhpJNuNwZ2mSjBA5lEXIc6oeqaImsb8TBm4642t6RYUFv3cB68wxn1gukHRL4Eds811tmrhUwJEskWg==}
+    peerDependencies:
+      vue: ^3.3.0
+
+  '@tanstack/vue-store@0.3.1':
+    resolution: {integrity: sha512-7XhuxAO6z4FWz8QnluTd4njy4yh6yHVD+dVMV60kDNck+ZfnU8VrENMGaA5edIq5zX3ooAUcOtOXh7KgQv1P1A==}
+    peerDependencies:
+      '@vue/composition-api': ^1.2.1
+      vue: ^2.5.0 || ^3.0.0
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+
+  '@tanstack/zod-form-adapter@0.20.0':
+    resolution: {integrity: sha512-epBqaO0uLEe/gXHn0IUMtjqPYO/IlVMNtTKDdd86UBeaIJAomUUoa70JZaV1X3Rg9+Yr/bSSiOr/Ri481xGtCA==}
+    peerDependencies:
+      zod: ^3.x
 
   '@trysound/sax@0.2.0':
     resolution: {integrity: sha512-L7z9BgrNEcYyUYtF+HaEfiS5ebkh9jXqbszz7pC0hRBPaatV0XjSD3+eHrpqFemQfgwiFF0QPIarnIihIDn7OA==}
@@ -6209,6 +6240,31 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
       - typescript
+
+  '@tanstack/form-core@0.20.0':
+    dependencies:
+      '@tanstack/store': 0.3.1
+
+  '@tanstack/store@0.3.1': {}
+
+  '@tanstack/vue-form@0.20.0(vue@3.4.26(typescript@5.4.5))':
+    dependencies:
+      '@tanstack/form-core': 0.20.0
+      '@tanstack/vue-store': 0.3.1(vue@3.4.26(typescript@5.4.5))
+      vue: 3.4.26(typescript@5.4.5)
+    transitivePeerDependencies:
+      - '@vue/composition-api'
+
+  '@tanstack/vue-store@0.3.1(vue@3.4.26(typescript@5.4.5))':
+    dependencies:
+      '@tanstack/store': 0.3.1
+      vue: 3.4.26(typescript@5.4.5)
+      vue-demi: 0.14.7(vue@3.4.26(typescript@5.4.5))
+
+  '@tanstack/zod-form-adapter@0.20.0(zod@3.23.6)':
+    dependencies:
+      '@tanstack/form-core': 0.20.0
+      zod: 3.23.6
 
   '@trysound/sax@0.2.0': {}
 

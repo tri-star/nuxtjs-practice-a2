@@ -13,6 +13,7 @@ import {
 import { z } from 'zod'
 
 const router = useRouter()
+const { createToast } = useToastStore()
 const loginIdValidationStatus = ref<'pending' | 'ok' | 'error' | undefined>(undefined)
 
 const form = useForm({
@@ -24,6 +25,13 @@ const form = useForm({
   validatorAdapter: zodValidator,
 })
 
+function handleSaveClick() {
+  createToast({
+    message: '登録が完了しました',
+    type: 'success',
+  })
+}
+
 function handleCancelClick() {
   router.back()
 }
@@ -31,7 +39,6 @@ function handleCancelClick() {
 async function validateLoginId(loginId: string) {
   loginIdValidationStatus.value = 'pending'
   await new Promise((resolve) => setTimeout(resolve, 1000))
-  console.log('loginId: ', loginId)
   loginIdValidationStatus.value = 'ok'
   return true
 }
@@ -152,7 +159,14 @@ async function validateLoginId(loginId: string) {
       <div class="flex col-span-12 justify-center gap-2 my-4">
         <form.Subscribe>
           <template #default="{ canSubmit }">
-            <A2Button color="primary" title="登録" icon="mdi:content-save" size="m" :disabled="!canSubmit" />
+            <A2Button
+              color="primary"
+              title="登録"
+              icon="mdi:content-save"
+              size="m"
+              :disabled="!canSubmit"
+              @click="handleSaveClick"
+            />
           </template>
         </form.Subscribe>
         <A2Button color="button" title="キャンセル" icon="mdi:backspace" size="m" @click="handleCancelClick" />

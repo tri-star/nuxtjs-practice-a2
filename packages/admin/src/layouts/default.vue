@@ -7,7 +7,8 @@ import { useDefaultLayoutStore } from '~/layouts/parts/default/use-default-layou
 const defaultLayoutStore = useDefaultLayoutStore()
 const { toggleMenu } = defaultLayoutStore
 const { pageTitle } = storeToRefs(defaultLayoutStore)
-const { toasts, handleDestroyToast } = useToast()
+const toastStore = useToastStore()
+const { toasts } = storeToRefs(toastStore)
 
 function handleToggleMenuClick() {
   toggleMenu()
@@ -30,10 +31,19 @@ function handleToggleMenuClick() {
 
         <div class="flex flex-col flex-1 items-start p-2 gap-2 w-full h-full bg-default">
           <slot />
+          <div>
+            <A2Toast
+              v-for="toast in toasts"
+              :id="toast.id"
+              :key="toast.id"
+              :duration="toast.durationMs"
+              :message="toast.message"
+              :bottom-y="toast.bottomY"
+              @destroy="toastStore.handleDestroyToast"
+            />
+          </div>
         </div>
       </main>
     </div>
-    <div id="toast" />
-    <A2Toast message="aaaaa" />
   </div>
 </template>

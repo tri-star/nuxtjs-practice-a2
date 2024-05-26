@@ -19,8 +19,6 @@ export async function requestJson<T = unknown>(url: string, options?: Parameters
       },
     }
 
-    console.log(API_HOST, mergedOptions)
-
     const response = await $fetch<T>(url, mergedOptions)
     return response
   } catch (e) {

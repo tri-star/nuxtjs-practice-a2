@@ -36,6 +36,7 @@ function handleToggleMenuClick() {
               v-for="toast in toasts"
               :id="toast.id"
               :key="toast.id"
+              :type="toast.type"
               :duration="toast.durationMs"
               :message="toast.message"
               :bottom-y="toast.bottomY"

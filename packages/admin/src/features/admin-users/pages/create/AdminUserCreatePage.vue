@@ -11,6 +11,7 @@ import {
   type CreateAdminUserValidation,
 } from '~/features/admin-users/domain/admin-user'
 import { z } from 'zod'
+import { createAdminUser } from '~/features/admin-users/api/create-admin-user'
 
 const router = useRouter()
 const { createToast } = useToastStore()
@@ -23,14 +24,22 @@ const form = useForm({
     password: '',
   } satisfies CreateAdminUserValidation,
   validatorAdapter: zodValidator,
+  onSubmit: async (formData) => {
+    try {
+      await createAdminUser(formData.value)
+      createToast({
+        message: '登録が完了しました',
+        type: 'success',
+      })
+      router.back()
+    } catch (e) {
+      createToast({
+        message: '登録処理の実行中にエラーが発生しました。\nお手数ですが、時間を空けて再度お試しください。',
+        type: 'error',
+      })
+    }
+  },
 })
-
-function handleSaveClick() {
-  createToast({
-    message: '登録が完了しました',
-    type: 'success',
-  })
-}
 
 function handleCancelClick() {
   router.back()
@@ -39,6 +48,11 @@ function handleCancelClick() {
 async function validateLoginId(loginId: string) {
   loginIdValidationStatus.value = 'pending'
   await new Promise((resolve) => setTimeout(resolve, 1000))
+  if (loginId === 'testtest') {
+    loginIdValidationStatus.value = 'error'
+    return [false, 'エラーです']
+  }
+
   loginIdValidationStatus.value = 'ok'
   return true
 }
@@ -158,14 +172,14 @@ async function validateLoginId(loginId: string) {
       </A2FormRow>
       <div class="flex col-span-12 justify-center gap-2 my-4">
         <form.Subscribe>
-          <template #default="{ canSubmit }">
+          <template #default="{ canSubmit, isSubmitting }">
             <A2Button
-              color="primary"
+              :color="isSubmitting ? 'primaryLoading' : 'primary'"
               title="登録"
               icon="mdi:content-save"
               size="m"
               :disabled="!canSubmit"
-              @click="handleSaveClick"
+              @click="form.handleSubmit"
             />
           </template>
         </form.Subscribe>

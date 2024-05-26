@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import A2Toast from '~/components/A2Toast.vue'
 import A2TextField from '~/components/form/A2TextField.vue'
 import SideMenu from '~/layouts/parts/default/SideMenu.vue'
 import { useDefaultLayoutStore } from '~/layouts/parts/default/use-default-layout'
@@ -6,6 +7,7 @@ import { useDefaultLayoutStore } from '~/layouts/parts/default/use-default-layou
 const defaultLayoutStore = useDefaultLayoutStore()
 const { toggleMenu } = defaultLayoutStore
 const { pageTitle } = storeToRefs(defaultLayoutStore)
+const { toasts, handleDestroyToast } = useToast()
 
 function handleToggleMenuClick() {
   toggleMenu()
@@ -14,7 +16,7 @@ function handleToggleMenuClick() {
 
 <template>
   <!-- TODO: 背景色の変数化 -->
-  <div class="flex flex-col w-full h-full items-start bg-outlined-disabled">
+  <div class="relative flex flex-col w-full h-full items-start bg-outlined-disabled">
     <div
       class="flex w-full px-header-space-x py-header-space-y gap-header-gap items-center bg-header-background backdrop-blur-md"
     >
@@ -31,5 +33,7 @@ function handleToggleMenuClick() {
         </div>
       </main>
     </div>
+    <div id="toast" />
+    <A2Toast message="aaaaa" />
   </div>
 </template>

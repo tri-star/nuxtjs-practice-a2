@@ -18,20 +18,28 @@ export function useAnchorPosition() {
       right: targetRect.right,
       bottom: targetRect.bottom,
     }
+    const targetWidth = targetRect.width
+    const targetHeight = targetRect.height
     const margin = 8
 
     if (targetRect.left < boundingRect.left) {
-      resultRect.left = boundingRect.left + margin
+      resultRect.left = margin
+      resultRect.right = targetWidth + margin
     }
     if (targetRect.top < boundingRect.top) {
-      resultRect.top = boundingRect.top + margin
+      resultRect.top = margin
+      resultRect.bottom = targetHeight + margin
     }
-    if (targetRect.right < boundingRect.right) {
+    if (targetRect.right > boundingRect.right) {
       resultRect.right = boundingRect.right - margin
+      resultRect.left = boundingRect.right - targetWidth - margin
     }
-    if (targetRect.bottom < boundingRect.bottom) {
+    if (targetRect.bottom > boundingRect.bottom) {
       resultRect.bottom = boundingRect.bottom - margin
+      resultRect.top = resultRect.bottom - targetHeight - margin
     }
+
+    return resultRect
   }
 
   return {

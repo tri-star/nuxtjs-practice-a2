@@ -7,6 +7,8 @@ const { expanded, menuItems, activeMenu } = storeToRefs(defaultLayoutStore)
 
 const menuListClass = computed(() => {
   return [
+    'sticky',
+    'top-0',
     'flex', //
     'flex-col',
     'items-start',

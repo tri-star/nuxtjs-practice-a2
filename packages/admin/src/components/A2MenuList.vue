@@ -2,6 +2,8 @@
 import A2MenuItem from '~/components/A2MenuItem.vue'
 import type { A2MenuItem as MenuItemType } from '~/components/a2-menu-item'
 
+const { adjustPositionToBounds } = useAnchorPosition()
+
 const menuListRef = ref<HTMLElement | null>(null)
 const isOpen = defineModel<boolean>('open')
 
@@ -17,6 +19,13 @@ watch(isOpen, () => {
   if (isOpen.value) {
     setTimeout(() => {
       document.addEventListener('click', handleClickOutside)
+
+      if (menuListRef.value) {
+        const adjustedRect = adjustPositionToBounds(menuListRef as Ref<HTMLElement>)
+        console.log(adjustedRect)
+        menuListRef.value.style.left = `${adjustedRect.left}px`
+        menuListRef.value.style.top = `${adjustedRect.top}px`
+      }
     })
   } else {
     document.removeEventListener('click', handleClickOutside)
@@ -39,11 +48,11 @@ function handleClickItem(itemId: string) {
 </script>
 
 <template>
-  <ul
-    v-show="isOpen"
-    ref="menuListRef"
-    class="flex flex-col items-start p-2 rounded border-menu-border shadow-md bg-menu-default backdrop-blur-md min-w-full"
-  >
-    <A2MenuItem v-for="item in items" :key="item.id" :item="item" @click="handleClickItem" />
-  </ul>
+  <div v-show="isOpen" ref="menuListRef" class="fixed">
+    <ul
+      class="flex flex-col items-start p-2 rounded border-menu-border shadow-md bg-menu-default backdrop-blur-md min-w-full"
+    >
+      <A2MenuItem v-for="item in items" :key="item.id" :item="item" @click="handleClickItem" />
+    </ul>
+  </div>
 </template>

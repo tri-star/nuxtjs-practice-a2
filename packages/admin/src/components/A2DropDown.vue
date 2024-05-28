@@ -66,7 +66,7 @@ function handleItemSelected(selectedId: string) {
       <Icon name="mdi:menu-down" :class="menuIndicatorClass" size="26px" />
     </div>
     <div class="relative">
-      <A2MenuList v-model:open="expanded" class="absolute" :items="safeMenuItems" @item-selected="handleItemSelected" />
+      <A2MenuList v-model:open="expanded" :items="safeMenuItems" @item-selected="handleItemSelected" />
     </div>
   </div>
 </template>

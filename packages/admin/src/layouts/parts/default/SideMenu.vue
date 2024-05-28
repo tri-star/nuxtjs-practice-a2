@@ -3,6 +3,7 @@ import SideMenuItem from '~/layouts/parts/default/SideMenuItem.vue'
 import { useDefaultLayoutStore, type DefaultLayoutMenuId } from '~/layouts/parts/default/use-default-layout'
 
 const defaultLayoutStore = useDefaultLayoutStore()
+const { toggleMenu } = defaultLayoutStore
 const { expanded, menuItems, activeMenu } = storeToRefs(defaultLayoutStore)
 
 const menuListClass = computed(() => {
@@ -26,10 +27,17 @@ const menuListClass = computed(() => {
 function isActive(menuId: DefaultLayoutMenuId) {
   return menuId === activeMenu.value
 }
+
+function handleToggleMenuClick() {
+  toggleMenu()
+}
 </script>
 
 <template>
   <aside :class="menuListClass" class="transition">
+    <div class="px-side-menu-space-x">
+      <Icon name="mdi:menu" size="40px" class="cursor-pointer" @click="handleToggleMenuClick" />
+    </div>
     <SideMenuItem v-for="menu in menuItems" :key="menu.title" :item="menu" :active="isActive(menu.name)" />
   </aside>
 </template>

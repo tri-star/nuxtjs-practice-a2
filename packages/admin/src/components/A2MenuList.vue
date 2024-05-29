@@ -21,6 +21,9 @@ watch(isOpen, () => {
       document.addEventListener('click', handleClickOutside)
 
       if (menuListRef.value) {
+        // サイドメニューが折りたたまれた時に初期位置がずれるのを防止するため、left, top等を初期値にする
+        menuListRef.value.style.left = ''
+        menuListRef.value.style.top = ''
         const adjustedRect = adjustPositionToBounds(menuListRef as Ref<HTMLElement>)
         menuListRef.value.style.left = `${adjustedRect.left}px`
         menuListRef.value.style.top = `${adjustedRect.top}px`

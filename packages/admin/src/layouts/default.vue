@@ -24,11 +24,11 @@ const { toasts } = storeToRefs(toastStore)
         <div class="flex-1" />
         <AccountMenuIcon />
       </header>
-      <div class="flex items-start flex-1 w-full h-full">
-        <main class="flex p-2 flex-col items-start gap-5 flex-1 w-full h-full">
+      <div class="flex items-start flex-1">
+        <main class="flex p-2 flex-col items-start gap-5 w-full h-full">
           <h1 v-if="pageTitle" class="text-4xl font-bold mt-3">{{ pageTitle }}</h1>
 
-          <div class="flex flex-col flex-1 items-start p-2 gap-2 w-full object-contain bg-default">
+          <div class="flex flex-col flex-1 w-full items-start p-2 gap-2 bg-default">
             <slot />
             <div>
               <A2Toast

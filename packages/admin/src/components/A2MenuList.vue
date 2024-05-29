@@ -22,7 +22,6 @@ watch(isOpen, () => {
 
       if (menuListRef.value) {
         const adjustedRect = adjustPositionToBounds(menuListRef as Ref<HTMLElement>)
-        console.log(adjustedRect)
         menuListRef.value.style.left = `${adjustedRect.left}px`
         menuListRef.value.style.top = `${adjustedRect.top}px`
       }
@@ -49,9 +48,7 @@ function handleClickItem(itemId: string) {
 
 <template>
   <div v-show="isOpen" ref="menuListRef" class="fixed">
-    <ul
-      class="flex flex-col items-start p-2 rounded border-menu-border shadow-md bg-menu-default backdrop-blur-md min-w-full"
-    >
+    <ul class="flex flex-col items-start p-2 rounded border-menu-border shadow-md bg-menu-default backdrop-blur-md">
       <A2MenuItem v-for="item in items" :key="item.id" :item="item" @click="handleClickItem" />
     </ul>
   </div>

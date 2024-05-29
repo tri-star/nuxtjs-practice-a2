@@ -13,7 +13,7 @@ const { toasts } = storeToRefs(toastStore)
 
 <template>
   <!-- TODO: 背景色の変数化 -->
-  <div class="relative flex w-full h-full items-start bg-outlined-disabled overflow-hidden">
+  <div class="flex w-full h-full items-start bg-outlined-disabled overflow-hidden">
     <SideMenu />
     <div class="flex flex-col w-full h-full overflow-y-auto">
       <!-- TODO: z-indexをセマンティックに定義 -->

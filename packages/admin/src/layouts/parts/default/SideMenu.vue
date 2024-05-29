@@ -34,7 +34,7 @@ function handleToggleMenuClick() {
 </script>
 
 <template>
-  <aside :class="menuListClass" class="transition">
+  <aside :class="menuListClass" class="transition" data-sticky-left>
     <div class="px-side-menu-space-x">
       <Icon name="mdi:menu" size="40px" class="cursor-pointer" @click="handleToggleMenuClick" />
     </div>

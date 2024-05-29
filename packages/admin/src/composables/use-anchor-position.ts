@@ -1,11 +1,6 @@
 export function useAnchorPosition() {
   function adjustPositionToBounds(targetElement: Ref<HTMLElement>) {
-    const boundingRect = {
-      left: 0,
-      top: 0,
-      right: window.innerWidth,
-      bottom: window.innerHeight,
-    }
+    const boundingRect = getWIndowBoundingRect()
 
     const targetRect = targetElement.value?.getBoundingClientRect()
     if (targetElement === undefined) {
@@ -40,6 +35,29 @@ export function useAnchorPosition() {
     }
 
     return resultRect
+  }
+
+  function getWIndowBoundingRect() {
+    const topSideStickies = document.querySelectorAll('[data-sticky-top]')
+    const topMargin = Array.from(topSideStickies.values()).reduce<number>((sum, element) => {
+      sum += element.getBoundingClientRect().height
+      return sum
+    }, 0)
+
+    const leftSideStickies = document.querySelectorAll('[data-sticky-left]')
+    const leftMargin = Array.from(leftSideStickies.values()).reduce<number>((sum, element) => {
+      sum += element.getBoundingClientRect().width
+      return sum
+    }, 0)
+
+    return {
+      left: leftMargin,
+      top: topMargin,
+      right: window.innerWidth - leftMargin,
+      bottom: window.innerHeight - topMargin,
+      width: window.innerWidth - leftMargin,
+      height: window.innerHeight - topMargin,
+    }
   }
 
   return {

@@ -1,0 +1,26 @@
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: 'weekly'
+    # ignore:
+    #   - dependency-name: actions/upload-artifact
+    #     versions:
+    #     - 4.3.0
+  - package-ecosystem: 'npm'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+    groups:
+      patchDependencies:
+        dependency-type: 'production'
+        update-types: ['patch']
+      minorDependencies:
+        dependency-type: 'production'
+        update-types: ['minor']
+      majorDependencies:
+        dependency-type: 'production'
+        update-types: ['major']
+      devDependencies:
+        dependency-type: 'development'

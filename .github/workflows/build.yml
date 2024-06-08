@@ -1,0 +1,30 @@
+name: Build Admin App
+on:
+  pull_request:
+    paths:
+      - ./package-lock.json
+      - ./packages/admin/**/*
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    # pipe-failなどを有効にするために指定
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build Admin App
+        run: |
+          cd packages/admin
+          pnpm run build
+      - name: Generate
+        run: |
+          cd packages/admin
+          pnpm run generate

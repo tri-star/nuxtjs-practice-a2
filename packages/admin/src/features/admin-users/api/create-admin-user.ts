@@ -8,7 +8,7 @@ export const createUserResponseSchema = z.object({
 type CreateUserResponse = z.infer<typeof createUserResponseSchema>
 
 export function createAdminUser(requestData: CreateAdminUserValidation) {
-  return requestJson<CreateUserResponse>('/admin/users', {
+  return requestJson<CreateUserResponse>('/admin/admin-users', {
     method: 'POST',
     body: requestData,
   })

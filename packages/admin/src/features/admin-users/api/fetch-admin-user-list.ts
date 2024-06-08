@@ -3,7 +3,7 @@ import { requestJson } from '~/lib/api/ofetch'
 
 export function fetchAdminUserList() {
   const { data, error, pending } = useAsyncData('AdminUserList', async () => {
-    return requestJson<AdminUserListResponse>('/admin/users')
+    return requestJson<AdminUserListResponse>('/admin/admin-users')
   })
 
   return {

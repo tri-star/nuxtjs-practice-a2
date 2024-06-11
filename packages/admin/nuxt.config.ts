@@ -1,6 +1,9 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   srcDir: 'src',
+  nitro: {
+    preset: 'aws-lambda',
+  },
   devtools: {
     enabled: true,
 
@@ -25,9 +28,9 @@ export default defineNuxtConfig({
     dirs: [],
   },
   runtimeConfig: {
-    API_HOST: '',
+    apiHost: '',
     public: {
-      API_HOST: '',
+      apiHost: process.env.NUXT_PUBLIC_API_HOST,
     },
   },
   routeRules: {

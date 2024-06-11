@@ -5,7 +5,7 @@ import { requestJsonAsResult } from '~/lib/api/ofetch'
 import type { ApplicationError } from '~/lib/error/app-error'
 
 export const SERVER_API_ROUTES = {
-  LOGIN: '/api/auth/login',
+  LOGIN: 'admin/auth/login',
 }
 
 const loginResponseSchema = z.object({

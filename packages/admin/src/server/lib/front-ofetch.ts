@@ -1,10 +1,10 @@
 import { ofetch } from 'ofetch'
 
-export function createClientForServer() {
+export function createClientForFront() {
   const config = useRuntimeConfig()
 
   return ofetch.create({
-    baseURL: config.apiHost ?? '',
+    baseURL: config.public.apiHost ?? '',
     headers: {
       'Content-Type': 'application/json',
     },

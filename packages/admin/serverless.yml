@@ -33,6 +33,8 @@ resources:
         Tags:
           - Key: infra
             Value: a2-frontend
+          - Key: stage
+            Value: ${sls:stage}
         CorsConfiguration:
           CorsRules:
             - AllowedOrigins:
@@ -60,7 +62,7 @@ resources:
       Type: AWS::CloudFront::ResponseHeadersPolicy
       Properties:
         ResponseHeadersPolicyConfig:
-          Name: SimpleCORSResponseHeadersPolicy
+          Name: 'SimpleCORSResponseHeaders${sls:stage}Policy'
           Comment: 'A simple CORS policy'
           CorsConfig:
             AccessControlAllowCredentials: false

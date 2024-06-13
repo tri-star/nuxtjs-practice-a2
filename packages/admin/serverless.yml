@@ -57,7 +57,7 @@ resources:
       Type: AWS::CloudFront::CloudFrontOriginAccessIdentity
       Properties:
         CloudFrontOriginAccessIdentityConfig:
-          Comment: Access Identity for S3 bucket
+          Comment: '(${sls:stage})Access Identity for S3 bucket'
     SimpleCORSResponseHeadersPolicy:
       Type: AWS::CloudFront::ResponseHeadersPolicy
       Properties:

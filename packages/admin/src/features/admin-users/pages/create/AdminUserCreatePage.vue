@@ -12,6 +12,7 @@ import {
 } from '~/features/admin-users/domain/admin-user'
 import { z } from 'zod'
 import { createAdminUser } from '~/features/admin-users/api/create-admin-user'
+import { validateAdminUserLoginId } from '~/features/auth/clients/validate-admin-user-login-id'
 
 const router = useRouter()
 const { createToast } = useToastStore()
@@ -47,13 +48,12 @@ function handleCancelClick() {
 
 async function validateLoginId(loginId: string) {
   loginIdValidationStatus.value = 'pending'
-  await new Promise((resolve) => setTimeout(resolve, 1000))
-  if (loginId === 'testtest') {
-    loginIdValidationStatus.value = 'error'
+  const result = await validateAdminUserLoginId(loginId)
+  if (result.isErr()) {
     return [false, 'エラーです']
   }
 
-  loginIdValidationStatus.value = 'ok'
+  loginIdValidationStatus.value = result.value ? 'ok' : 'error'
   return true
 }
 </script>
@@ -135,6 +135,7 @@ async function validateLoginId(loginId: string) {
               class="animate-spin text-on-success-default"
             />
             <Icon v-if="loginIdValidationStatus === 'ok'" name="mdi:check" size="40" class="text-on-success-hover" />
+            <Icon v-if="loginIdValidationStatus === 'error'" name="mdi:close" size="40" class="text-on-error-hover" />
           </div>
         </template>
       </A2FormRow>

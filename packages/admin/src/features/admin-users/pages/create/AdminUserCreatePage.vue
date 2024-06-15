@@ -50,10 +50,15 @@ async function validateLoginId(loginId: string) {
   loginIdValidationStatus.value = 'pending'
   const result = await validateAdminUserLoginId(loginId)
   if (result.isErr()) {
-    return [false, 'エラーです']
+    return false
   }
 
-  loginIdValidationStatus.value = result.value ? 'ok' : 'error'
+  if (!result.value) {
+    loginIdValidationStatus.value = 'error'
+    return false
+  }
+
+  loginIdValidationStatus.value = 'ok'
   return true
 }
 </script>
@@ -102,10 +107,9 @@ async function validateLoginId(loginId: string) {
           <A2FormField class="col-span-8">
             <form.Field
               name="loginId"
-              :async-debounce-ms="500"
               :validators="{
                 onChange: createAdminUserValidationSchema.shape.loginId,
-                onChangeAsync: z.string().refine(validateLoginId),
+                onChangeAsync: z.string().refine(validateLoginId, 'このログインIDは利用できません'),
               }"
             >
               <template #default="{ field }">

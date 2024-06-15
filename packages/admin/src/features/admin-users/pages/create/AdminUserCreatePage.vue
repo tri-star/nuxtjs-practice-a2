@@ -12,6 +12,7 @@ import {
 } from '~/features/admin-users/domain/admin-user'
 import { z } from 'zod'
 import { createAdminUser } from '~/features/admin-users/api/create-admin-user'
+import { validateAdminUserLoginId } from '~/features/auth/clients/validate-admin-user-login-id'
 
 const router = useRouter()
 const { createToast } = useToastStore()
@@ -47,10 +48,14 @@ function handleCancelClick() {
 
 async function validateLoginId(loginId: string) {
   loginIdValidationStatus.value = 'pending'
-  await new Promise((resolve) => setTimeout(resolve, 1000))
-  if (loginId === 'testtest') {
+  const result = await validateAdminUserLoginId(loginId)
+  if (result.isErr()) {
+    return false
+  }
+
+  if (!result.value) {
     loginIdValidationStatus.value = 'error'
-    return [false, 'エラーです']
+    return false
   }
 
   loginIdValidationStatus.value = 'ok'
@@ -102,10 +107,9 @@ async function validateLoginId(loginId: string) {
           <A2FormField class="col-span-8">
             <form.Field
               name="loginId"
-              :async-debounce-ms="500"
               :validators="{
                 onChange: createAdminUserValidationSchema.shape.loginId,
-                onChangeAsync: z.string().refine(validateLoginId),
+                onBlurAsync: z.string().refine(validateLoginId, 'このログインIDは利用できません'),
               }"
             >
               <template #default="{ field }">
@@ -116,6 +120,7 @@ async function validateLoginId(loginId: string) {
                     :state="field.state.meta.errors.length ? 'error' : 'default'"
                     :value="field.state.value"
                     @input="(e: Event) => field.handleChange((e.target as HTMLInputElement).value)"
+                    @blur="() => field.handleBlur()"
                   />
                   <ul v-if="field.state.meta.errors.length">
                     <li v-for="error in field.state.meta.errors" :key="error?.toString()" class="text-on-error-default">
@@ -135,6 +140,7 @@ async function validateLoginId(loginId: string) {
               class="animate-spin text-on-success-default"
             />
             <Icon v-if="loginIdValidationStatus === 'ok'" name="mdi:check" size="40" class="text-on-success-hover" />
+            <Icon v-if="loginIdValidationStatus === 'error'" name="mdi:close" size="40" class="text-on-error-hover" />
           </div>
         </template>
       </A2FormRow>

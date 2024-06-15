@@ -109,7 +109,8 @@ async function validateLoginId(loginId: string) {
               name="loginId"
               :validators="{
                 onChange: createAdminUserValidationSchema.shape.loginId,
-                onBlurAsync: z.string().refine(validateLoginId, 'このログインIDは利用できません'),
+                onChangeAsyncDebounceMs: 500,
+                onChangeAsync: z.string().refine(validateLoginId, 'このログインIDは利用できません'),
               }"
             >
               <template #default="{ field }">

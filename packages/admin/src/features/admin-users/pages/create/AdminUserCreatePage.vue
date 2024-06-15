@@ -109,7 +109,7 @@ async function validateLoginId(loginId: string) {
               name="loginId"
               :validators="{
                 onChange: createAdminUserValidationSchema.shape.loginId,
-                onChangeAsync: z.string().refine(validateLoginId, 'このログインIDは利用できません'),
+                onBlurAsync: z.string().refine(validateLoginId, 'このログインIDは利用できません'),
               }"
             >
               <template #default="{ field }">
@@ -120,6 +120,7 @@ async function validateLoginId(loginId: string) {
                     :state="field.state.meta.errors.length ? 'error' : 'default'"
                     :value="field.state.value"
                     @input="(e: Event) => field.handleChange((e.target as HTMLInputElement).value)"
+                    @blur="() => field.handleBlur()"
                   />
                   <ul v-if="field.state.meta.errors.length">
                     <li v-for="error in field.state.meta.errors" :key="error?.toString()" class="text-on-error-default">

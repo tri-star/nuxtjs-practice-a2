@@ -140,6 +140,7 @@ async function validateLoginId(loginId: string) {
               size="40"
               class="animate-spin text-on-success-default"
             />
+            <!-- TODO: OK,NGなどの赤や緑の色 -->
             <Icon v-if="loginIdValidationStatus === 'ok'" name="mdi:check" size="40" class="text-on-success-hover" />
             <Icon v-if="loginIdValidationStatus === 'error'" name="mdi:close" size="40" class="text-on-error-hover" />
           </div>

@@ -1,0 +1,650 @@
+{
+  "openapi": "3.0.0",
+  "servers": [{ "url": "/dev", "description": "Local server" }],
+  "info": { "version": "1.0.0", "title": "Dummy Backend Admin API" },
+  "components": {
+    "securitySchemes": { "AdminBearer": { "type": "http", "scheme": "bearer" } },
+    "schemas": {},
+    "parameters": {}
+  },
+  "paths": {
+    "/admin/auth/login": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": { "loginId": { "type": "string" }, "password": { "type": "string" } },
+                "required": ["loginId", "password"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "type": "object", "properties": { "token": { "type": "string" } }, "required": ["token"] }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/auth/validate-login-id": {
+      "get": {
+        "parameters": [{ "schema": { "type": "string" }, "required": true, "name": "loginId", "in": "query" }],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "type": "object", "properties": { "valid": { "type": "boolean" } }, "required": ["valid"] }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/admin-users": {
+      "post": {
+        "tags": ["admin-users"],
+        "security": [{ "AdminBearer": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "loginId": { "type": "string" },
+                  "password": { "type": "string", "minLength": 8, "maxLength": 100 }
+                },
+                "required": ["name", "loginId", "password"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": { "type": "string" },
+                    "name": { "type": "string" },
+                    "loginId": { "type": "string" },
+                    "createdAt": { "type": "string" },
+                    "updatedAt": { "type": "string" }
+                  },
+                  "required": ["id", "name", "loginId"]
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["admin-users"],
+        "security": [{ "AdminBearer": [] }],
+        "parameters": [
+          { "schema": { "type": "string" }, "required": false, "name": "loginId", "in": "query" },
+          { "schema": { "type": "number" }, "required": false, "name": "page", "in": "query" },
+          { "schema": { "type": "number" }, "required": false, "name": "offset", "in": "query" }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean" },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": { "type": "string" },
+                          "name": { "type": "string" },
+                          "loginId": { "type": "string" },
+                          "createdAt": { "type": "string" },
+                          "updatedAt": { "type": "string" }
+                        },
+                        "required": ["id", "name", "loginId"]
+                      }
+                    },
+                    "count": { "type": "number" }
+                  },
+                  "required": ["success", "data", "count"]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/admin-users/{id}": {
+      "get": {
+        "tags": ["admin-users"],
+        "security": [{ "AdminBearer": [] }],
+        "parameters": [{ "name": "id", "in": "path", "required": true, "description": "ULID" }],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": { "type": "string" },
+                    "name": { "type": "string" },
+                    "loginId": { "type": "string" },
+                    "createdAt": { "type": "string" },
+                    "updatedAt": { "type": "string" }
+                  },
+                  "required": ["id", "name", "loginId"]
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["admin-users"],
+        "security": [{ "AdminBearer": [] }],
+        "parameters": [{ "name": "id", "in": "path", "required": true }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": { "name": { "type": "string" }, "loginId": { "type": "string" } },
+                "required": ["name", "loginId"]
+              }
+            }
+          }
+        },
+        "responses": { "204": { "description": "" } }
+      },
+      "delete": {
+        "tags": ["admin-users"],
+        "security": [{ "AdminBearer": [] }],
+        "parameters": [{ "name": "id", "in": "path", "required": true }],
+        "responses": { "204": { "description": "" } }
+      }
+    },
+    "/admin/companies": {
+      "post": {
+        "tags": ["companies"],
+        "security": [{ "AdminBearer": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "postalCode": { "type": "string" },
+                  "prefecture": { "type": "string" },
+                  "address1": { "type": "string" },
+                  "address2": { "type": "string" },
+                  "address3": { "type": "string" },
+                  "phone": { "type": "string" },
+                  "canUseFeatureA": { "type": "boolean", "default": false },
+                  "canUseFeatureB": { "type": "boolean", "default": false },
+                  "canUseFeatureC": { "type": "boolean", "default": false }
+                },
+                "required": ["name", "postalCode", "prefecture", "address1", "address2", "phone"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": { "type": "string" },
+                    "postalCode": { "type": "string" },
+                    "prefecture": { "type": "string" },
+                    "address1": { "type": "string" },
+                    "address2": { "type": "string" },
+                    "address3": { "type": "string" },
+                    "phone": { "type": "string" },
+                    "canUseFeatureA": { "type": "boolean", "default": false },
+                    "canUseFeatureB": { "type": "boolean", "default": false },
+                    "canUseFeatureC": { "type": "boolean", "default": false },
+                    "createdAt": { "type": "string" },
+                    "updatedAt": { "type": "string" }
+                  },
+                  "required": ["name", "postalCode", "prefecture", "address1", "address2", "phone"]
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["companies"],
+        "security": [{ "AdminBearer": [] }],
+        "parameters": [
+          { "schema": { "type": "string" }, "required": false, "name": "name", "in": "query" },
+          { "schema": { "type": "number" }, "required": false, "name": "page", "in": "query" },
+          { "schema": { "type": "number" }, "required": false, "name": "offset", "in": "query" }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean" },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": { "type": "string" },
+                          "name": { "type": "string" },
+                          "postalCode": { "type": "string" },
+                          "prefecture": { "type": "string" },
+                          "address1": { "type": "string" },
+                          "address2": { "type": "string" },
+                          "address3": { "type": "string" },
+                          "phone": { "type": "string" },
+                          "canUseFeatureA": { "type": "boolean", "default": false },
+                          "canUseFeatureB": { "type": "boolean", "default": false },
+                          "canUseFeatureC": { "type": "boolean", "default": false },
+                          "createdAt": { "type": "string" },
+                          "updatedAt": { "type": "string" }
+                        },
+                        "required": ["id", "name", "postalCode", "prefecture", "address1", "address2", "phone"]
+                      }
+                    },
+                    "count": { "type": "number" }
+                  },
+                  "required": ["success", "data", "count"]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/companies/{id}": {
+      "get": {
+        "tags": ["companies"],
+        "security": [{ "AdminBearer": [] }],
+        "parameters": [{ "name": "id", "in": "path", "required": true, "description": "ULID" }],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": { "type": "string" },
+                    "name": { "type": "string" },
+                    "postalCode": { "type": "string" },
+                    "prefecture": { "type": "string" },
+                    "address1": { "type": "string" },
+                    "address2": { "type": "string" },
+                    "address3": { "type": "string" },
+                    "phone": { "type": "string" },
+                    "canUseFeatureA": { "type": "boolean", "default": false },
+                    "canUseFeatureB": { "type": "boolean", "default": false },
+                    "canUseFeatureC": { "type": "boolean", "default": false },
+                    "createdAt": { "type": "string" },
+                    "updatedAt": { "type": "string" }
+                  },
+                  "required": ["id", "name", "postalCode", "prefecture", "address1", "address2", "phone"]
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["companies"],
+        "security": [{ "AdminBearer": [] }],
+        "parameters": [{ "name": "id", "in": "path", "required": true }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "postalCode": { "type": "string" },
+                  "prefecture": { "type": "string" },
+                  "address1": { "type": "string" },
+                  "address2": { "type": "string" },
+                  "address3": { "type": "string" },
+                  "phone": { "type": "string" },
+                  "canUseFeatureA": { "type": "boolean", "default": false },
+                  "canUseFeatureB": { "type": "boolean", "default": false },
+                  "canUseFeatureC": { "type": "boolean", "default": false }
+                },
+                "required": ["name", "postalCode", "prefecture", "address1", "address2", "phone"]
+              }
+            }
+          }
+        },
+        "responses": { "204": { "description": "" } }
+      },
+      "delete": {
+        "tags": ["companies"],
+        "security": [{ "AdminBearer": [] }],
+        "parameters": [{ "name": "id", "in": "path", "required": true }],
+        "responses": { "204": { "description": "" } }
+      }
+    },
+    "/admin/users": {
+      "post": {
+        "tags": ["users"],
+        "security": [{ "AdminBearer": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "loginId": { "type": "string" },
+                  "email": { "type": "string", "format": "email" },
+                  "password": { "type": "string", "minLength": 8, "maxLength": 100 }
+                },
+                "required": ["name", "loginId", "email", "password"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": { "type": "string" },
+                    "name": { "type": "string" },
+                    "loginId": { "type": "string" },
+                    "email": { "type": "string", "format": "email" },
+                    "createdAt": { "type": "string" },
+                    "updatedAt": { "type": "string" }
+                  },
+                  "required": ["id", "name", "loginId", "email"]
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["users"],
+        "security": [{ "AdminBearer": [] }],
+        "parameters": [
+          { "schema": { "type": "string" }, "required": false, "name": "loginId", "in": "query" },
+          { "schema": { "type": "number" }, "required": false, "name": "page", "in": "query" },
+          { "schema": { "type": "number" }, "required": false, "name": "offset", "in": "query" }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": { "type": "string" },
+                          "name": { "type": "string" },
+                          "loginId": { "type": "string" },
+                          "email": { "type": "string", "format": "email" },
+                          "createdAt": { "type": "string" },
+                          "updatedAt": { "type": "string" }
+                        },
+                        "required": ["id", "name", "loginId", "email"]
+                      }
+                    },
+                    "count": { "type": "number" }
+                  },
+                  "required": ["data", "count"]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/users/{id}": {
+      "get": {
+        "tags": ["users"],
+        "security": [{ "AdminBearer": [] }],
+        "parameters": [{ "in": "path", "name": "id", "required": true }],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": { "type": "string" },
+                    "name": { "type": "string" },
+                    "loginId": { "type": "string" },
+                    "email": { "type": "string", "format": "email" },
+                    "createdAt": { "type": "string" },
+                    "updatedAt": { "type": "string" }
+                  },
+                  "required": ["id", "name", "loginId", "email"]
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["users"],
+        "security": [{ "AdminBearer": [] }],
+        "parameters": [{ "in": "path", "name": "id", "required": true }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "loginId": { "type": "string" },
+                  "email": { "type": "string", "format": "email" }
+                },
+                "required": ["name", "loginId", "email"]
+              }
+            }
+          }
+        },
+        "responses": { "204": { "description": "" } }
+      },
+      "delete": {
+        "tags": ["users"],
+        "security": [{ "AdminBearer": [] }],
+        "parameters": [{ "in": "path", "name": "id", "required": true }],
+        "responses": { "204": { "description": "" } }
+      }
+    },
+    "/admin/tasks": {
+      "post": {
+        "tags": ["tasks"],
+        "security": [{ "AdminBearer": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "companyId": { "type": "string" },
+                  "title": { "type": "string" },
+                  "description": { "type": "string" },
+                  "status": { "type": "string", "enum": ["BACKLOG", "TODO", "IN_PROGRESS", "HOLD", "DONE"] },
+                  "reasonCode": { "type": "string", "enum": ["POSTPONED", "INVALID", "DUPLICATED", "DONE"] },
+                  "createdUserId": { "type": "string" }
+                },
+                "required": ["companyId", "title", "description", "status", "createdUserId"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "companyId": { "type": "string" },
+                    "title": { "type": "string" },
+                    "description": { "type": "string" },
+                    "status": { "type": "string", "enum": ["BACKLOG", "TODO", "IN_PROGRESS", "HOLD", "DONE"] },
+                    "reasonCode": { "type": "string", "enum": ["POSTPONED", "INVALID", "DUPLICATED", "DONE"] },
+                    "createdUserId": { "type": "string" },
+                    "taskId": { "type": "string" },
+                    "createdAt": { "type": "string" },
+                    "updatedAt": { "type": "string" }
+                  },
+                  "required": ["companyId", "title", "description", "status", "createdUserId", "taskId"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" }
+        }
+      },
+      "get": {
+        "tags": ["tasks"],
+        "security": [{ "AdminBearer": [] }],
+        "parameters": [
+          { "schema": { "type": "string" }, "required": false, "name": "keyword", "in": "query" },
+          { "schema": { "type": "number" }, "required": false, "name": "page", "in": "query" },
+          { "schema": { "type": "number" }, "required": false, "name": "offset", "in": "query" }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of tasks",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean" },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": { "type": "string" },
+                          "companyId": { "type": "string" },
+                          "title": { "type": "string" },
+                          "description": { "type": "string" },
+                          "status": { "type": "string", "enum": ["BACKLOG", "TODO", "IN_PROGRESS", "HOLD", "DONE"] },
+                          "reasonCode": { "type": "string", "enum": ["POSTPONED", "INVALID", "DUPLICATED", "DONE"] },
+                          "createdUserId": { "type": "string" },
+                          "createdAt": { "type": "string" },
+                          "updatedAt": { "type": "string" }
+                        },
+                        "required": ["id", "companyId", "title", "description", "status", "createdUserId"]
+                      }
+                    },
+                    "count": { "type": "number" }
+                  },
+                  "required": ["success", "data", "count"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" }
+        }
+      }
+    },
+    "/admin/tasks/{id}": {
+      "get": {
+        "tags": ["tasks"],
+        "security": [{ "AdminBearer": [] }],
+        "parameters": [{ "name": "id", "in": "path", "required": true, "description": "ULID" }],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": { "type": "string" },
+                    "companyId": { "type": "string" },
+                    "title": { "type": "string" },
+                    "description": { "type": "string" },
+                    "status": { "type": "string", "enum": ["BACKLOG", "TODO", "IN_PROGRESS", "HOLD", "DONE"] },
+                    "reasonCode": { "type": "string", "enum": ["POSTPONED", "INVALID", "DUPLICATED", "DONE"] },
+                    "createdUserId": { "type": "string" },
+                    "createdAt": { "type": "string" },
+                    "updatedAt": { "type": "string" }
+                  },
+                  "required": ["id", "companyId", "title", "description", "status", "createdUserId"]
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["tasks"],
+        "security": [{ "AdminBearer": [] }],
+        "parameters": [{ "name": "id", "in": "path", "required": true }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": { "type": "string" },
+                  "description": { "type": "string" },
+                  "status": { "type": "string", "enum": ["BACKLOG", "TODO", "IN_PROGRESS", "HOLD", "DONE"] },
+                  "reasonCode": { "type": "string", "enum": ["POSTPONED", "INVALID", "DUPLICATED", "DONE"] }
+                },
+                "required": ["title", "description", "status"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": { "description": "" },
+          "400": { "description": "Invalid request parameters" },
+          "500": { "description": "Internal server error" }
+        }
+      },
+      "delete": {
+        "tags": ["tasks"],
+        "security": [{ "AdminBearer": [] }],
+        "parameters": [{ "name": "id", "in": "path", "required": true }],
+        "responses": { "204": { "description": "" } }
+      }
+    }
+  }
+}

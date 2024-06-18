@@ -12,7 +12,7 @@ import {
 } from '~/features/admin-users/domain/admin-user'
 import { z } from 'zod'
 import { createAdminUser } from '~/features/admin-users/api/create-admin-user'
-import { validateAdminUserLoginId } from '~/features/auth/clients/validate-admin-user-login-id'
+import { validateAdminUserLoginId } from '~/features/auth/api/validate-admin-user-login-id'
 
 const router = useRouter()
 const { createToast } = useToastStore()

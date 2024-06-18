@@ -5,15 +5,10 @@ import A2CheckBox from '~/components/form/A2CheckBox.vue'
 import A2DropDownButton from '~/components/A2DropDownButton.vue'
 import A2TextField from '~/components/form/A2TextField.vue'
 import { fetchAdminUserList } from '~/features/admin-users/api/fetch-admin-user-list'
-import {
-  adminUserListResponseSchema,
-  transformToAdminUserListEntry,
-} from '~/features/admin-users/domain/admin-user-list-entry'
-import { toAppError } from '~/lib/error/app-error'
 import A2DropDown from '~/components/A2DropDown.vue'
 
 const router = useRouter()
-const { rawAdminUserList, rawAdminUserListError, isAdminUserListPending } = fetchAdminUserList()
+const { adminUserList, adminUserListError, isAdminUserListPending } = fetchAdminUserList()
 
 const selectedBulkActionId = ref<string | undefined>(undefined)
 
@@ -29,27 +24,8 @@ const bulkActionItems: A2MenuItem[] = [
   { id: 'enable', label: '有効化' },
 ]
 
-const adminUserList = computed(() => {
-  if (rawAdminUserList.value == null) {
-    return []
-  }
-
-  const responseJson = adminUserListResponseSchema.parse(rawAdminUserList.value)
-  return responseJson.data.map((adminUserJson) => {
-    return transformToAdminUserListEntry(adminUserJson)
-  })
-})
-
 const adminUserIdList = computed(() => {
-  return adminUserList.value.map((user) => user.id)
-})
-
-const adminUserListError = computed(() => {
-  if (rawAdminUserListError.value == null) {
-    return null
-  }
-
-  return toAppError(rawAdminUserListError.value)
+  return adminUserList.value?.data.map((user) => user.id) ?? []
 })
 
 const isBulkActionMode = computed(() => idList.value.length > 0)
@@ -106,14 +82,14 @@ function handleCreateAdminUserClick() {
         <td colspan="4" class="p-48 text-center align-middle text-on-input-placeholder text-8xl font-bold">ERROR</td>
       </tr>
     </tbody>
-    <tbody v-else-if="adminUserList.length === 0">
+    <tbody v-else-if="adminUserList?.data.length === 0">
       <tr>
         <td colspan="4" class="p-48 text-center align-middle text-on-input-placeholder text-8xl font-bold">NO DATA</td>
       </tr>
     </tbody>
     <tbody v-else>
       <!-- TODO: テーブルのボーダーの色  -->
-      <tr v-for="user in adminUserList" :key="user.id" class="h-11 border-b border-button-border">
+      <tr v-for="user in adminUserList?.data ?? []" :key="user.id" class="h-11 border-b border-button-border">
         <td class="flex justify-center items-center h-11"><A2CheckBox v-model="idList" :value="user.id" /></td>
         <td class="text-left">{{ user.id }}</td>
         <td class="text-left">{{ user.name }}</td>

@@ -1,4 +1,4 @@
-import { FetchError } from 'ofetch'
+import { AxiosError } from 'axios'
 
 export const UNEXPECTED_ERROR_TYPES = [
   'BAD_REQUEST',
@@ -84,11 +84,11 @@ export function toAppError<T = unknown>(error: unknown) {
   if (error instanceof ApplicationError) {
     return error
   }
-  if (!(error instanceof FetchError)) {
+  if (!(error instanceof AxiosError)) {
     return UnexpectedError.createScriptError('スクリプトエラー', error)
   }
   if (error.response?.status === 400) {
-    const body = error.response?.body as { appError?: unknown } | undefined
+    const body = error.response?.data as { appError?: unknown } | undefined
     if (body?.appError != null) {
       return new ApplicationError<T>({
         type: 'APP_ERROR',

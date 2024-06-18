@@ -16,9 +16,10 @@
     "lint:tsc": "tsc --noEmit",
     "lint:eslint": "eslint .",
     "lint:prettier": "prettier --check .",
-    "openapi:build-client": "openapi-zod-client ./openapi/swagger.json -o ./src/lib/api/client.ts"
+    "openapi:build-client": "openapi-zod-client ./openapi/swagger.json -o ./src/lib/api/client.generated.ts --all-readonly"
   },
   "dependencies": {
+    "@formkit/tempo": "^0.1.1",
     "@nuxtjs/tailwindcss": "^6.12.0",
     "@pinia/nuxt": "^0.5.1",
     "@serverless/typescript": "^3.38.0",

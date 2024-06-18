@@ -4,9 +4,8 @@ export const adminUserSchema = z.object({
   id: z.string(),
   name: z.string(),
   loginId: z.string(),
-  password: z.string(),
-  createdAt: z.date(),
-  updatedAt: z.date(),
+  createdAt: z.date().optional(),
+  updatedAt: z.date().optional(),
 })
 
 export type AdminUser = z.infer<typeof adminUserSchema>

@@ -1,6 +1,6 @@
 import { ok, type Result } from 'neverthrow'
 import { defineStore } from 'pinia'
-import { requestLogin } from '~/features/auth/clients/auth-api-client'
+import { requestLogin } from '~/features/auth/api/login'
 import type { ApplicationError } from '~/lib/error/app-error'
 import { UnexpectedError } from '~/lib/error/app-error'
 

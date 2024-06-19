@@ -206,6 +206,22 @@ const endpoints = makeApi([
     response: z.void(),
   },
   {
+    method: "get",
+    path: "/admin/admin-users/self",
+    alias: "getAdminadminUsersself",
+    requestFormat: "json",
+    response: z
+      .object({
+        id: z.string(),
+        name: z.string(),
+        loginId: z.string(),
+        createdAt: z.string().optional(),
+        updatedAt: z.string().optional(),
+      })
+      .passthrough()
+      .readonly(),
+  },
+  {
     method: "post",
     path: "/admin/auth/login",
     alias: "postAdminauthlogin",

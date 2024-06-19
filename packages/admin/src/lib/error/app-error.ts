@@ -1,4 +1,4 @@
-import { AxiosError } from 'axios'
+import { isAxiosError } from 'axios'
 
 export const UNEXPECTED_ERROR_TYPES = [
   'BAD_REQUEST',
@@ -84,7 +84,7 @@ export function toAppError<T = unknown>(error: unknown) {
   if (error instanceof ApplicationError) {
     return error
   }
-  if (!(error instanceof AxiosError)) {
+  if (!isAxiosError(error)) {
     return UnexpectedError.createScriptError('スクリプトエラー', error)
   }
   if (error.response?.status === 400) {

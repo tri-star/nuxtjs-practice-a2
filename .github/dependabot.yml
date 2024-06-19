@@ -9,7 +9,7 @@ updates:
     #     versions:
     #     - 4.3.0
   - package-ecosystem: 'npm'
-    directory: '/'
+    directory: '/packages/admin'
     schedule:
       interval: 'weekly'
     groups:

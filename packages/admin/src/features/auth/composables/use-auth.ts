@@ -9,7 +9,7 @@ import { UnexpectedError } from '~/lib/error/app-error'
 const AUTH_TOKEN_KEY = 'auth-token'
 
 export const useAuthStore = defineStore('useAuthStore', () => {
-  const token = ref<string | null>(null)
+  const token = useCookie<string | null>(AUTH_TOKEN_KEY)
   const user = ref<AdminUser | null>(null)
 
   async function login(loginId: string, password: string): Promise<Result<string, ApplicationError>> {
@@ -23,7 +23,6 @@ export const useAuthStore = defineStore('useAuthStore', () => {
       throw UnexpectedError.createScriptError('トークンが空です', null)
     }
     token.value = newToken
-    window.localStorage.setItem(AUTH_TOKEN_KEY, newToken)
     user.value = (await fetchAdminSelf()).value
     return ok(newToken)
   }
@@ -33,9 +32,6 @@ export const useAuthStore = defineStore('useAuthStore', () => {
   }
 
   async function isLoggedIn() {
-    if (token.value === null) {
-      token.value = window.localStorage.getItem(AUTH_TOKEN_KEY) ?? null
-    }
     if (user.value === null) {
       await loadSelf()
     }

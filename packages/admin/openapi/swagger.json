@@ -129,6 +129,32 @@
         }
       }
     },
+    "/admin/admin-users/self": {
+      "get": {
+        "tags": ["admin-users"],
+        "security": [{ "AdminBearer": [] }],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": { "type": "string" },
+                    "name": { "type": "string" },
+                    "loginId": { "type": "string" },
+                    "createdAt": { "type": "string" },
+                    "updatedAt": { "type": "string" }
+                  },
+                  "required": ["id", "name", "loginId"]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/admin/admin-users/{id}": {
       "get": {
         "tags": ["admin-users"],

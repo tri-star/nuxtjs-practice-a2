@@ -1,6 +1,6 @@
 import { useAuthStore } from '~/features/auth/composables/use-auth'
 
-export default defineNuxtRouteMiddleware((to) => {
+export default defineNuxtRouteMiddleware(async (to) => {
   if (to.name === 'login') {
     return
   }
@@ -8,7 +8,7 @@ export default defineNuxtRouteMiddleware((to) => {
   if (import.meta.server) return
 
   const authStore = useAuthStore()
-  if (!authStore.isLoggedIn()) {
+  if (!(await authStore.isLoggedIn())) {
     return navigateTo({ name: 'login' })
   }
 })

@@ -13,6 +13,7 @@ import {
 import { z } from 'zod'
 import { createAdminUser } from '~/features/admin-users/api/create-admin-user'
 import { validateAdminUserLoginId } from '~/features/auth/api/validate-admin-user-login-id'
+import { clearFetchAdminUserListCache } from '~/features/admin-users/api/fetch-admin-user-list'
 
 const router = useRouter()
 const { createToast } = useToastStore()
@@ -28,6 +29,7 @@ const form = useForm({
   onSubmit: async (formData) => {
     try {
       await createAdminUser(formData.value)
+      clearFetchAdminUserListCache()
       createToast({
         message: '登録が完了しました',
         type: 'success',

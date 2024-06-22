@@ -6,6 +6,7 @@ import A2DropDownButton from '~/components/A2DropDownButton.vue'
 import A2TextField from '~/components/form/A2TextField.vue'
 import { fetchAdminUserList } from '~/features/admin-users/api/fetch-admin-user-list'
 import A2DropDown from '~/components/A2DropDown.vue'
+import A2Link from '~/components/A2Link.vue'
 
 const router = useRouter()
 const { adminUserList, adminUserListError, isAdminUserListPending } = fetchAdminUserList()
@@ -92,7 +93,9 @@ function handleCreateAdminUserClick() {
       <tr v-for="user in adminUserList?.data ?? []" :key="user.id" class="h-11 border-b border-button-border">
         <td class="flex justify-center items-center h-11"><A2CheckBox v-model="idList" :value="user.id" /></td>
         <td class="text-left">{{ user.id }}</td>
-        <td class="text-left">{{ user.name }}</td>
+        <td class="text-left">
+          <A2Link :to="{ path: `/admin-users/${user.id}` }" :text="user.name"></A2Link>
+        </td>
         <td class="text-left">{{ user.loginId }}</td>
       </tr>
     </tbody>

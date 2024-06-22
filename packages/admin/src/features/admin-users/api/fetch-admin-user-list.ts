@@ -1,7 +1,6 @@
 import { parse } from '@formkit/tempo'
 import type { AdminUserListResponse } from '~/features/admin-users/domain/admin-user-list-entry'
 import { createAppApiClient } from '~/lib/api/client'
-import { requestJson } from '~/lib/api/ofetch'
 import { toAppError } from '~/lib/error/app-error'
 
 export function fetchAdminUserList() {

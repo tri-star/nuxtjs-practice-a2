@@ -29,8 +29,8 @@ export function fetchAdminUser(adminUserId: string) {
   })
 
   return {
-    rawAdminUser: data,
-    rawAdminUserError: error,
+    adminUser: data,
+    adminUserError: error,
     isAdminUserPending: pending,
   }
 }

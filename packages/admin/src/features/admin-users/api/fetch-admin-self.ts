@@ -23,7 +23,7 @@ export async function fetchAdminSelf() {
       if (error.data.type === 'UNAUTHORIZED') {
         return null
       }
-      throw toAppError(e)
+      throw toAppError(e).toJSON()
     }
   })
 

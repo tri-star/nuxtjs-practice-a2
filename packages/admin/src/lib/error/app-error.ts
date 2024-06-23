@@ -46,6 +46,10 @@ export class ApplicationError<T = unknown> {
   constructor(data: ApplicationErrorData<T>) {
     this.data = data
   }
+
+  toJSON() {
+    return JSON.stringify(this.data)
+  }
 }
 
 export class UnexpectedError {
@@ -66,6 +70,10 @@ export class UnexpectedError {
       message,
       originalError: error,
     })
+  }
+
+  toJSON() {
+    return JSON.stringify(this.data)
   }
 }
 

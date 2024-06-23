@@ -27,12 +27,13 @@ export function fetchAdminUserList() {
 
         return userList
       } catch (e) {
-        throw toAppError(e)
+        throw toAppError(e).toJSON()
       }
     },
     {
       // https://zenn.dev/tor_inc/articles/e42716e04564a1
-      getCachedData: (key) => nuxtApp.payload.data[key] || nuxtApp.static.data[key],
+      getCachedData: (key) =>
+        (nuxtApp.payload.data[key] || nuxtApp.static.data[key]) as AdminUserListResponse | undefined,
     },
   )
 

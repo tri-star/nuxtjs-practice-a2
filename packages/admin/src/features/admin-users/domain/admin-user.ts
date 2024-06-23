@@ -16,3 +16,9 @@ export const createAdminUserValidationSchema = z.object({
   password: z.string().min(8),
 })
 export type CreateAdminUserValidation = z.infer<typeof createAdminUserValidationSchema>
+
+export const editAdminUserValidationSchema = z.object({
+  name: z.string().min(1),
+  loginId: z.string().min(4),
+})
+export type EditAdminUserValidation = z.infer<typeof editAdminUserValidationSchema>

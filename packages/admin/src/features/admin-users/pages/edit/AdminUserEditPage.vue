@@ -12,6 +12,7 @@ import { validateAdminUserLoginId } from '~/features/auth/api/validate-admin-use
 import { clearFetchAdminUserCache, fetchAdminUserAsync } from '~/features/admin-users/api/fetch-admin-user'
 import { updateAdminUser } from '~/features/admin-users/api/update-admin-user'
 import { clearFetchAdminUserListCache } from '~/features/admin-users/api/fetch-admin-user-list'
+import ErrorSection from '~/features/admin-users/pages/edit/parts/ErrorSection.vue'
 
 const router = useRouter()
 const route = useRoute()
@@ -77,98 +78,88 @@ async function validateLoginId(loginId: string) {
 
 <template>
   <div class="flex w-6/12 self-center">
-    <div class="grid grid-cols-12 w-full">
-      <template v-if="adminUserError"> ユーザー情報のロード中にエラーが発生しました。 </template>
-      <template v-else>
-        <A2FormRow class="grid col-span-12 grid-cols-subgrid">
-          <template #label>
-            <A2FormLabel class="col-span-2">氏名</A2FormLabel>
-          </template>
-          <template #field>
-            <A2FormField class="col-span-8">
-              <form.Field
-                name="name"
-                :validators="{
-                  onChange: editAdminUserValidationSchema.shape.name,
-                }"
-              >
-                <template #default="{ field }">
-                  <div>
-                    <A2TextField
-                      size="l"
-                      class="w-full"
-                      :state="field.state.meta.errors.length ? 'error' : 'default'"
-                      :name="field.name"
-                      :value="field.state.value"
-                      @input="(e: Event) => field.handleChange((e.target as HTMLInputElement).value)"
-                    />
-                    <ul v-if="field.state.meta.errors.length">
-                      <li
-                        v-for="error in field.state.meta.errors"
-                        :key="error?.toString()"
-                        class="text-on-error-default"
-                      >
-                        {{ error }}
-                      </li>
-                    </ul>
-                  </div>
-                </template>
-              </form.Field>
-            </A2FormField>
-          </template>
-        </A2FormRow>
-        <A2FormRow class="grid col-span-12 grid-cols-subgrid">
-          <template #label>
-            <A2FormLabel class="col-span-2">ログインID</A2FormLabel>
-          </template>
-          <template #field>
-            <A2FormField class="col-span-8">
-              <form.Field
-                name="loginId"
-                :validators="{
-                  onChange: editAdminUserValidationSchema.shape.loginId,
-                  onChangeAsyncDebounceMs: 500,
-                  onChangeAsync: z.string().refine(validateLoginId, 'このログインIDは利用できません'),
-                }"
-              >
-                <template #default="{ field }">
-                  <div>
-                    <A2TextField
-                      size="l"
-                      class="w-full"
-                      :state="field.state.meta.errors.length ? 'error' : 'default'"
-                      :value="field.state.value"
-                      @input="(e: Event) => field.handleChange((e.target as HTMLInputElement).value)"
-                      @blur="() => field.handleBlur()"
-                    />
-                    <ul v-if="field.state.meta.errors.length">
-                      <li
-                        v-for="error in field.state.meta.errors"
-                        :key="error?.toString()"
-                        class="text-on-error-default"
-                      >
-                        {{ error }}
-                      </li>
-                    </ul>
-                  </div>
-                </template>
-              </form.Field>
-            </A2FormField>
-            <div class="flex col-span-1 justify-center items-center h-full">
-              <!-- TODO: ローディング中の色 -->
-              <Icon
-                v-if="loginIdValidationStatus === 'pending'"
-                name="mdi:loading"
-                size="40"
-                class="animate-spin text-on-success-default"
-              />
-              <!-- TODO: OK,NGなどの赤や緑の色 -->
-              <Icon v-if="loginIdValidationStatus === 'ok'" name="mdi:check" size="40" class="text-on-success-hover" />
-              <Icon v-if="loginIdValidationStatus === 'error'" name="mdi:close" size="40" class="text-on-error-hover" />
-            </div>
-          </template>
-        </A2FormRow>
-      </template>
+    <ErrorSection v-if="adminUserError" />
+    <div v-else class="grid grid-cols-12 w-full">
+      <A2FormRow class="grid col-span-12 grid-cols-subgrid">
+        <template #label>
+          <A2FormLabel class="col-span-2">氏名</A2FormLabel>
+        </template>
+        <template #field>
+          <A2FormField class="col-span-8">
+            <form.Field
+              name="name"
+              :validators="{
+                onChange: editAdminUserValidationSchema.shape.name,
+              }"
+            >
+              <template #default="{ field }">
+                <div>
+                  <A2TextField
+                    size="l"
+                    class="w-full"
+                    :state="field.state.meta.errors.length ? 'error' : 'default'"
+                    :name="field.name"
+                    :value="field.state.value"
+                    @input="(e: Event) => field.handleChange((e.target as HTMLInputElement).value)"
+                  />
+                  <ul v-if="field.state.meta.errors.length">
+                    <li v-for="error in field.state.meta.errors" :key="error?.toString()" class="text-on-error-default">
+                      {{ error }}
+                    </li>
+                  </ul>
+                </div>
+              </template>
+            </form.Field>
+          </A2FormField>
+        </template>
+      </A2FormRow>
+      <A2FormRow class="grid col-span-12 grid-cols-subgrid">
+        <template #label>
+          <A2FormLabel class="col-span-2">ログインID</A2FormLabel>
+        </template>
+        <template #field>
+          <A2FormField class="col-span-8">
+            <form.Field
+              name="loginId"
+              :validators="{
+                onChange: editAdminUserValidationSchema.shape.loginId,
+                onChangeAsyncDebounceMs: 500,
+                onChangeAsync: z.string().refine(validateLoginId, 'このログインIDは利用できません'),
+              }"
+            >
+              <template #default="{ field }">
+                <div>
+                  <A2TextField
+                    size="l"
+                    class="w-full"
+                    :state="field.state.meta.errors.length ? 'error' : 'default'"
+                    :value="field.state.value"
+                    @input="(e: Event) => field.handleChange((e.target as HTMLInputElement).value)"
+                    @blur="() => field.handleBlur()"
+                  />
+                  <ul v-if="field.state.meta.errors.length">
+                    <li v-for="error in field.state.meta.errors" :key="error?.toString()" class="text-on-error-default">
+                      {{ error }}
+                    </li>
+                  </ul>
+                </div>
+              </template>
+            </form.Field>
+          </A2FormField>
+          <div class="flex col-span-1 justify-center items-center h-full">
+            <!-- TODO: ローディング中の色 -->
+            <Icon
+              v-if="loginIdValidationStatus === 'pending'"
+              name="mdi:loading"
+              size="40"
+              class="animate-spin text-on-success-default"
+            />
+            <!-- TODO: OK,NGなどの赤や緑の色 -->
+            <Icon v-if="loginIdValidationStatus === 'ok'" name="mdi:check" size="40" class="text-on-success-hover" />
+            <Icon v-if="loginIdValidationStatus === 'error'" name="mdi:close" size="40" class="text-on-error-hover" />
+          </div>
+        </template>
+      </A2FormRow>
       <div class="flex col-span-12 justify-center gap-2 my-4">
         <form.Subscribe>
           <template #default="{ canSubmit, isSubmitting }">

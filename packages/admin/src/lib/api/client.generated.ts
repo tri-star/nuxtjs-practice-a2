@@ -246,6 +246,11 @@ const endpoints = makeApi([
         type: "Query",
         schema: z.string(),
       },
+      {
+        name: "excludeSelf",
+        type: "Query",
+        schema: z.string().optional(),
+      },
     ],
     response: z.object({ valid: z.boolean() }).passthrough().readonly(),
   },

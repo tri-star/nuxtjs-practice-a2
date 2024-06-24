@@ -35,7 +35,10 @@
     },
     "/admin/auth/validate-login-id": {
       "get": {
-        "parameters": [{ "schema": { "type": "string" }, "required": true, "name": "loginId", "in": "query" }],
+        "parameters": [
+          { "schema": { "type": "string" }, "required": true, "name": "loginId", "in": "query" },
+          { "schema": { "type": "string" }, "required": false, "name": "excludeSelf", "in": "query" }
+        ],
         "responses": {
           "200": {
             "description": "",

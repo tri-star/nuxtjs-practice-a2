@@ -16,7 +16,7 @@
     "lint:tsc": "vue-tsc --noEmit",
     "lint:eslint": "eslint .",
     "lint:prettier": "prettier --check .",
-    "openapi:build-client": "openapi-zod-client ./openapi/swagger.json -o ./src/lib/api/client.generated.ts --all-readonly"
+    "openapi:build-client": "openapi-zod-client ./openapi/swagger.json -o ./src/lib/api/client.generated.ts --all-readonly --strict-objects"
   },
   "dependencies": {
     "@formkit/tempo": "^0.1.1",

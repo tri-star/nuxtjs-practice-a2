@@ -13,7 +13,7 @@
     "format:eslint": "eslint --fix --ext .ts,.vue,.css",
     "format:prettier": "prettier --write .",
     "lint": "run-s lint:*",
-    "lint:tsc": "tsc --noEmit",
+    "lint:tsc": "vue-tsc --noEmit",
     "lint:eslint": "eslint .",
     "lint:prettier": "prettier --check .",
     "openapi:build-client": "openapi-zod-client ./openapi/swagger.json -o ./src/lib/api/client.generated.ts --all-readonly"

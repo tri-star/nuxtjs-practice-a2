@@ -28,7 +28,7 @@ async function handleLoginClick() {
     error.value = ''
 
     await authStore.login(loginId.value, password.value)
-    if (authStore.isLoggedIn()) {
+    if (await authStore.isLoggedIn()) {
       await router.push({ name: 'index' })
     }
   } catch (e: unknown) {

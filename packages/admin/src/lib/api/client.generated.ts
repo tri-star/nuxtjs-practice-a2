@@ -3,6 +3,7 @@ import { z } from "zod";
 
 const postAdminauthlogin_Body = z
   .object({ loginId: z.string(), password: z.string() })
+  .strict()
   .passthrough()
   .readonly();
 const postAdminadminUsers_Body = z
@@ -11,10 +12,12 @@ const postAdminadminUsers_Body = z
     loginId: z.string(),
     password: z.string().min(8).max(100),
   })
+  .strict()
   .passthrough()
   .readonly();
 const putAdminadminUsersId_Body = z
   .object({ name: z.string(), loginId: z.string() })
+  .strict()
   .passthrough()
   .readonly();
 const postAdmincompanies_Body = z
@@ -30,6 +33,7 @@ const postAdmincompanies_Body = z
     canUseFeatureB: z.boolean().optional().default(false),
     canUseFeatureC: z.boolean().optional().default(false),
   })
+  .strict()
   .passthrough()
   .readonly();
 const postAdminusers_Body = z
@@ -39,10 +43,12 @@ const postAdminusers_Body = z
     email: z.string().email(),
     password: z.string().min(8).max(100),
   })
+  .strict()
   .passthrough()
   .readonly();
 const putAdminusersId_Body = z
   .object({ name: z.string(), loginId: z.string(), email: z.string().email() })
+  .strict()
   .passthrough()
   .readonly();
 const postAdmintasks_Body = z
@@ -56,6 +62,7 @@ const postAdmintasks_Body = z
       .optional(),
     createdUserId: z.string(),
   })
+  .strict()
   .passthrough()
   .readonly();
 const putAdmintasksId_Body = z
@@ -67,6 +74,7 @@ const putAdmintasksId_Body = z
       .enum(["POSTPONED", "INVALID", "DUPLICATED", "DONE"])
       .optional(),
   })
+  .strict()
   .passthrough()
   .readonly();
 
@@ -102,6 +110,7 @@ const endpoints = makeApi([
         createdAt: z.string().optional(),
         updatedAt: z.string().optional(),
       })
+      .strict()
       .passthrough()
       .readonly(),
   },
@@ -140,12 +149,14 @@ const endpoints = makeApi([
                 createdAt: z.string().optional(),
                 updatedAt: z.string().optional(),
               })
+              .strict()
               .passthrough()
               .readonly()
           )
           .readonly(),
         count: z.number(),
       })
+      .strict()
       .passthrough()
       .readonly(),
   },
@@ -169,6 +180,7 @@ const endpoints = makeApi([
         createdAt: z.string().optional(),
         updatedAt: z.string().optional(),
       })
+      .strict()
       .passthrough()
       .readonly(),
   },
@@ -218,6 +230,7 @@ const endpoints = makeApi([
         createdAt: z.string().optional(),
         updatedAt: z.string().optional(),
       })
+      .strict()
       .passthrough()
       .readonly(),
   },
@@ -233,7 +246,7 @@ const endpoints = makeApi([
         schema: postAdminauthlogin_Body,
       },
     ],
-    response: z.object({ token: z.string() }).passthrough().readonly(),
+    response: z.object({ token: z.string() }).strict().passthrough().readonly(),
   },
   {
     method: "get",
@@ -247,12 +260,16 @@ const endpoints = makeApi([
         schema: z.string(),
       },
       {
-        name: "excludeSelf",
+        name: "except",
         type: "Query",
         schema: z.string().optional(),
       },
     ],
-    response: z.object({ valid: z.boolean() }).passthrough().readonly(),
+    response: z
+      .object({ valid: z.boolean() })
+      .strict()
+      .passthrough()
+      .readonly(),
   },
   {
     method: "post",
@@ -281,6 +298,7 @@ const endpoints = makeApi([
         createdAt: z.string().optional(),
         updatedAt: z.string().optional(),
       })
+      .strict()
       .passthrough()
       .readonly(),
   },
@@ -327,12 +345,14 @@ const endpoints = makeApi([
                 createdAt: z.string().optional(),
                 updatedAt: z.string().optional(),
               })
+              .strict()
               .passthrough()
               .readonly()
           )
           .readonly(),
         count: z.number(),
       })
+      .strict()
       .passthrough()
       .readonly(),
   },
@@ -364,6 +384,7 @@ const endpoints = makeApi([
         createdAt: z.string().optional(),
         updatedAt: z.string().optional(),
       })
+      .strict()
       .passthrough()
       .readonly(),
   },
@@ -426,6 +447,7 @@ const endpoints = makeApi([
         createdAt: z.string().optional(),
         updatedAt: z.string().optional(),
       })
+      .strict()
       .passthrough()
       .readonly(),
     errors: [
@@ -483,12 +505,14 @@ const endpoints = makeApi([
                 createdAt: z.string().optional(),
                 updatedAt: z.string().optional(),
               })
+              .strict()
               .passthrough()
               .readonly()
           )
           .readonly(),
         count: z.number(),
       })
+      .strict()
       .passthrough()
       .readonly(),
     errors: [
@@ -525,6 +549,7 @@ const endpoints = makeApi([
         createdAt: z.string().optional(),
         updatedAt: z.string().optional(),
       })
+      .strict()
       .passthrough()
       .readonly(),
   },
@@ -594,6 +619,7 @@ const endpoints = makeApi([
         createdAt: z.string().optional(),
         updatedAt: z.string().optional(),
       })
+      .strict()
       .passthrough()
       .readonly(),
   },
@@ -632,12 +658,14 @@ const endpoints = makeApi([
                 createdAt: z.string().optional(),
                 updatedAt: z.string().optional(),
               })
+              .strict()
               .passthrough()
               .readonly()
           )
           .readonly(),
         count: z.number(),
       })
+      .strict()
       .passthrough()
       .readonly(),
   },
@@ -662,6 +690,7 @@ const endpoints = makeApi([
         createdAt: z.string().optional(),
         updatedAt: z.string().optional(),
       })
+      .strict()
       .passthrough()
       .readonly(),
   },

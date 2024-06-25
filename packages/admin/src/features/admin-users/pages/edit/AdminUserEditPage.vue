@@ -61,7 +61,7 @@ function handleCancelClick() {
 
 async function validateLoginId(loginId: string) {
   loginIdValidationStatus.value = 'pending'
-  const result = await validateAdminUserLoginId(loginId, true)
+  const result = await validateAdminUserLoginId(loginId, adminUser.value?.id)
   if (result.isErr()) {
     return false
   }

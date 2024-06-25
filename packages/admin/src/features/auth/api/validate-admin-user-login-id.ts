@@ -4,19 +4,19 @@ import { toAppErrorOrThrow, type ApplicationError } from '~/lib/error/app-error'
 
 type ValidateLoginIdRequest = {
   loginId: string
-  excludeSelf?: string
+  except?: string
 }
 
 export async function validateAdminUserLoginId(
   loginId: string,
-  excludeSelf: boolean = false,
+  exceptAdminUserId?: string,
 ): Promise<Result<boolean, ApplicationError>> {
   try {
     const queries: ValidateLoginIdRequest = {
       loginId,
     }
-    if (excludeSelf) {
-      queries['excludeSelf'] = ''
+    if (exceptAdminUserId) {
+      queries['except'] = exceptAdminUserId
     }
 
     const client = createAppApiClient()

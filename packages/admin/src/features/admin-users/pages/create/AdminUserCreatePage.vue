@@ -25,7 +25,7 @@ const form = useForm({
     loginId: '',
     password: '',
   } satisfies CreateAdminUserValidation,
-  validatorAdapter: zodValidator,
+  validatorAdapter: zodValidator(),
   onSubmit: async (formData) => {
     try {
       await createAdminUser(formData.value)

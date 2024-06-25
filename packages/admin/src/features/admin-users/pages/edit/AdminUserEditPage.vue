@@ -36,7 +36,7 @@ const form = useForm({
     name: adminUser.value?.name ?? '',
     loginId: adminUser.value?.loginId ?? '',
   } satisfies EditAdminUserValidation,
-  validatorAdapter: zodValidator,
+  validatorAdapter: zodValidator(),
   onSubmit: async (formData) => {
     try {
       await updateAdminUser(adminUserId, formData.value)
@@ -61,7 +61,7 @@ function handleCancelClick() {
 
 async function validateLoginId(loginId: string) {
   loginIdValidationStatus.value = 'pending'
-  const result = await validateAdminUserLoginId(loginId)
+  const result = await validateAdminUserLoginId(loginId, true)
   if (result.isErr()) {
     return false
   }

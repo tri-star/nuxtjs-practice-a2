@@ -12,6 +12,7 @@ import { deleteAdminUser } from '~/features/admin-users/api/delete-admin-user'
 const router = useRouter()
 const { adminUserList, adminUserListError, isAdminUserListPending, refreshAdminUserList } = fetchAdminUserList()
 const { createToast } = useToastStore()
+const { createDialog } = useDialogStore()
 
 const selectedBulkActionId = ref<string | undefined>(undefined)
 
@@ -42,17 +43,22 @@ function handleCreateAdminUserClick() {
 async function handleBulkActionClick() {
   switch (selectedBulkActionId.value) {
     case 'delete':
-      try {
-        await deleteAdminUser(idList.value)
-        idList.value = []
-        refreshAdminUserList()
-      } catch (e) {
-        console.error(e)
-        createToast({
-          message: '削除処理中にエラーが発生しました',
-          type: 'error',
-        })
-      }
+      createDialog({
+        title: '削除確認',
+        message: '選択したユーザーを削除しますか？',
+        closeText: 'キャンセル',
+      })
+      // try {
+      //   await deleteAdminUser(idList.value)
+      //   idList.value = []
+      //   refreshAdminUserList()
+      // } catch (e) {
+      //   console.error(e)
+      //   createToast({
+      //     message: '削除処理中にエラーが発生しました',
+      //     type: 'error',
+      //   })
+      // }
       break
     case 'disable':
       break

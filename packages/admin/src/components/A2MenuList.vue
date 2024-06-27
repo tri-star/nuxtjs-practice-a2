@@ -7,9 +7,15 @@ const { adjustPositionToBounds } = useAnchorPosition()
 const menuListRef = ref<HTMLElement | null>(null)
 const isOpen = defineModel<boolean>('open')
 
-defineProps<{
-  items: MenuItemType[]
-}>()
+const props = withDefaults(
+  defineProps<{
+    items: MenuItemType[]
+    expandWidth?: boolean
+  }>(),
+  {
+    expandWidth: false,
+  },
+)
 
 const emit = defineEmits<{
   itemSelected: [id: string]
@@ -27,6 +33,16 @@ watch(isOpen, () => {
         const adjustedRect = adjustPositionToBounds(menuListRef as Ref<HTMLElement>)
         menuListRef.value.style.left = `${adjustedRect.left}px`
         menuListRef.value.style.top = `${adjustedRect.top}px`
+
+        let listWidth = menuListRef.value.offsetWidth
+
+        if (props.expandWidth) {
+          const parentWidth = menuListRef.value.parentElement?.offsetWidth ?? 0
+          console.log(listWidth, parentWidth)
+          listWidth = Math.max(listWidth, parentWidth)
+        }
+
+        menuListRef.value.style.width = `${listWidth}px`
       }
     })
   } else {

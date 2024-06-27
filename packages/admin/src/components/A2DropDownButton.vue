@@ -57,7 +57,7 @@ function handleMenuClick() {
       <Icon name="mdi:menu-down" :class="menuIndicatorClass" size="26px" />
     </div>
     <div class="relative">
-      <A2MenuList v-model:open="expanded" :items="safeMenuItems" />
+      <A2MenuList v-model:open="expanded" :items="safeMenuItems" :expand-width="true" />
     </div>
   </div>
 </template>

@@ -1,11 +1,11 @@
-import { makeApi, Zodios, type ZodiosOptions } from "@zodios/core";
-import { z } from "zod";
+import { makeApi, Zodios, type ZodiosOptions } from '@zodios/core'
+import { z } from 'zod'
 
 const postAdminauthlogin_Body = z
   .object({ loginId: z.string(), password: z.string() })
   .strict()
   .passthrough()
-  .readonly();
+  .readonly()
 const postAdminadminUsers_Body = z
   .object({
     name: z.string(),
@@ -14,12 +14,8 @@ const postAdminadminUsers_Body = z
   })
   .strict()
   .passthrough()
-  .readonly();
-const putAdminadminUsersId_Body = z
-  .object({ name: z.string(), loginId: z.string() })
-  .strict()
-  .passthrough()
-  .readonly();
+  .readonly()
+const putAdminadminUsersId_Body = z.object({ name: z.string(), loginId: z.string() }).strict().passthrough().readonly()
 const postAdmincompanies_Body = z
   .object({
     name: z.string(),
@@ -35,7 +31,7 @@ const postAdmincompanies_Body = z
   })
   .strict()
   .passthrough()
-  .readonly();
+  .readonly()
 const postAdminusers_Body = z
   .object({
     name: z.string(),
@@ -45,38 +41,34 @@ const postAdminusers_Body = z
   })
   .strict()
   .passthrough()
-  .readonly();
+  .readonly()
 const putAdminusersId_Body = z
   .object({ name: z.string(), loginId: z.string(), email: z.string().email() })
   .strict()
   .passthrough()
-  .readonly();
+  .readonly()
 const postAdmintasks_Body = z
   .object({
     companyId: z.string(),
     title: z.string(),
     description: z.string(),
-    status: z.enum(["BACKLOG", "TODO", "IN_PROGRESS", "HOLD", "DONE"]),
-    reasonCode: z
-      .enum(["POSTPONED", "INVALID", "DUPLICATED", "DONE"])
-      .optional(),
+    status: z.enum(['BACKLOG', 'TODO', 'IN_PROGRESS', 'HOLD', 'DONE']),
+    reasonCode: z.enum(['POSTPONED', 'INVALID', 'DUPLICATED', 'DONE']).optional(),
     createdUserId: z.string(),
   })
   .strict()
   .passthrough()
-  .readonly();
+  .readonly()
 const putAdmintasksId_Body = z
   .object({
     title: z.string(),
     description: z.string(),
-    status: z.enum(["BACKLOG", "TODO", "IN_PROGRESS", "HOLD", "DONE"]),
-    reasonCode: z
-      .enum(["POSTPONED", "INVALID", "DUPLICATED", "DONE"])
-      .optional(),
+    status: z.enum(['BACKLOG', 'TODO', 'IN_PROGRESS', 'HOLD', 'DONE']),
+    reasonCode: z.enum(['POSTPONED', 'INVALID', 'DUPLICATED', 'DONE']).optional(),
   })
   .strict()
   .passthrough()
-  .readonly();
+  .readonly()
 
 export const schemas = {
   postAdminauthlogin_Body,
@@ -87,18 +79,18 @@ export const schemas = {
   putAdminusersId_Body,
   postAdmintasks_Body,
   putAdmintasksId_Body,
-};
+}
 
 const endpoints = makeApi([
   {
-    method: "post",
-    path: "/admin/admin-users",
-    alias: "postAdminadminUsers",
-    requestFormat: "json",
+    method: 'post',
+    path: '/admin/admin-users',
+    alias: 'postAdminadminUsers',
+    requestFormat: 'json',
     parameters: [
       {
-        name: "body",
-        type: "Body",
+        name: 'body',
+        type: 'Body',
         schema: postAdminadminUsers_Body,
       },
     ],
@@ -115,24 +107,24 @@ const endpoints = makeApi([
       .readonly(),
   },
   {
-    method: "get",
-    path: "/admin/admin-users",
-    alias: "getAdminadminUsers",
-    requestFormat: "json",
+    method: 'get',
+    path: '/admin/admin-users',
+    alias: 'getAdminadminUsers',
+    requestFormat: 'json',
     parameters: [
       {
-        name: "loginId",
-        type: "Query",
+        name: 'loginId',
+        type: 'Query',
         schema: z.string().optional(),
       },
       {
-        name: "page",
-        type: "Query",
+        name: 'page',
+        type: 'Query',
         schema: z.number().optional(),
       },
       {
-        name: "offset",
-        type: "Query",
+        name: 'offset',
+        type: 'Query',
         schema: z.number().optional(),
       },
     ],
@@ -151,7 +143,7 @@ const endpoints = makeApi([
               })
               .strict()
               .passthrough()
-              .readonly()
+              .readonly(),
           )
           .readonly(),
         count: z.number(),
@@ -161,14 +153,14 @@ const endpoints = makeApi([
       .readonly(),
   },
   {
-    method: "get",
-    path: "/admin/admin-users/:id",
-    alias: "getAdminadminUsersId",
-    requestFormat: "json",
+    method: 'get',
+    path: '/admin/admin-users/:id',
+    alias: 'getAdminadminUsersId',
+    requestFormat: 'json',
     parameters: [
       {
-        name: "id",
-        type: "Path",
+        name: 'id',
+        type: 'Path',
         schema: z.unknown(),
       },
     ],
@@ -185,43 +177,43 @@ const endpoints = makeApi([
       .readonly(),
   },
   {
-    method: "put",
-    path: "/admin/admin-users/:id",
-    alias: "putAdminadminUsersId",
-    requestFormat: "json",
+    method: 'put',
+    path: '/admin/admin-users/:id',
+    alias: 'putAdminadminUsersId',
+    requestFormat: 'json',
     parameters: [
       {
-        name: "body",
-        type: "Body",
+        name: 'body',
+        type: 'Body',
         schema: putAdminadminUsersId_Body,
       },
       {
-        name: "id",
-        type: "Path",
+        name: 'id',
+        type: 'Path',
         schema: z.unknown(),
       },
     ],
     response: z.void(),
   },
   {
-    method: "delete",
-    path: "/admin/admin-users/:id",
-    alias: "deleteAdminadminUsersId",
-    requestFormat: "json",
+    method: 'delete',
+    path: '/admin/admin-users/:id',
+    alias: 'deleteAdminadminUsersId',
+    requestFormat: 'json',
     parameters: [
       {
-        name: "id",
-        type: "Path",
+        name: 'id',
+        type: 'Path',
         schema: z.unknown(),
       },
     ],
     response: z.void(),
   },
   {
-    method: "get",
-    path: "/admin/admin-users/self",
-    alias: "getAdminadminUsersself",
-    requestFormat: "json",
+    method: 'get',
+    path: '/admin/admin-users/self',
+    alias: 'getAdminadminUsersself',
+    requestFormat: 'json',
     response: z
       .object({
         id: z.string(),
@@ -235,51 +227,47 @@ const endpoints = makeApi([
       .readonly(),
   },
   {
-    method: "post",
-    path: "/admin/auth/login",
-    alias: "postAdminauthlogin",
-    requestFormat: "json",
+    method: 'post',
+    path: '/admin/auth/login',
+    alias: 'postAdminauthlogin',
+    requestFormat: 'json',
     parameters: [
       {
-        name: "body",
-        type: "Body",
+        name: 'body',
+        type: 'Body',
         schema: postAdminauthlogin_Body,
       },
     ],
     response: z.object({ token: z.string() }).strict().passthrough().readonly(),
   },
   {
-    method: "get",
-    path: "/admin/auth/validate-login-id",
-    alias: "getAdminauthvalidateLoginId",
-    requestFormat: "json",
+    method: 'get',
+    path: '/admin/auth/validate-login-id',
+    alias: 'getAdminauthvalidateLoginId',
+    requestFormat: 'json',
     parameters: [
       {
-        name: "loginId",
-        type: "Query",
+        name: 'loginId',
+        type: 'Query',
         schema: z.string(),
       },
       {
-        name: "except",
-        type: "Query",
+        name: 'except',
+        type: 'Query',
         schema: z.string().optional(),
       },
     ],
-    response: z
-      .object({ valid: z.boolean() })
-      .strict()
-      .passthrough()
-      .readonly(),
+    response: z.object({ valid: z.boolean() }).strict().passthrough().readonly(),
   },
   {
-    method: "post",
-    path: "/admin/companies",
-    alias: "postAdmincompanies",
-    requestFormat: "json",
+    method: 'post',
+    path: '/admin/companies',
+    alias: 'postAdmincompanies',
+    requestFormat: 'json',
     parameters: [
       {
-        name: "body",
-        type: "Body",
+        name: 'body',
+        type: 'Body',
         schema: postAdmincompanies_Body,
       },
     ],
@@ -303,24 +291,24 @@ const endpoints = makeApi([
       .readonly(),
   },
   {
-    method: "get",
-    path: "/admin/companies",
-    alias: "getAdmincompanies",
-    requestFormat: "json",
+    method: 'get',
+    path: '/admin/companies',
+    alias: 'getAdmincompanies',
+    requestFormat: 'json',
     parameters: [
       {
-        name: "name",
-        type: "Query",
+        name: 'name',
+        type: 'Query',
         schema: z.string().optional(),
       },
       {
-        name: "page",
-        type: "Query",
+        name: 'page',
+        type: 'Query',
         schema: z.number().optional(),
       },
       {
-        name: "offset",
-        type: "Query",
+        name: 'offset',
+        type: 'Query',
         schema: z.number().optional(),
       },
     ],
@@ -347,7 +335,7 @@ const endpoints = makeApi([
               })
               .strict()
               .passthrough()
-              .readonly()
+              .readonly(),
           )
           .readonly(),
         count: z.number(),
@@ -357,14 +345,14 @@ const endpoints = makeApi([
       .readonly(),
   },
   {
-    method: "get",
-    path: "/admin/companies/:id",
-    alias: "getAdmincompaniesId",
-    requestFormat: "json",
+    method: 'get',
+    path: '/admin/companies/:id',
+    alias: 'getAdmincompaniesId',
+    requestFormat: 'json',
     parameters: [
       {
-        name: "id",
-        type: "Path",
+        name: 'id',
+        type: 'Path',
         schema: z.unknown(),
       },
     ],
@@ -389,47 +377,47 @@ const endpoints = makeApi([
       .readonly(),
   },
   {
-    method: "put",
-    path: "/admin/companies/:id",
-    alias: "putAdmincompaniesId",
-    requestFormat: "json",
+    method: 'put',
+    path: '/admin/companies/:id',
+    alias: 'putAdmincompaniesId',
+    requestFormat: 'json',
     parameters: [
       {
-        name: "body",
-        type: "Body",
+        name: 'body',
+        type: 'Body',
         schema: postAdmincompanies_Body,
       },
       {
-        name: "id",
-        type: "Path",
+        name: 'id',
+        type: 'Path',
         schema: z.unknown(),
       },
     ],
     response: z.void(),
   },
   {
-    method: "delete",
-    path: "/admin/companies/:id",
-    alias: "deleteAdmincompaniesId",
-    requestFormat: "json",
+    method: 'delete',
+    path: '/admin/companies/:id',
+    alias: 'deleteAdmincompaniesId',
+    requestFormat: 'json',
     parameters: [
       {
-        name: "id",
-        type: "Path",
+        name: 'id',
+        type: 'Path',
         schema: z.unknown(),
       },
     ],
     response: z.void(),
   },
   {
-    method: "post",
-    path: "/admin/tasks",
-    alias: "postAdmintasks",
-    requestFormat: "json",
+    method: 'post',
+    path: '/admin/tasks',
+    alias: 'postAdmintasks',
+    requestFormat: 'json',
     parameters: [
       {
-        name: "body",
-        type: "Body",
+        name: 'body',
+        type: 'Body',
         schema: postAdmintasks_Body,
       },
     ],
@@ -438,10 +426,8 @@ const endpoints = makeApi([
         companyId: z.string(),
         title: z.string(),
         description: z.string(),
-        status: z.enum(["BACKLOG", "TODO", "IN_PROGRESS", "HOLD", "DONE"]),
-        reasonCode: z
-          .enum(["POSTPONED", "INVALID", "DUPLICATED", "DONE"])
-          .optional(),
+        status: z.enum(['BACKLOG', 'TODO', 'IN_PROGRESS', 'HOLD', 'DONE']),
+        reasonCode: z.enum(['POSTPONED', 'INVALID', 'DUPLICATED', 'DONE']).optional(),
         createdUserId: z.string(),
         taskId: z.string(),
         createdAt: z.string().optional(),
@@ -459,24 +445,24 @@ const endpoints = makeApi([
     ],
   },
   {
-    method: "get",
-    path: "/admin/tasks",
-    alias: "getAdmintasks",
-    requestFormat: "json",
+    method: 'get',
+    path: '/admin/tasks',
+    alias: 'getAdmintasks',
+    requestFormat: 'json',
     parameters: [
       {
-        name: "keyword",
-        type: "Query",
+        name: 'keyword',
+        type: 'Query',
         schema: z.string().optional(),
       },
       {
-        name: "page",
-        type: "Query",
+        name: 'page',
+        type: 'Query',
         schema: z.number().optional(),
       },
       {
-        name: "offset",
-        type: "Query",
+        name: 'offset',
+        type: 'Query',
         schema: z.number().optional(),
       },
     ],
@@ -491,23 +477,15 @@ const endpoints = makeApi([
                 companyId: z.string(),
                 title: z.string(),
                 description: z.string(),
-                status: z.enum([
-                  "BACKLOG",
-                  "TODO",
-                  "IN_PROGRESS",
-                  "HOLD",
-                  "DONE",
-                ]),
-                reasonCode: z
-                  .enum(["POSTPONED", "INVALID", "DUPLICATED", "DONE"])
-                  .optional(),
+                status: z.enum(['BACKLOG', 'TODO', 'IN_PROGRESS', 'HOLD', 'DONE']),
+                reasonCode: z.enum(['POSTPONED', 'INVALID', 'DUPLICATED', 'DONE']).optional(),
                 createdUserId: z.string(),
                 createdAt: z.string().optional(),
                 updatedAt: z.string().optional(),
               })
               .strict()
               .passthrough()
-              .readonly()
+              .readonly(),
           )
           .readonly(),
         count: z.number(),
@@ -524,14 +502,14 @@ const endpoints = makeApi([
     ],
   },
   {
-    method: "get",
-    path: "/admin/tasks/:id",
-    alias: "getAdmintasksId",
-    requestFormat: "json",
+    method: 'get',
+    path: '/admin/tasks/:id',
+    alias: 'getAdmintasksId',
+    requestFormat: 'json',
     parameters: [
       {
-        name: "id",
-        type: "Path",
+        name: 'id',
+        type: 'Path',
         schema: z.unknown(),
       },
     ],
@@ -541,10 +519,8 @@ const endpoints = makeApi([
         companyId: z.string(),
         title: z.string(),
         description: z.string(),
-        status: z.enum(["BACKLOG", "TODO", "IN_PROGRESS", "HOLD", "DONE"]),
-        reasonCode: z
-          .enum(["POSTPONED", "INVALID", "DUPLICATED", "DONE"])
-          .optional(),
+        status: z.enum(['BACKLOG', 'TODO', 'IN_PROGRESS', 'HOLD', 'DONE']),
+        reasonCode: z.enum(['POSTPONED', 'INVALID', 'DUPLICATED', 'DONE']).optional(),
         createdUserId: z.string(),
         createdAt: z.string().optional(),
         updatedAt: z.string().optional(),
@@ -554,19 +530,19 @@ const endpoints = makeApi([
       .readonly(),
   },
   {
-    method: "put",
-    path: "/admin/tasks/:id",
-    alias: "putAdmintasksId",
-    requestFormat: "json",
+    method: 'put',
+    path: '/admin/tasks/:id',
+    alias: 'putAdmintasksId',
+    requestFormat: 'json',
     parameters: [
       {
-        name: "body",
-        type: "Body",
+        name: 'body',
+        type: 'Body',
         schema: putAdmintasksId_Body,
       },
       {
-        name: "id",
-        type: "Path",
+        name: 'id',
+        type: 'Path',
         schema: z.unknown(),
       },
     ],
@@ -585,28 +561,28 @@ const endpoints = makeApi([
     ],
   },
   {
-    method: "delete",
-    path: "/admin/tasks/:id",
-    alias: "deleteAdmintasksId",
-    requestFormat: "json",
+    method: 'delete',
+    path: '/admin/tasks/:id',
+    alias: 'deleteAdmintasksId',
+    requestFormat: 'json',
     parameters: [
       {
-        name: "id",
-        type: "Path",
+        name: 'id',
+        type: 'Path',
         schema: z.unknown(),
       },
     ],
     response: z.void(),
   },
   {
-    method: "post",
-    path: "/admin/users",
-    alias: "postAdminusers",
-    requestFormat: "json",
+    method: 'post',
+    path: '/admin/users',
+    alias: 'postAdminusers',
+    requestFormat: 'json',
     parameters: [
       {
-        name: "body",
-        type: "Body",
+        name: 'body',
+        type: 'Body',
         schema: postAdminusers_Body,
       },
     ],
@@ -624,24 +600,24 @@ const endpoints = makeApi([
       .readonly(),
   },
   {
-    method: "get",
-    path: "/admin/users",
-    alias: "getAdminusers",
-    requestFormat: "json",
+    method: 'get',
+    path: '/admin/users',
+    alias: 'getAdminusers',
+    requestFormat: 'json',
     parameters: [
       {
-        name: "loginId",
-        type: "Query",
+        name: 'loginId',
+        type: 'Query',
         schema: z.string().optional(),
       },
       {
-        name: "page",
-        type: "Query",
+        name: 'page',
+        type: 'Query',
         schema: z.number().optional(),
       },
       {
-        name: "offset",
-        type: "Query",
+        name: 'offset',
+        type: 'Query',
         schema: z.number().optional(),
       },
     ],
@@ -660,7 +636,7 @@ const endpoints = makeApi([
               })
               .strict()
               .passthrough()
-              .readonly()
+              .readonly(),
           )
           .readonly(),
         count: z.number(),
@@ -670,14 +646,14 @@ const endpoints = makeApi([
       .readonly(),
   },
   {
-    method: "get",
-    path: "/admin/users/:id",
-    alias: "getAdminusersId",
-    requestFormat: "json",
+    method: 'get',
+    path: '/admin/users/:id',
+    alias: 'getAdminusersId',
+    requestFormat: 'json',
     parameters: [
       {
-        name: "id",
-        type: "Path",
+        name: 'id',
+        type: 'Path',
         schema: z.unknown(),
       },
     ],
@@ -695,42 +671,42 @@ const endpoints = makeApi([
       .readonly(),
   },
   {
-    method: "put",
-    path: "/admin/users/:id",
-    alias: "putAdminusersId",
-    requestFormat: "json",
+    method: 'put',
+    path: '/admin/users/:id',
+    alias: 'putAdminusersId',
+    requestFormat: 'json',
     parameters: [
       {
-        name: "body",
-        type: "Body",
+        name: 'body',
+        type: 'Body',
         schema: putAdminusersId_Body,
       },
       {
-        name: "id",
-        type: "Path",
+        name: 'id',
+        type: 'Path',
         schema: z.unknown(),
       },
     ],
     response: z.void(),
   },
   {
-    method: "delete",
-    path: "/admin/users/:id",
-    alias: "deleteAdminusersId",
-    requestFormat: "json",
+    method: 'delete',
+    path: '/admin/users/:id',
+    alias: 'deleteAdminusersId',
+    requestFormat: 'json',
     parameters: [
       {
-        name: "id",
-        type: "Path",
+        name: 'id',
+        type: 'Path',
         schema: z.unknown(),
       },
     ],
     response: z.void(),
   },
-]);
+])
 
-export const api = new Zodios(endpoints);
+export const api = new Zodios(endpoints)
 
 export function createApiClient(baseUrl: string, options?: ZodiosOptions) {
-  return new Zodios(baseUrl, endpoints, options);
+  return new Zodios(baseUrl, endpoints, options)
 }

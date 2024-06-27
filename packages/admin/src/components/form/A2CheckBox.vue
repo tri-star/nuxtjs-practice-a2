@@ -7,7 +7,6 @@ defineProps<{
 
 const model = defineModel<boolean | T[]>()
 
-
 // const checked = computed<boolean>({
 //   get: () => {
 //     if (Array.isArray(model.value)) {

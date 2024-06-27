@@ -38,7 +38,6 @@ watch(isOpen, () => {
 
         if (props.expandWidth) {
           const parentWidth = menuListRef.value.parentElement?.offsetWidth ?? 0
-          console.log(listWidth, parentWidth)
           listWidth = Math.max(listWidth, parentWidth)
         }
 

@@ -7,9 +7,11 @@ import A2TextField from '~/components/form/A2TextField.vue'
 import { fetchAdminUserList } from '~/features/admin-users/api/fetch-admin-user-list'
 import A2DropDown from '~/components/A2DropDown.vue'
 import A2Link from '~/components/A2Link.vue'
+import { deleteAdminUser } from '~/features/admin-users/api/delete-admin-user'
 
 const router = useRouter()
-const { adminUserList, adminUserListError, isAdminUserListPending } = fetchAdminUserList()
+const { adminUserList, adminUserListError, isAdminUserListPending, refreshAdminUserList } = fetchAdminUserList()
+const { createToast } = useToastStore()
 
 const selectedBulkActionId = ref<string | undefined>(undefined)
 
@@ -36,6 +38,28 @@ const { idList, isAllChecked, handleToggleCheckAll } = useBulkCheck(adminUserIdL
 function handleCreateAdminUserClick() {
   router.push({ path: '/admin-users/create' })
 }
+
+async function handleBulkActionClick() {
+  switch (selectedBulkActionId.value) {
+    case 'delete':
+      try {
+        await deleteAdminUser(idList.value)
+        idList.value = []
+        refreshAdminUserList()
+      } catch (e) {
+        console.error(e)
+        createToast({
+          message: '削除処理中にエラーが発生しました',
+          type: 'error',
+        })
+      }
+      break
+    case 'disable':
+      break
+    case 'enable':
+      break
+  }
+}
 </script>
 
 <template>
@@ -47,7 +71,7 @@ function handleCreateAdminUserClick() {
   <div v-else class="flex gap-2 h-10 items-center">
     <p>選択した要素を</p>
     <A2DropDown v-model="selectedBulkActionId" :items="bulkActionItems" placeholder="アクションを選択" />
-    <A2Button icon="mdi:play" size="m" :color="'button'" />
+    <A2Button icon="mdi:play" size="m" :color="'button'" @click="handleBulkActionClick" />
   </div>
 
   <table class="table-fixed w-full">

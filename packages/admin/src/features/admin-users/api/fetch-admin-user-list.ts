@@ -5,7 +5,7 @@ import { toAppError } from '~/lib/error/app-error'
 
 export function fetchAdminUserList() {
   const nuxtApp = useNuxtApp()
-  const { data, error, pending } = useAsyncData(
+  const { data, error, pending, refresh } = useAsyncData(
     'AdminUserList',
     async () => {
       try {
@@ -41,6 +41,7 @@ export function fetchAdminUserList() {
     adminUserList: data,
     adminUserListError: error,
     isAdminUserListPending: pending,
+    refreshAdminUserList: refresh,
   }
 }
 

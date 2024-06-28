@@ -12,6 +12,7 @@ import { deleteAdminUser } from '~/features/admin-users/api/delete-admin-user'
 const router = useRouter()
 const { adminUserList, adminUserListError, isAdminUserListPending, refreshAdminUserList } = fetchAdminUserList()
 const { createToast } = useToastStore()
+const { openDialog } = useDialogStore()
 
 const selectedBulkActionId = ref<string | undefined>(undefined)
 
@@ -40,8 +41,28 @@ function handleCreateAdminUserClick() {
 }
 
 async function handleBulkActionClick() {
+  let result: string | undefined = undefined
   switch (selectedBulkActionId.value) {
     case 'delete':
+      result = await openDialog({
+        title: '削除確認',
+        message: '選択したユーザーを削除しますか？',
+        buttons: [
+          {
+            text: 'キャンセル',
+            color: 'button',
+            value: undefined,
+          },
+          {
+            text: '削除',
+            color: 'primary',
+            value: 'delete',
+          },
+        ],
+      })
+      if (result === undefined) {
+        return
+      }
       try {
         await deleteAdminUser(idList.value)
         idList.value = []
@@ -65,12 +86,12 @@ async function handleBulkActionClick() {
 <template>
   <div v-if="!isBulkActionMode" class="flex items-start gap-2">
     <A2Button color="primary" title="新規登録" icon="mdi:pencil" size="m" @click="handleCreateAdminUserClick" />
-    <A2TextField leading-icon="mdi:magnify" />
+    <A2TextField leading-icon="mdi:magnify" size="m" />
     <A2DropDownButton size="m" label="フィルターを追加する" :items="filterMenuItems" />
   </div>
   <div v-else class="flex gap-2 h-10 items-center">
     <p>選択した要素を</p>
-    <A2DropDown v-model="selectedBulkActionId" :items="bulkActionItems" placeholder="アクションを選択" />
+    <A2DropDown v-model="selectedBulkActionId" :items="bulkActionItems" placeholder="アクションを選択" size="m" />
     <A2Button icon="mdi:play" size="m" :color="'button'" @click="handleBulkActionClick" />
   </div>
 

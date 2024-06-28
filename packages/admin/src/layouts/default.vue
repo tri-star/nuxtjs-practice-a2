@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import A2Dialog from '~/components/A2Dialog.vue'
 import A2Toast from '~/components/A2Toast.vue'
 import A2TextField from '~/components/form/A2TextField.vue'
 import AccountMenuIcon from '~/layouts/parts/default/AccountMenuIcon.vue'
@@ -9,6 +10,8 @@ const defaultLayoutStore = useDefaultLayoutStore()
 const { pageTitle } = storeToRefs(defaultLayoutStore)
 const toastStore = useToastStore()
 const { toasts } = storeToRefs(toastStore)
+const dialogStore = useDialogStore()
+const { dialogs } = storeToRefs(dialogStore)
 </script>
 
 <template>
@@ -40,6 +43,15 @@ const { toasts } = storeToRefs(toastStore)
                 :message="toast.message"
                 :bottom-y="toast.bottomY"
                 @destroy="toastStore.handleDestroyToast"
+              />
+            </div>
+            <div>
+              <A2Dialog
+                v-for="dialog in dialogs"
+                :key="dialog.option.id"
+                v-model:is-open="dialog.isOpen"
+                :option="dialog.option"
+                @close="dialog.handleClose"
               />
             </div>
           </div>

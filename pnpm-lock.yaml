@@ -65,6 +65,9 @@ importers:
       tailwindcss:
         specifier: ^3.4.3
         version: 3.4.3(ts-node@10.9.2(@types/node@20.14.2)(typescript@5.4.5))
+      ulid:
+        specifier: ^2.3.0
+        version: 2.3.0
       vue:
         specifier: ^3.4.21
         version: 3.4.26(typescript@5.4.5)
@@ -6775,6 +6778,10 @@ packages:
   uglify-js@3.18.0:
     resolution: {integrity: sha512-SyVVbcNBCk0dzr9XL/R/ySrmYf0s372K6/hFklzgcp2lBFyXtw4I7BOdDjlLhE1aVqaI/SHWXWmYdlZxuyF38A==}
     engines: {node: '>=0.8.0'}
+    hasBin: true
+
+  ulid@2.3.0:
+    resolution: {integrity: sha512-keqHubrlpvT6G2wH0OEfSW4mquYRcbe/J8NMmveoQOjUqmo+hXtO+ORCpWhdbZ7k72UtY61BL7haGxW6enBnjw==}
     hasBin: true
 
   ultrahtml@1.5.3:
@@ -16802,6 +16809,8 @@ snapshots:
 
   uglify-js@3.18.0:
     optional: true
+
+  ulid@2.3.0: {}
 
   ultrahtml@1.5.3: {}
 

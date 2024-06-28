@@ -51,7 +51,7 @@ const { dialogs } = storeToRefs(dialogStore)
                 :key="dialog.option.id"
                 v-model:is-open="dialog.isOpen"
                 :option="dialog.option"
-                @close="dialogStore.handleCloseDialog"
+                @close="dialog.handleClose"
               />
             </div>
           </div>

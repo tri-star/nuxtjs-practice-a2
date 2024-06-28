@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import { tv } from 'tailwind-variants'
-
-type ColorVariant = 'primary' | 'primaryLoading' | 'button'
+import type { ButtonColorVariant } from '~/components/a2-button'
 
 const props = withDefaults(
   defineProps<{
     title?: string
-    color?: ColorVariant
+    color?: ButtonColorVariant
     isLoading?: boolean
     icon?: string
     size?: 'xs' | 's' | 'm' | 'l'

@@ -7,10 +7,11 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-  close: [id: string]
+  close: [id: string, selectedValue: string | undefined]
 }>()
 
 const dialogRef = ref<HTMLDialogElement | null>(null)
+const selectedValue = ref<string | undefined>(undefined)
 
 const isOpen = defineModel<boolean>('isOpen')
 
@@ -21,7 +22,7 @@ onMounted(() => {
 
   dialogRef.value.addEventListener('close', () => {
     isOpen.value = false
-    emit('close', props.option.id)
+    emit('close', props.option.id, undefined)
   })
 })
 
@@ -31,7 +32,7 @@ watch(
     nextTick(() => {
       if (!newValue) {
         dialogRef.value?.close()
-        emit('close', props.option.id)
+        emit('close', props.option.id, selectedValue.value)
       } else {
         dialogRef.value?.showModal()
       }
@@ -42,7 +43,22 @@ watch(
   },
 )
 
-function handleClick() {
+const buttons = computed(() => {
+  const buttons: ActionButton[] = props.option.buttons ?? []
+
+  if ((props.option.buttons?.length ?? 0) === 0) {
+    buttons.push({
+      text: 'OK',
+      color: 'button',
+      value: undefined,
+    })
+  }
+
+  return buttons
+})
+
+function handleClick(value: string | undefined) {
+  selectedValue.value = value
   isOpen.value = false
 }
 </script>
@@ -53,8 +69,16 @@ function handleClick() {
       <!-- TODO: 変数が必要。テーブルヘッダと同じ -->
       <header class="bg-menu-hover p-2">{{ option.title }}</header>
       <main class="p-2">{{ option.message }}</main>
-      <footer class="flex justify-center p-2">
-        <A2Button icon="mdi:close" size="m" :title="option.closeText" @click="handleClick" />
+      <footer class="flex justify-center gap-2 p-2">
+        <A2Button
+          v-for="button in buttons"
+          :key="button.value"
+          size="m"
+          :color="button.color"
+          :icon="button.icon"
+          :title="button.text"
+          @click="() => handleClick(button.value)"
+        />
       </footer>
     </div>
   </dialog>

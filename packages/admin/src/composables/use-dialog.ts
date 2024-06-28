@@ -1,31 +1,46 @@
 import { ulid } from 'ulid'
+import type { ButtonColorVariant } from '~/components/a2-button'
+
+export type ActionButton = {
+  text: string
+  color: ButtonColorVariant
+  icon?: string
+  value: string | undefined
+}
 
 export type DialogOption = {
   title: string
   message: string
-  closeText?: string
+  buttons?: ActionButton[]
 }
 
 export type DialogOptionWithId = {
   id: string
 } & DialogOption
 
-type DialogState = {
+type DialogEntry = {
   isOpen: boolean
   option: DialogOptionWithId
+  handleClose: (id: string, selectedValue: string | undefined) => void
 }
 
 export const useDialogStore = defineStore('DialogStore', () => {
-  const dialogs = ref<DialogState[]>([])
+  const dialogs = ref<DialogEntry[]>([])
 
-  function createDialog(option: DialogOption) {
-    const newId = 'dialog-' + ulid()
-    dialogs.value.push({
-      isOpen: true,
-      option: {
-        id: newId,
-        ...option,
-      },
+  async function openDialog(option: DialogOption): Promise<string | undefined> {
+    return new Promise((resolve) => {
+      const newId = 'dialog-' + ulid()
+      dialogs.value.push({
+        isOpen: true,
+        option: {
+          id: newId,
+          ...option,
+        },
+        handleClose: (id: string, selectedValue: string | undefined) => {
+          handleCloseDialog(id)
+          resolve(selectedValue)
+        },
+      })
     })
   }
 
@@ -37,7 +52,7 @@ export const useDialogStore = defineStore('DialogStore', () => {
 
   return {
     dialogs,
-    createDialog,
+    openDialog,
     handleCloseDialog,
   }
 })

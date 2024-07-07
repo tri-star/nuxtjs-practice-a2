@@ -29,9 +29,9 @@ jobs:
             -e PLAYWRIGHT_BROWSERS_PATH=/usr/bin \
             -v /dev/shm:/dev/shm \
             -v $(pwd):/src \
-            -w /src \
+            -w /src/packages/admin \
             mcr.microsoft.com/playwright:focal \
-            "cd packages/admin && pnpm e2e"
+            pnpm e2e
       - uses: actions/upload-artifact@v4
         if: always()
         with:

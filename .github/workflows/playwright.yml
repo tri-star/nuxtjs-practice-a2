@@ -20,22 +20,9 @@ jobs:
       - name: Install dependencies
         run: |
           pnpm install
-      - name: Get Playwright version
-        run: |
-          cd packages/admin
-          V=$(pnpm playwright -V)
-          echo "PLAYWRIGHT_VERSION=${V#Version }" >> $GITHUB_ENV
-      - name: Cache APT packages
-        id: cache-apt
-        uses: actions/cache@v4
-        with:
-          path: /var/lib/apt/lists
-          key: ${{ runner.os }}-apt-${{ env.PLAYWRIGHT_VERSION }}
-          restore-keys: |
-            ${{ runner.os }}-apt-
       - name: Run Playwright tests
         run: |
-          docker run -it --rm \
+          docker run --rm \
             --name playwright \
             --network host \
             -e CI=true \

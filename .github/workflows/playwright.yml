@@ -1,0 +1,45 @@
+name: Playwright Tests
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+jobs:
+  test:
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20.12.2
+          cache: 'pnpm'
+      - name: Install dependencies
+        run: |
+          pnpm install
+      - name: Get Playwright version
+        run: |
+          cd packages/admin
+          V=$(pnpm playwright -V)
+          echo "PLAYWRIGHT_VERSION=${V#Version }" >> $GITHUB_ENV
+      - name: Cache APT packages
+        id: cache-apt
+        uses: actions/cache@v4
+        with:
+          path: /var/cache/apt
+          key: ${{ runner.os }}-apt-${{ env.PLAYWRIGHT_VERSION }}
+          restore-keys: |
+            ${{ runner.os }}-apt-
+      - name: Install Playwright Browsers
+        run: cd packages/admin && pnpm exec playwright install --with-deps
+      # - name: Run Playwright tests
+      #   run: cd packages/admin && pnpm exec playwright test
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report
+          path: packages/admin/playwright-report/
+          retention-days: 30

@@ -16,7 +16,12 @@
     "lint:tsc": "vue-tsc --noEmit",
     "lint:eslint": "eslint .",
     "lint:prettier": "prettier --check .",
-    "openapi:build-client": "openapi-zod-client ./openapi/swagger.json -o ./src/lib/api/client.generated.ts --all-readonly --strict-objects"
+    "openapi:build-client": "openapi-zod-client ./openapi/swagger.json -o ./src/lib/api/client.generated.ts --all-readonly --strict-objects=true",
+    "e2e": "pnpm exec playwright test",
+    "e2e:ui": "pnpm exec playwright test --ui",
+    "e2e:chromium": "pnpm exec playwright test --project=chromium",
+    "e2e:debug": "pnpm exec playwright test --debug",
+    "e2e:gen": "pnpm exec playwright codegen"
   },
   "dependencies": {
     "@formkit/tempo": "^0.1.1",
@@ -47,7 +52,9 @@
     "@nuxt/devtools": "^1.2.0",
     "@nuxt/eslint": "^0.3.10",
     "@nuxt/test-utils": "^3.12.1",
+    "@playwright/test": "^1.45.1",
     "@types/lodash": "^4.17.0",
+    "@types/node": "^20.14.10",
     "@vue/test-utils": "^2.4.5",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",

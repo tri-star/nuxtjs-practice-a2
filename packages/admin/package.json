@@ -21,7 +21,8 @@
     "e2e:ui": "pnpm exec playwright test --ui",
     "e2e:chromium": "pnpm exec playwright test --project=chromium",
     "e2e:debug": "pnpm exec playwright test --debug",
-    "e2e:gen": "pnpm exec playwright codegen"
+    "e2e:gen": "pnpm exec playwright codegen",
+    "e2e:show-report": "pnpm exec playwright show-report"
   },
   "dependencies": {
     "@formkit/tempo": "^0.1.1",
@@ -32,6 +33,7 @@
     "@tanstack/zod-form-adapter": "^0.23.3",
     "@zodios/core": "^10.9.6",
     "axios": "^1.6.8",
+    "dotenv": "^16.4.5",
     "h3": "^1.11.1",
     "lodash": "^4.17.21",
     "neverthrow": "^6.2.1",

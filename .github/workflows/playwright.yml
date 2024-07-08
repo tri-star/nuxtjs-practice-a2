@@ -1,13 +1,13 @@
 name: Playwright Tests
 on:
-  push:
-    branches: [main]
   pull_request:
     branches: [main]
 jobs:
   test:
     timeout-minutes: 15
     runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.45.1-jammy
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -18,20 +18,9 @@ jobs:
           node-version: 20.12.2
           cache: 'pnpm'
       - name: Install dependencies
-        run: |
-          pnpm install
+        run: pnpm install
       - name: Run Playwright tests
-        run: |
-          docker run --rm \
-            --name playwright \
-            --network host \
-            -e CI=true \
-            -e PLAYWRIGHT_BROWSERS_PATH=/usr/bin \
-            -v /dev/shm:/dev/shm \
-            -v $(pwd):/src \
-            -w /src/packages/admin \
-            mcr.microsoft.com/playwright:focal \
-            pnpm e2e
+        run: cd packages/admin && pnpm e2e
       - uses: actions/upload-artifact@v4
         if: always()
         with:

@@ -17,5 +17,6 @@ test('ログインに成功した場合、ダッシュボードに遷移する�
   await page.locator('input[type="text"]').press('Tab')
   await page.locator('input[type="password"]').fill('abcdabcd123')
   await page.getByRole('button', { name: 'LOGIN' }).click()
-  await expect(page.getByText('Login ID、またはパスワードが不正です。')).toBeVisible()
+  await page.waitForURL('http://localhost:3000/')
+  await page.getByRole('heading', { name: 'ダッシュボード' }).click()
 })

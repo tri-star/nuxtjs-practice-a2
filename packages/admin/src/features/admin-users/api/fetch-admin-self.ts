@@ -54,8 +54,8 @@ export function getFetchAdminSelfMockHandler() {
 
     return HttpResponse.json({
       ...loggedUser,
-      createdAt: loggedUser.createdAt ? format(loggedUser.createdAt) : undefined,
-      updatedAt: loggedUser.updatedAt ? format(loggedUser.updatedAt) : undefined,
+      createdAt: loggedUser.createdAt ? format(loggedUser.createdAt, 'YYYY-MM-DD HH:mm:ss') : undefined,
+      updatedAt: loggedUser.updatedAt ? format(loggedUser.updatedAt, 'YYYY-MM-DD HH:mm:ss') : undefined,
     } satisfies UnwrapPromise<ReturnType<ApiFunc>>)
   })
 }

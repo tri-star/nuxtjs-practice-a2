@@ -4,6 +4,7 @@ import { err, ok } from 'neverthrow'
 import { createAppApiClient } from '~/lib/api/client'
 import type { ApplicationError } from '~/lib/error/app-error'
 import { toAppErrorOrThrow } from '~/lib/error/app-error'
+import { mswDb } from '~/lib/msw/factories'
 import { buildMockUrl } from '~/lib/msw/msw-url'
 import type { UnwrapPromise } from '~/lib/utils/type'
 
@@ -40,6 +41,9 @@ export function getRequestLoginMockHandler() {
         { status: 401 },
       )
     }
+
+    mswDb.loggedAdminUser.deleteMany({ where: {} })
+    mswDb.loggedAdminUser.create()
 
     return HttpResponse.json({
       token: 'dummy1234',

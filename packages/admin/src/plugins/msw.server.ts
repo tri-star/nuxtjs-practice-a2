@@ -1,7 +1,8 @@
 import { setupServer } from 'msw/node'
 import { getRequestLoginMockHandler } from '~/features/auth/api/login'
 export default defineNuxtPlugin(() => {
-  if (import.meta.dev) {
+  const runtimeConfig = useRuntimeConfig()
+  if (runtimeConfig.public.useApiStub) {
     const server = setupServer(getRequestLoginMockHandler())
     server.listen()
   }

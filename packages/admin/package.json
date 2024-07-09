@@ -5,6 +5,7 @@
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
+    "dev:e2e": "nuxt dev --dotenv=env.testing",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
@@ -46,11 +47,14 @@
     "tailwind-variants": "^0.2.1",
     "tailwindcss": "^3.4.3",
     "ulid": "^2.3.0",
+    "vite": "^5.3.3",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0",
     "zod": "^3.23.6"
   },
   "devDependencies": {
+    "@faker-js/faker": "^8.4.1",
+    "@mswjs/data": "^0.16.1",
     "@nuxt/devtools": "^1.2.0",
     "@nuxt/eslint": "^0.3.10",
     "@nuxt/test-utils": "^3.12.1",

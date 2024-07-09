@@ -35,8 +35,10 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     apiHost: '',
+    useApiStub: false,
     public: {
       apiHost: process.env.NUXT_PUBLIC_API_HOST,
+      useApiStub: process.env.NUXT_PUBLIC_USE_API_STUB === 'true',
     },
   },
 

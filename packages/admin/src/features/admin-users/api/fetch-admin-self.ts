@@ -3,7 +3,6 @@ import { http, HttpResponse } from 'msw'
 import type { AdminUser } from '~/features/admin-users/domain/admin-user'
 import { createAppApiClient } from '~/lib/api/client'
 import { toAppError } from '~/lib/error/app-error'
-import { mswDb } from '~/lib/msw/factories'
 import { buildMockUrl } from '~/lib/msw/msw-url'
 import type { UnwrapPromise } from '~/lib/utils/type'
 
@@ -40,10 +39,10 @@ export function getFetchAdminSelfMockHandler() {
 
   return http.get<object, Parameters<ApiFunc>[1]>(buildMockUrl('/admin/admin-users/self'), async () => {
     await new Promise((resolve) => setTimeout(resolve, 500))
+    const e2eTestStore = useE2eTestStore()
+    const { loggedUser } = storeToRefs(e2eTestStore)
 
-    const loggedUser = mswDb.loggedAdminUser.findFirst({ where: {} })
-
-    if (!loggedUser) {
+    if (loggedUser.value == null) {
       return HttpResponse.json(
         {
           message: 'error',
@@ -53,9 +52,15 @@ export function getFetchAdminSelfMockHandler() {
     }
 
     return HttpResponse.json({
-      ...loggedUser,
-      createdAt: loggedUser.createdAt ? format(loggedUser.createdAt, 'YYYY-MM-DD HH:mm:ss') : undefined,
-      updatedAt: loggedUser.updatedAt ? format(loggedUser.updatedAt, 'YYYY-MM-DD HH:mm:ss') : undefined,
+      ...loggedUser.value,
+      createdAt:
+        loggedUser.value.createdAt !== undefined
+          ? format(loggedUser.value.createdAt, 'YYYY-MM-DD HH:mm:ss')
+          : undefined,
+      updatedAt:
+        loggedUser.value.createdAt !== undefined
+          ? format(loggedUser.value.createdAt, 'YYYY-MM-DD HH:mm:ss')
+          : undefined,
     } satisfies UnwrapPromise<ReturnType<ApiFunc>>)
   })
 }

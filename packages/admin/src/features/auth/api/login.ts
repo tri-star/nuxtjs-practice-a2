@@ -4,7 +4,6 @@ import { err, ok } from 'neverthrow'
 import { createAppApiClient } from '~/lib/api/client'
 import type { ApplicationError } from '~/lib/error/app-error'
 import { toAppErrorOrThrow } from '~/lib/error/app-error'
-import { mswDb } from '~/lib/msw/factories'
 import { buildMockUrl } from '~/lib/msw/msw-url'
 import type { UnwrapPromise } from '~/lib/utils/type'
 
@@ -42,11 +41,19 @@ export function getRequestLoginMockHandler() {
       )
     }
 
-    mswDb.loggedAdminUser.deleteMany({ where: {} })
-    mswDb.loggedAdminUser.create()
+    const e2eTestStore = useE2eTestStore()
+    const { loggedUser } = storeToRefs(e2eTestStore)
+
+    loggedUser.value = {
+      id: 'dummy-id',
+      name: 'dummy-name',
+      loginId: validLoginId,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    }
 
     return HttpResponse.json({
-      token: 'dummy1234',
+      token: 'dummy-token',
     } satisfies UnwrapPromise<ReturnType<ApiFunc>>)
   })
 }

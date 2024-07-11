@@ -46,7 +46,7 @@ export function getFetchAdminSelfMockHandler() {
     if (!loggedUser) {
       return HttpResponse.json(
         {
-          message: '',
+          message: 'error',
         },
         { status: 401 },
       )

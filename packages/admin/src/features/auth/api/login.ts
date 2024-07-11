@@ -36,7 +36,7 @@ export function getRequestLoginMockHandler() {
     if (json.loginId !== validLoginId || json.password !== validPass) {
       return HttpResponse.json(
         {
-          message: '',
+          message: 'auth error',
         },
         { status: 401 },
       )

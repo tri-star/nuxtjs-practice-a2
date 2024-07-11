@@ -42,6 +42,7 @@ export default defineNuxtConfig({
     },
   },
 
+  ssr: false,
   routeRules: {
     // '/admin-users': { ssr: false },
   },

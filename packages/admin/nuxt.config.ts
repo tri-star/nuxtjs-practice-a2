@@ -1,16 +1,19 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   srcDir: 'src',
+
   nitro: {
     preset: 'aws-lambda',
   },
+
   devtools: {
-    enabled: true,
+    enabled: false,
 
     timeline: {
-      enabled: true,
+      enabled: false,
     },
   },
+
   modules: [
     '@nuxtjs/tailwindcss',
     '@nuxt/test-utils/module',
@@ -19,21 +22,29 @@ export default defineNuxtConfig({
     '@nuxt/devtools',
     'nuxt-icon',
   ],
+
   typescript: {
     tsConfig: {
       include: ['../.eslintrc.cjs'],
     },
   },
+
   components: {
     dirs: [],
   },
+
   runtimeConfig: {
     apiHost: '',
+    useApiStub: false,
     public: {
       apiHost: process.env.NUXT_PUBLIC_API_HOST,
+      useApiStub: process.env.NUXT_PUBLIC_USE_API_STUB === 'true',
     },
   },
+
   routeRules: {
     // '/admin-users': { ssr: false },
   },
+
+  compatibilityDate: '2024-07-08',
 })

@@ -5,6 +5,7 @@
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
+    "dev:e2e": "nuxt dev --dotenv=env.testing",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
@@ -16,7 +17,13 @@
     "lint:tsc": "vue-tsc --noEmit",
     "lint:eslint": "eslint .",
     "lint:prettier": "prettier --check .",
-    "openapi:build-client": "openapi-zod-client ./openapi/swagger.json -o ./src/lib/api/client.generated.ts --all-readonly --strict-objects"
+    "openapi:build-client": "openapi-zod-client ./openapi/swagger.json -o ./src/lib/api/client.generated.ts --all-readonly --strict-objects=true",
+    "e2e": "pnpm exec playwright test",
+    "e2e:ui": "pnpm exec playwright test --ui",
+    "e2e:chromium": "pnpm exec playwright test --project=chromium",
+    "e2e:debug": "pnpm exec playwright test --debug",
+    "e2e:gen": "pnpm exec playwright codegen",
+    "e2e:show-report": "pnpm exec playwright show-report"
   },
   "dependencies": {
     "@formkit/tempo": "^0.1.1",
@@ -27,6 +34,7 @@
     "@tanstack/zod-form-adapter": "^0.25.1",
     "@zodios/core": "^10.9.6",
     "axios": "^1.6.8",
+    "dotenv": "^16.4.5",
     "h3": "^1.11.1",
     "lodash": "^4.17.21",
     "neverthrow": "^6.2.1",
@@ -39,19 +47,24 @@
     "tailwind-variants": "^0.2.1",
     "tailwindcss": "^3.4.3",
     "ulid": "^2.3.0",
+    "vite": "^5.3.3",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0",
     "zod": "^3.23.6"
   },
   "devDependencies": {
+    "@faker-js/faker": "^8.4.1",
     "@nuxt/devtools": "^1.2.0",
     "@nuxt/eslint": "^0.3.10",
     "@nuxt/test-utils": "^3.12.1",
+    "@playwright/test": "^1.45.1",
     "@types/lodash": "^4.17.0",
+    "@types/node": "^20.14.10",
     "@vue/test-utils": "^2.4.5",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "happy-dom": "^14.7.1",
+    "msw": "^2.3.1",
     "npm-run-all2": "^6.1.2",
     "nuxt-icon": "^0.6.10",
     "openapi-zod-client": "^1.18.1",
@@ -59,5 +72,10 @@
     "serverless-better-credentials": "^2.0.0",
     "vitest": "^1.5.2",
     "vue-tsc": "^2.0.22"
+  },
+  "msw": {
+    "workerDirectory": [
+      "src/public"
+    ]
   }
 }

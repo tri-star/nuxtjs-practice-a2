@@ -7,7 +7,7 @@ export default defineNuxtConfig({
   },
 
   devtools: {
-    enabled: false,
+    enabled: true,
 
     timeline: {
       enabled: false,
@@ -21,6 +21,7 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     '@nuxt/devtools',
     'nuxt-icon',
+    '@nuxtjs/storybook',
   ],
 
   typescript: {

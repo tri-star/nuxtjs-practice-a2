@@ -45,19 +45,19 @@
   },
   "devDependencies": {
     "@nuxt/devtools": "^1.2.0",
-    "@nuxt/eslint": "^0.3.10",
+    "@nuxt/eslint": "^0.6.1",
     "@nuxt/test-utils": "^3.12.1",
     "@types/lodash": "^4.17.0",
     "@vue/test-utils": "^2.4.5",
-    "eslint": "^8.57.0",
+    "eslint": "^9.14.0",
     "eslint-config-prettier": "^9.1.0",
-    "happy-dom": "^14.7.1",
-    "npm-run-all2": "^6.1.2",
+    "happy-dom": "^15.8.3",
+    "npm-run-all2": "^7.0.1",
     "nuxt-icon": "^0.6.10",
     "openapi-zod-client": "^1.18.1",
     "prettier": "^3.2.5",
     "serverless-better-credentials": "^2.0.0",
-    "vitest": "^1.5.2",
+    "vitest": "^2.1.4",
     "vue-tsc": "^2.0.22"
   }
 }
